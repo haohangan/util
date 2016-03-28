@@ -1,0 +1,1 @@
+MySQL存储过程和函数的区别：http://www.gooseeker.com/cn/node/Fuller/2010061201
