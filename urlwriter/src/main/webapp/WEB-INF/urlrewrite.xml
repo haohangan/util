@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 2.6//EN"
+        "[url]http://tuckey.org/res/dtds/urlrewrite2.6.dtd[/url]">
+<urlrewrite>
+	<rule>
+		<from>^/(\w+)/(\w+)/(\w+)\.html$</from>
+		<to type="forward">/$1.do?a=$2&amp;b=$3</to>
+	</rule>
+	<!-- <rule> <from>^/rss/yahoo\.html$</from> <to type="redirect"> [url]http://add.my.yahoo.com/rss? 
+		url=http://feed.feedsky.com/W3CSSiteFeed[/url] </to> </rule> -->
+	<rule>
+		<from>^/test\.html$</from>
+		<to type="redirect">http://www.bing.com</to>
+	</rule>
+</urlrewrite>
