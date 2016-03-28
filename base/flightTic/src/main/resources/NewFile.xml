@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!--这里代理的是接口-->  
+        <property name="proxyInterfaces">  
+            <value>com.gc.impl.TimeBookInterface</value>  
+        </property>  
+  
+               <!--是ProxyFactoryBean要代理的目标类-->  
+        <property name="target">  
+            <ref bean="timeBook"/>  
+        </property>  
+  
+               <!--程序中的Advice-->  
+        <property name="interceptorNames">  
+            <list>  
+                <value>log</value>  
+            </list>  
+        </property>  

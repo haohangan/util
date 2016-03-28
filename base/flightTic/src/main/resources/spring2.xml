@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!-- <context:annotation-config /> -->
+	<!-- service层，spring自动扫描指定包下的bean，并为其注入属性 -->
+	<!-- ADVICE类 ：切面 -->
+	<context:component-scan base-package="com.gh.service" />
+	<context:component-scan base-package="com.gh.aop" />
+
+	<!-- 可以使用NameMatchMethodPointcutAdvisor或者RegexpMethodPointcutAdvisor -->
+	<bean id="logAdvisor"
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice" ref="commonLog" />
+		<!-- <property name="pattern" value=".*service.*" /> -->
+		<property name="pattern" value="com.gh.service.*"></property>
+	</bean>
+	<!-- Spring提供了一种自动代理的功能，能让切点跟通知自动进行匹配 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
+</beans>
