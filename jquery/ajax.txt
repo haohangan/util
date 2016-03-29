@@ -1,0 +1,12 @@
+1.使用ajaxSetup对ajax全局配置进行设置，设置async的值为false（默认为ture），如：
+
+$.ajaxSetup({async: false});
+
+
+2.直接在ajax的调用中将async的配置写上去，如：
+
+$.ajax({
+    url:  'http://localhost/',
+    data: {},
+    async: false
+});
