@@ -1,0 +1,10 @@
+<select id="updateSelectedDCEX">
+	      <foreach item="item" index="index"  collection="array" open="" close="" separator=";">
+			   <![CDATA[update DCEX.CW_CHECK_ACCOUNT set
+						CCA_MGR_WENT = #{item.CCA_WENT},CCA_MGR_PAY = #{item.CCA_PAY}
+						where CCA_CINEMA_CODE = #{item.CCA_CINEMA_CODE}
+						and CCA_FILM_CODE = #{item.CCA_FILM_CODE}
+						and CCA_START_DATE = #{item.CCA_START_DATE}
+						and CCA_END_DATE = #{item.CCA_END_DATE}]]>
+			</foreach>
+	</select>
