@@ -1,0 +1,21 @@
+merge into DCEX.CW_CHECK_MONTH T1 
+using (select '21110401' as a,'2016-02' as b,'admin' as c from dual) T2
+on (T1.CCM_CINEMA_CODE = T2.a and T1.CCM_MONTH = T2.b)
+when matched then 
+   update set T1.CCM_SUBMIT_FLAG = 'Y'
+ when not matched then 
+   INSERT (CCM_CINEMA_CODE,CCM_MONTH,CCM_RCRE_USER_ID,CCM_RCRE_DATE,CCM_SUBMIT_FLAG) VALUES(T2.a,T2.b,T2.c,sysdate,'Y')
+
+
+<insert id="updateState" parameterType="dc.cininput.vo.CwCheckAccountSearchVO"
+		flushCache="true">
+		<![CDATA[
+			merge into DCEX.CW_CHECK_MONTH T1 
+	using (select #{CINEMA_CODE,jdbcType=VARCHAR} as a,#{MONTH,jdbcType=VARCHAR} as b,#{RCRE_USER_ID,jdbcType=VARCHAR} as c,#{RCRE_DATE,jdbcType=TIMESTAMP} as d from dual) T2
+	on (T1.CCM_CINEMA_CODE = T2.a and T1.CCM_MONTH = T2.b)
+	when matched then 
+	   update set T1.CCM_SUBMIT_FLAG = 'Y'
+	when not matched then 
+   	   INSERT (CCM_CINEMA_CODE,CCM_MONTH,CCM_RCRE_USER_ID,CCM_RCRE_DATE,CCM_SUBMIT_FLAG) VALUES(T2.a,T2.b,T2.c,T2.d,'Y')
+		]]>
+	</insert>
