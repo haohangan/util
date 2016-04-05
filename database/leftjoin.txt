@@ -1,0 +1,4 @@
+select * from tablea a left join tableb b on a.bid = b.bid;
+select * from tablea a left join tableb b on a.bid = b.bid and b.bid < a.aid;
+
+select * from tablea a left join tableb b on a.bid = b.bid where a.aid<b.bid;
