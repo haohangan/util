@@ -1,1 +1,3 @@
 http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/JavaJCMD/index.html
+
+https://docs.oracle.com/javase/specs/index.html
