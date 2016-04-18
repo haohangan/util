@@ -1,2 +1,6 @@
 
-http://www.centoscn.com/CentOS/config/2014/1105/4060.html
+http://www.centoscn.com/CentOS/config/2014/1105/4060.html --ked打造左面系统
+
+https://www.centos.org/forums/viewtopic.php?t=6932
+http://elrepo.org/tiki/tiki-index.php --显卡
+https://zh.opensuse.org/index.php?title=SDB:Bumblebee&variant=zh-cn
