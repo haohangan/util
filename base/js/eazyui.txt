@@ -1,0 +1,1 @@
+ÖØĞÂäÖÈ¾£º$.parser.parse($("#table"));
