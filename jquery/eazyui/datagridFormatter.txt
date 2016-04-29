@@ -1,0 +1,27 @@
+function formatDelete(val,row){
+		var str = '';
+	    if(row.cINEMA_NAME!='合计'){
+	    	/* str += $.formatString('<a style="padding-left:16px;background:url({2}) no-repeat 0 -1px" onclick="deleteSettle(\'{0}\',\'{1}\');">删除</a>', row.fLOW_ID,row.pAYTYPE, '${pageContext.request.contextPath}/style/images/extjs_icons/delete.png'); */
+	        var url = '${pageContext.request.contextPath}/style/images/extjs_icons/delete.png';
+	        var type = row.pAYTYPE;
+	        var paytype;
+	        if(type=='系统录入'){
+				paytype = "'S'";
+			}else if(type=='银行流水'){
+				paytype = "'B'";
+			}else{
+			}
+	    	str = str + '<a href="javascript:void(0);" style="padding-left:16px;background:url('+url+') no-repeat 0 -1px" onclick="deleteSettle('+row.fLOW_ID+','+paytype+');">删除</a>' ;
+	    }
+	    return str;
+	}
+
+
+
+formatter : function(value, row, index) {
+					var str = '';
+					if(row.cLP_CINEMA_NAME!='合计'  ){/* (_cinemaCode==null||_cinemaCode=="") */
+						str += $.formatString('<a style="padding-left:16px;background:url({1}) no-repeat 0 -1px" onclick="editFun(\'{0}\');">收款记录</a>', row.cLP_CINEMA_CODE, '${pageContext.request.contextPath}/style/images/extjs_icons/pencil.png');
+					}
+				    return str;
+				}

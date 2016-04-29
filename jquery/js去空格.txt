@@ -1,0 +1,9 @@
+去除所有空格: 
+str = str.replace(/\s+/g,""); 
+
+去除两头空格: 
+str = str.replace(/^\s+|\s+$/g,"");
+
+去除空格(TimeSheet用过)
+
+arg0=arg0.replace(/\s+$|^\s+/g,"");
