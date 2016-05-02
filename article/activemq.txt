@@ -1,2 +1,5 @@
 http://www.cnblogs.com/hoojo/p/active_mq_jms_apache_activeMQ.html
 基本的介绍 qctivemq
+
+http://306963591.iteye.com/blog/1044166
+应用场景：应用层面的解除耦合
