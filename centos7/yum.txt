@@ -1,0 +1,27 @@
+ yum各个命令
+
+安装：  yum install RPM包的名称
+
+删除：  yum remove RPM包的名称
+
+搜索：  yum search  RPM包的名称
+
+显示仓库所有文件：  yum list
+
+显示安装包详细说明信息：  yum info  RPM包的名称
+
+更新安装：  yum update  RPM包的名称
+
+清除服务器仓库缓存等：  yum clean all
+
+本地安装：  yum localinstall  /路径/RPM包的名称
+
+本地更新:  yum localupdate /路径/RPM包的名称
+
+显示安装包所安装的文件列表:  yum provides  RPM包的名称
+
+反查文件所属安装包：  yum whatprovides  /路径/文件
+
+注：  若安装时需要安装到指定的文件夹，则需要 –installroot
+
+举例：      yum install –installroot=/mnt  vim 
