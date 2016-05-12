@@ -1,0 +1,216 @@
+四、安装驱动程序
+4.1让centos 7 也支持笔记本电脑的双显卡切换
+
+（Intel HD 与nvidia 双显卡）
+
+参考文章： https://www.centos.org/modules/newbb/viewtopic.php?topic_id=39948
+
+资源站点： https://fedoraproject.org/wiki/Bumblebee
+
+ Fedora系统可以简单使用。ubuntu也是。
+
+资源站点： http://www.bumblebee-project.org/
+
+硬着头皮啃E文吧
+
+我是按这里的来的。https://www.centos.org/forums/viewtopic.php?t=7303
+
+4.1.1先启用ELREPO的源。然后直接安装bumblebee
+
+#yum install bumblebee
+
+会自动安装所需的软件
+
+先查看下目前双显卡的状态：
+
+lspci|grep VGA
+
+可以看到有两张显卡。一张是Intel HD 集成显卡，另一张独显是NVIDIA GeForce 310M。
+
+00:02.0 VGA compatible controller: Intel Corporation Core ProcessorIntegrated Graphics Controller (rev 12)
+
+02:00.0 VGA compatible controller: NVIDIA Corporation GT218[GeForce 310M] (rev a2)
+
+4.1.2现在开始把独显关闭。
+#vi /usr/share/applications/nvidia-settings.desktop
+
+修改后的行
+
+Exec=optirun nvidia-settings -c :8.0
+
+保存后退出编辑。
+
+将你自己的用户名加入bumblebee群组。
+
+vi /etc/group
+
+找到bumblebee群组，将你的用户名加到该行的最后。保存后退出编辑。
+
+vi  /etc/bumblebee/bumblebee.conf
+
+仔细编辑该文件，确保是以下的内容：
+
+在[bumblebeed]段内：
+
+   ServerGroup=bumblebee
+
+   Driver=nvidia
+
+在[driver-nvidia]段内：
+
+   KernelDriver=nvidia
+
+   Module=nvidia
+
+   PMMethod=bbswitch
+
+  LibraryPath=/usr/lib64/nvidia:/usr/lib64/vdpau:/usr/lib/nvidia:/usr/lib/vdpau
+
+  XorgModulePath=/usr/lib64/xorg/nvidia,/usr/lib64/xorg/modules
+
+最后一段不用管它。
+
+ 
+
+重启笔记本电脑。
+
+应该可以在系统==>管理的菜单内看到NVIDIA X Server Settings。
+
+应该可以在其他的菜单内看到NVIDIA X Server Settings。
+
+验证是否已经关闭独显
+
+lspci|grep VGA
+
+我的显示如下：
+
+00:02.0 VGA compatible controller: Intel Corporation Core ProcessorIntegrated Graphics Controller (rev 12)
+
+02:00.0 VGA compatible controller: NVIDIA Corporation GT218[GeForce 310M] (rev ff)
+
+如果看到REV FF就表示已经关闭了。世界清凉了。
+
+对比验证：
+
+optirun /opt/VirtualGL/bin/glxspheres64
+
+/opt/VirtualGL/bin/glxspheres64
+
+这两条命令应该差别明显。
+
+ Testing Bumblebee
+
+optirun glxgears -info | grep "GL_VENDOR"
+
+ 
+
+让centos 7 支持BCM3413无线网卡
+
+centos 7已经可以完美支持该无线网卡了。
+
+ 
+4.2、centos 7 安装Nvidia 显卡驱动
+
+先启用ELREPO的源
+
+yum install nvidia-x11-drv kmod-nvidia
+
+重启下电脑 
+
+还是老老实实的去下载驱动
+
+http://www.geforce.cn/drivers
+
+yum -y install gcc kernel-devel kernel-headers
+
+vi /etc/modprobe.d/blacklist.conf
+
+添加blacklist nouveau
+
+重新建立initramfs image文件
+
+mv /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).img.bak
+
+dracut /boot/initramfs-$(uname -r).img $(uname -r)
+
+修改/etc/inittab，使系统开机进入init 3文本模式:将最后一行“id:5:initdefault:”修改成“id:3:initdefault:”（不包含引号）
+
+注释：5代表系统启动时默认进入x-window图形界面，3代表默认进入终端模式。
+
+重启
+
+重启用在终端用root执行 init 3进入字符界面
+
+确保nouveau kernel driver没有被加载
+
+lsmod | grep nouveau
+
+进入驱动程序所在目录,开始安装
+
+chmod +x NVIDIA-Linux-x86-331.20.run
+
+./NVIDIA-Linux-x86-331.20.run
+
+安装过程中，根据提示选择accept，yes 或 OK，即可完成安装：     如果提示有旧驱动，询问是否删除旧驱动，选Yes；     如果提示缺少某某模块（modules），询问是否上网下载，选no；     如果提示编译模块，询问是否进行编译，选ok；     如果提示将要修改xorg.conf，询问是否允许，选Yes；     接下来就是等待安装完成。修改/etc/inittab，使系统开机进入init 5图形界面模式将最后一行“id:3:initdefault:”修改成“id:5:initdefault:”
+
+重启
+
+当看到Nvidia的logo后，安装成功,登陆后在系统- 首选项里可以看到NVIDIA X Server Settings菜单，可以查看基本信息及进行一些设置
+4.3、centos 7 安装AMD HD7770 显卡驱动
+
+我的显卡是AMD HD7770
+
+AMD有专门的RHEL7驱动了。下载地址：
+
+http://www2.ati.com/drivers/linux/fglrx64_p_i_c-15.20.1046-1.x86_64_rhel7_64a.rpm
+
+安装前还需要满足一些环境的要求：
+
+yum install kernel-headers kernel-devel gcc
+
+然后开始安装
+
+./amd-driver-installer-14.10.1006.1001-x86.x86_64.run
+
+点击continue开始安装驱动
+
+ 
+
+ 
+
+有这个版权协议窗口表明安装环境要求已经满足，点击I Agree继续
+
+ 
+
+  安装完成后会要求重启电脑
+
+[点击查看原图]
+
+没有黑屏。没有异常。别给网上的所谓的教程吓破了胆。
+
+大胆尝试。参见前一节，用再生龙备份好，大不了恢复下重来就是。
+
+[点击查看原图]
+4.4安装打印机
+安装打印机客户端：
+
+yum groupinstall print-client
+
+或者是
+
+yum -y groups install  打印客户端
+
+ 
+五、完整备份与还原centos系统
+
+使用LIVE CD 或者 LIVE USB开机，备份时
+
+dd if=/dev/sda |bzip2>sda.img.gz2
+
+还原时
+
+bzip2 -dc sda.img.bz2|dd of=/dev/sda
+
+警告：如果你不知道这两条命令是什么意思请放弃这个想法。
+
+备份过程会较长。我安装一个完整的DVD 版本的DESKTOP，压缩后的IMG 有17GB多。笔记本发热量大，注意散热。
