@@ -1,1 +1,3 @@
 https://plumbr.eu/outofmemoryerror/gc-overhead-limit-exceeded
+
+https://www.cs.umd.edu/~pugh/java/memoryModel/jsr-133-faq.html
