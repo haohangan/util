@@ -1,0 +1,16 @@
+
+
+警告：google-chrome-stable_current_x86_64.rpm: 头V4 DSA/SHA1 Signature, 密钥 ID 7fac5991: NOKEY
+错误：依赖检测失败：
+lsb >= 4.0 被 google-chrome-stable-34.0.1847.116-1.x86_64 需要
+libXss.so.1()(64bit) 被 google-chrome-stable-34.0.1847.116-1.x86_64 需要
+
+网上也有说把lsb全都安装了，就可以了，不过个人比较讨厌盲目的安装不需要的东西
+
+又上网找了找，还不错，发现了yum localinstall
+
+sudo yum localinstall google-chrome-stable_current_x86_64.rpm
+
+这样的话就会自己解决依赖问题，以前使用rpm安装谷歌地球的时候就由于没能解决依赖问题，这回可以再试试了
+
+http://1358440610-qq-com.iteye.com/blog/2177854

@@ -1,0 +1,2 @@
+ mvn install:install-file -DgroupId=ibm -DartifactId=ujavaactor -Dversion=1.0 -Dpackaging=jar -Dfile=./j-javaactors.jar
+
