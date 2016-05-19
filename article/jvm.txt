@@ -3,3 +3,7 @@ http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/JavaJCMD/index.ht
 https://docs.oracle.com/javase/specs/index.html
 
 http://www.oracle.com/technetwork/cn/oracle-labs/program-languages/downloads/index.html
+
+https://developer.ibm.com/answers/questions/235834/what-is-the-difference-between-native-heap-memory.html
+
+http://stackoverflow.com/questions/407612/how-to-get-a-thread-and-heap-dump-of-a-java-process-on-windows-thats-not-runnin
