@@ -1,0 +1,1 @@
+http://zh.scala-tour.com/
