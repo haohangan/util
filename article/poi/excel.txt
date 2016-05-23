@@ -1,0 +1,24 @@
+ 1 //创建Excel工作簿对象
+ 2 HSSFWorkbook wb = new HSSFWorkbook();
+ 3 //创建Excel工作表对象
+ 4 HSSFSheet sheet = wb.createSheet("new sheet");  
+ 5 //设置工作表保护密码
+ 6 sheet.protectSheet("加密");
+ 7 //创建Excel工作表的行
+ 8 HSSFRow row = sheet.createRow((short)0); 
+ 9 //创建单元格样式
+10 HSSFCellStyle cellStyle = wb.createCellStyle();
+11 //设置单元为可编辑
+12 cellStyle.setLocked(false); 
+13 HSSFCell cell= row.createCell(1);
+14 cell.setCellStyle(cellStyle);　
+复制代码
+这里如果不将单元格的样式中的setLocked设置为false 则所有的单元格都是不可编辑的。
+
+总结一下
+
+1、给工作表sheet设置保护密码
+
+2、将需要修改的单元格样式中的locked 设为false
+
+src：http://www.cnblogs.com/xiaozhihome/archive/2013/03/20/2971608.html
