@@ -1,3 +1,5 @@
 http://zh.scala-tour.com/
 
+
+https://books.google.com.hk/books?id=zK_JAwAAQBAJ&pg=PA106&lpg=PA106&dq=%E7%A4%BE%E4%BC%9A%E5%90%83%E4%BA%BA%E5%AD%A6&source=bl&ots=jkpi1O_DMP&sig=_HDnO7ZXs7cADqvTIiwYFD7gUvo&hl=zh-CN&sa=X&ved=0ahUKEwj7iYLVlO_MAhXClSwKHeo4BbIQ6AEIKTAE#v=onepage&q=%E7%A4%BE%E4%BC%9A%E5%90%83%E4%BA%BA%E5%AD%A6&f=false
 https://www.ibm.com/developerworks/cn/java/j-lo-funinscala2/
