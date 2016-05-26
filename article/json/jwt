@@ -90,4 +90,4 @@ The token is secure because the Salt is only known to the server so resigning a 
 
 No you don't store anything in a DB. You don't want to add any user identifiable data to your JWT, things like phone numbers, addresses and such, but adding a user ID shouldn't be an issue. JWTs are stateless, in other words the server knows nothing other than what is in the JWT itself, which needs be enough to identify who you're dealing with. Once you make the jump to storing the token, or some related data in a DB you've effectively discarded the advantages of using tokens in the first place.
 
-
+ token is highly secured and only the key (secret) on the server side can open it. 
