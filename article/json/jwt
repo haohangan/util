@@ -75,3 +75,19 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuaW5naGFvLm5ldCIsImV4cCI6IjE0Mzg
     https://scotch.io/tutorials/the-anatomy-of-a-json-web-token
     https://github.com/auth0/jwt-decode
 
+
+##############################################################
+
+https://scotch.io/tutorials/the-ins-and-outs-of-token-based-authentication#the-problems-with-server-based-authentication
+
+The server knows nothing, and that is the way it is supposed to be. The server only knows if the token is valid based upon the signature, all state is maintained on the client side.
+
+This article is incorrect, the server is stateless, it does not store anything, not even a copy of the token in a database as stated, or otherwise. A JWT, or JSON Web Token has three parts, the crypto information, the payload, and the signature. On the server end the token is verified by re-encrypting the payload with the crypto info and checking to see if it matches the signature. Any change to the payload will negate the signature and invalidate the token.
+
+Chris, your idea of storing a copy of the token on the server completely eliminates the statelessness of JWT security. Now if you issue the token from your main site then request details from an API that uses that token for security how will the API know if the token is valid? You would have to store that token on every server that your app will access.
+
+The token is secure because the Salt is only known to the server so resigning a fake token is virtually impossible.
+
+No you don't store anything in a DB. You don't want to add any user identifiable data to your JWT, things like phone numbers, addresses and such, but adding a user ID shouldn't be an issue. JWTs are stateless, in other words the server knows nothing other than what is in the JWT itself, which needs be enough to identify who you're dealing with. Once you make the jump to storing the token, or some related data in a DB you've effectively discarded the advantages of using tokens in the first place.
+
+
