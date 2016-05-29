@@ -1,0 +1,15 @@
+java -jar <jar-file-name>.jar
+
+如果jar里没有 manifest，则可以使用
+
+java -cp foo.jar full.package.name.ClassName
+
+
+当main类依赖多个jar时，可以把多个jar打包到一个目录，然后用-Djava.ext.dirs指定该目录，引用依赖的多个jar，
+
+java -Djava.ext.dirs=lib com.test.HelloWordMain
+
+如果用-cp则需要写每一个jar，很麻烦。
+
+
+http://keeplearning.blog.51cto.com/6527662/1225179
