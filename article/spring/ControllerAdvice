@@ -1,0 +1,6 @@
+http://emacsist.github.io/2015/12/28/Spring%E4%B8%AD%E6%B7%BB%E5%8A%A0-ControllerAdvice%E5%A2%9E%E5%BC%BAController/
+
+http://g00glen00b.be/validating-the-input-of-your-rest-api-with-spring/
+
+耗时的地方：@ExceptionHandler(MethodArgumentNotValidException.class)
+这个Exception 一定要自己去找准类型
