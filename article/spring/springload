@@ -1,2 +1,4 @@
 http://www.webinno.cn/blog/article/view/138
 热部署
+
+-javaagent:F:\spring\workspace\springloaded-1.2.3.RELEASE.jar -noverify
