@@ -1,0 +1,12 @@
+http://www.jianshu.com/p/34730e595a8c
+配置多数据源
+
+多数据源配置
+
+创建一个Spring配置类，定义两个DataSource用来读取application.properties中的不同配置。如下例子中，主数据源配置为spring.datasource.primary开头的配置，第二数据源配置为spring.datasource.secondary
+
+http://blog.didispace.com/springbootmultidatasource/
+https://qbgbook.gitbooks.io/spring-boot-reference-guide-zh/content/IX.%20%E2%80%98How-to%E2%80%99%20guides/67.1.%20Configure%20a%20DataSource.html
+
+
+http://udn.yyuap.com/doc/Spring-Boot-Reference-Guide/IX.%20%E2%80%98How-to%E2%80%99%20guides/67.2.%20Configure%20Two%20DataSources.html
