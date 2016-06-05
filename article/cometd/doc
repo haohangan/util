@@ -1,5 +1,7 @@
 http://cometdproject.dojotoolkit.org/documentation/cometd-javascript/handshake
 
+https://docs.cometd.org/current/reference/#_javascript
+
 // Dojo style
 var cometd = dojox.cometd;
 
