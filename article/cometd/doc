@@ -1,0 +1,58 @@
+http://cometdproject.dojotoolkit.org/documentation/cometd-javascript/handshake
+
+// Dojo style
+var cometd = dojox.cometd;
+
+// jQuery style
+var cometd = $.cometd;
+
+===============================================
+
+// First style: URL string
+cometd.configure('http://localhost:8080/cometd');
+
+// Second style: configuration object
+cometd.configure({
+    url: 'http://localhost:8080/cometd'
+});
+
+===============================================
+// Configure and handshake
+cometd.init('http://localhost:8080/cometd');
+
+// Publish to a channel
+cometd.publish('/foo', { foo: 'bar' });
+
+===============================================
+// Some initialization code
+var subscription1 = cometd.addListener('/meta/connect', function() { ... });
+var subscription2 = cometd.subscribe('/foo/bar/', function() { ... });
+
+// Some de-initialization code
+cometd.unsubscribe(subscription2);
+cometd.removeListener(subscription1);
+
+
+------------------------------------------------------------
+var _subscription;
+
+// The idempotent method
+function _refresh()
+{
+    _appUnsubscribe();
+    _appSubscribe();
+}
+
+function _appUnsubscribe()
+{
+    if (_subscription) 
+        cometd.unsubscribe(_subscription);
+    _subscription = null;
+}
+
+function _appSubscribe()
+{
+    _subscription = cometd.subscribe('/foo/bar', function() { ... });
+}
+====================================================
+...
