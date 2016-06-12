@@ -1,0 +1,14 @@
+ All messages the client and server exchange have a channel field.
+ The channel field provides the characterization of messages in classes.
+ The channel is a central concept in CometD: publishers publish messages to channels,
+ and subscribers subscribe to channels to receive messages.
+ This is strongly reflected in the CometD APIs.
+
+
+ 6.2. The High Level View
+CometD implements a web messaging system, in particular a web messaging system based on the publish/subscribe paradigm.
+
+In a publish/subscribe messaging system publishers send messages,
+which are characterized in classes. Subscribers express their interest in one or more classes of messages,
+ and receive only messages that match the interest they have subscribed to. Senders, 
+in general, have no idea which or how many recipients receive the messages they publish.

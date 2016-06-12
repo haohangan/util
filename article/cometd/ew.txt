@@ -1,0 +1,24 @@
+﻿service.scheduleAtFixedRate(new Runnable() {
+
+			@Override
+			public void run() {
+				Set<ServerSession> set = ALL.getALlSession();
+				int a = time.incrementAndGet();
+				for (ServerSession s : set) {
+					Map<String, Object> output = new HashMap<>();
+					output.put("greeting", "NUM��" + a);
+					send(s, "/service/time", output);
+				}
+			}
+		}, 5, 5, TimeUnit.SECONDS);
+		
+ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+
+public Set<ServerSession> getALlSession() {
+		Set<ServerSession> set = new HashSet<ServerSession>();
+		for (Map.Entry<String, ServerSession> entry : users.entrySet()) {
+			set.add(entry.getValue());
+		}
+		System.out.println("Users 的 当前用户数为：" + set.size());
+		return set;
+	}
