@@ -12,3 +12,7 @@ In a publish/subscribe messaging system publishers send messages,
 which are characterized in classes. Subscribers express their interest in one or more classes of messages,
  and receive only messages that match the interest they have subscribed to. Senders, 
 in general, have no idea which or how many recipients receive the messages they publish.
+
+
+
+https://m.oschina.net/blog/119361
