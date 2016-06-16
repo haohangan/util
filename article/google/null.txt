@@ -1,0 +1,423 @@
+https://fanqianghou.com/2013/11/17/google/
+
+GOOGLE搜索從入門到精通V4.0
+Google搜索從入門到精通v4.0
+donquix 2002.8
+
+1，前言
+2，摘要
+3，如何使用本文
+4，Google簡介
+5，搜索入門
+6，初階搜索
+　　6.1，搜索結果要求包含兩個及兩個以上關鍵字
+　　6.2，搜索結果要求不包含某些特定資訊
+　　6.3，搜索結果至少包含多個關鍵字中的任意一個
+7，雜項語法
+　　7.1，通配符問題
+　　7.2，關鍵字的字母大小寫
+　　7.3，搜索整個短語或者句子
+　　7.4，搜索引擎忽略的字元以及強制搜索
+8，進階搜索
+　　8.1，對搜索的網站進行限制
+　　8.2，查詢某一類文件
+　　8.3，搜索的關鍵字包含在URL鏈結中
+　　8.4，搜索的關鍵字包含在網頁標題中
+　　8.5，搜索的關鍵字包含在網頁“錨”內
+9，其他罕用語法
+　　9.1，搜索所有鏈結到某個URL位址的網頁
+　　9.2，查找與某個頁面結構內容相似的頁面
+　　9.3，從Google伺服器上緩存頁面中查詢資訊
+10，圖片搜索
+11，目錄檢索
+12，新聞組搜索
+13，Google的其他傑出功能
+　　13.1，網頁快照
+　　13.2，集成化的工具條
+　　13.3，單詞英文解釋
+　　13.4，網頁翻譯
+　　13.5，單詞糾錯
+　　13.6，搜索結果過濾
+14，Google尚未發佈的一些新特性和功能
+　　14.1，對網頁更新日期做出限定
+　　14.2，新聞搜索
+　　14.3，分類廣告搜索
+　　14.4，其他Google的最新發展動態
+　　14.5，一個有趣的地方
+15，後記
+
+——————————————————————————————————
+
+1，前言
+
+我是在2000年上半年知道Google的。在這之前，我搜索英文資訊通常用AltaVista，而搜索中文資訊則常用Sina。但自使用了Google之後，它便成為我的Favorite Search engine了。這也得感謝新浪網友曹溪，因為當初正是因為他的大力推介，才使我識得了Google。
+
+記得1996年夏季的時候，當我第一次接觸Internet，便被撲面而來的魔力征服了。那種天涯咫尺的感覺，真是妙不可言。在經歷了瘋狂的WWW衝浪和如癡如醉的BBS沉迷之後，我意識到Internet對我影響至深的還是在於學習方式的變遷。
+
+如何來描述這種變遷呢？以前的學習，一般需要預先在肚子裏存儲下足夠的知識，必要時，就從海量的資訊中提取所需的部分。這種學習方式造就了很多“才高八斗，學富五車”的大才子。但是，到了資訊領域大大超出“四書五經”的新時期，預先無目的的吞下海量資訊的學習方式就有些不合時宜了。比方說，我們到了大型的圖書城，往往有一種不知所措的感覺。舊有的學習方式需要變更以適應這個資訊爆炸的年代。目的明確的去學習，即先知道要學什麼，然後有目的的去尋找答案，這種方式看上去更加有效率。我不妨把這稱為“即學式”，相應的，舊有的稱為“預學式”。
+
+不過，“即學式”的實施是有前提的。首先，要求學習者擁有一個包羅萬象的資訊庫，以供隨時抽取各種目的資訊；其次，是需要一個強勁的資訊檢索工具，以便高效率的從資訊庫中提取資訊。很明顯，Internet可以充當那個海量的資訊庫，而搜索引擎，則正是尋找光明之火的絕好工具。
+
+“公欲善其事，必先利其器”。Internet只有一個，而搜索引擎則有N多個。有搜索高手說，所謂搜索，就是“在正確的地方使用正確的工具和正確的方法尋找正確的內容”。但是，對於普通人而言，掌握諸多搜索引擎的可能性似乎不大。用一兩個相對強勁的具代表性的工具達到絕大多數搜索目的更為人們所迫切希望。不同的時期，湧現出不同的強者。就目前而言，我們非常幸運的有了： *****Google******
+
+2，摘要
+
+本文簡要的介紹了Google的歷史和特點，Google的基本搜索語法和高級搜索語法，Google的特色功能，包括圖片搜索、新聞組搜索和集成工具條等。儘管本文名為“Google搜索從入門到精通”，但事實上，本文只能算是對Google的一個並不十分完全的介紹而已。:)
+
+3，如何使用本文
+
+閱讀本文最好具備一些最基本的布林代數基礎，如“與”、“或”、“非”等。不過，即便你沒有這方面的知識，也不必在意。對那些實例進行練習，你的疑惑就會迎刃而解。對於剛剛接觸網絡搜索的讀者而言，也許你應該從頭到尾的閱讀本文；但對於那些有一定搜索基礎的讀者而言，只需要跳躍著尋找自己所需要的資訊就可以了。此外，你也可以參考中文Google大全：http://www.Google.com/intl/zh-CN/about.html，以及搜索幫助：http://www.google.com/intl/zh-CN/help.html，那是官方Google使用手冊以及問題解答中心。
+
+4，Google簡介
+
+Google（www.Google.com）是一個搜索引擎，由兩個斯坦福大學博士生Larry Page與Sergey Brin於1998年9月發明，Google Inc. 于1999年創立。2000年7月份，Google替代Inktomi成為Yahoo公司的搜索引擎，同年9月份，Google成為中國網易公司的搜索引擎。98年至今，Google已經獲得30多項業界大獎。到Google的新聞中心（http://www.Google.com/press/index.html），你可以找到關於一切關於Google的歷史和新聞資料。
+
+Google的成功得益於其強大的功能和獨到的特點：
+
+Google檢索網頁數量達24億，搜索引擎中排名第一；
+Google支援多達132種語言，包括簡體中文和繁體中文；
+Google網站只提供搜索引擎功能，沒有花裏胡哨的累贅；
+Google速度極快，年初時據說有15000多台伺服器，200多條T3級寬頻；
+Google的專利網頁級別技術PageRank能夠提供準確率極高的搜索結果； 
+Google智慧化的“手氣不錯”功能，提供可能最符合要求的網站；
+Google的“網頁快照”功能，能從Google伺服器裏直接取出緩存的網頁。
+
+Google具有獨到的圖片搜索功能；
+Google具有強大的新聞組搜索功能；
+Google具有二進位檔搜索功能（PDF，DOC，SWF等）；
+Google還有很多尚在開發階段的令人吃驚的設想和功能。
+等等
+
+5，搜索入門
+
+要用Google做搜索，當然首先要進Google網站–www.Google.com；不過，163.com和yahoo.com.cn使用的實際上也是Google搜索引擎，只是對搜索結果進行了編排，而且無法提供一些特色功能，如圖片搜索等。因此，如果你要搜索網頁的話，就直接使用Google.com吧。
+
+第一次進入Google，它會根據你的作業系統，確定語言介面。需要提醒的是，Google是通過cookie來存儲頁面設定的，所以，如果你的系統禁用cookie，就無法對Google介面進行個人設定了。
+
+Google的首頁很清爽，LOGO下面，排列了四大功能模組：網站、圖像、新聞組和目錄服務。默認是網站搜索。現在進行第一次搜索實踐，假定你是個搜索新手，想要瞭解一下搜索引擎的來龍去脈和搜索技巧。在搜索框內輸入一個關鍵字“搜索引擎”， 選中“搜索中文(簡體)網頁”選項，然後點擊下面的“Google搜索”按鈕（或者直接回車），結果就出來了。 搜索：“搜索引擎”
+結果：已搜索有關搜索引擎的中文(簡體)網頁。 共約有707,000項查詢結果，這是第1-10項 。 搜索用時0.08秒。
+
+仔細看一下搜索結果的前十項，就會發現絕大部分鏈結是搜索引擎本身，而不是對搜索引擎的或者搜索技巧方面的介紹。
+
+注意：文章中搜索語法外面的引號僅起引用作用，不能帶入搜索欄內。
+
+6，初階搜索
+
+上例是最基本的搜索，即查詢包含單個關鍵字的資訊。但是，你可以發現，上例中，單個關鍵字“搜索引擎”，搜索得的資訊浩如煙海，而且絕大部分並不符合自己的要求，怎麼辦呢？我們需要進一步縮小搜索範圍和結果。
+
+6.1，搜索結果要求包含兩個及兩個以上關鍵字
+
+一般搜索引擎需要在多個關鍵字之間加上“ ”，而Google無需用明文的“ ”來表示邏輯“與”操作，只要空格就可以了。現在，我們需要瞭解一下搜索引擎的歷史，因此期望搜得的網頁上有“搜索引擎”和“歷史”兩個關鍵字。
+
+示例：搜索所有包含關鍵字“搜索引擎”和“歷史”的中文網頁
+搜索：“搜索引擎 歷史”
+結果：已搜索有關搜索引擎 歷史的中文(簡體)網頁。 共約有78,600項查詢結果，這是第1-10項 。 搜索用時0.36秒。
+
+用了兩個關鍵字，查詢結果已經從70多萬項減少到7萬多項。但查看一下搜索結果，發現前列的絕大部分結果還是不符合要求，大部分網頁涉及的“歷史”，並不是我們所需要的“搜索引擎的歷史”。 怎麼辦呢？刪除與搜索引擎不相關的“歷史”。我們發現，這部分無用的資訊，總是和“文化”這個詞相關的，另外一些常見詞是“中國歷史”、“世界歷史”、“歷史書籍”等。
+
+6.2，搜索結果要求不包含某些特定資訊
+
+Google用減號“-”表示邏輯“非”操作。“A –B”表示搜索包含A但沒有B的網頁。
+
+示例：搜索所有包含“搜索引擎”和“歷史”但不含“文化”、“中國歷史”和“世界歷史”的中文網頁
+搜索：“搜索引擎 歷史 –文化 –中國歷史 –世界歷史”
+結果：已搜索有關搜索引擎 歷史 –文化 –中國歷史 –世界歷史的中文(簡體)網頁。 共約有36,800項查詢結果，這是第1-10項 。 搜索用時0.22秒。
+
+我們看到，通過去掉不相關資訊，搜索結果又減少了將近一半。第一個搜索結果是：
+
+搜索引擎直通車≡搜索引擎發展歷史
+搜索引擎直通車, … 搜索引擎專業介紹站點. … 
+http://www.se-express.com/about/about.htm – 14k – 網頁快照 – 類似網頁
+
+非常符合搜索要求。另外，第八項搜索結果：
+
+463搜索王
+本站檢索 整個網站 在此輸入關鍵字. 你的當前
+位置：首頁 >> Internet搜索手冊 >> 搜索引擎的歷史. …
+http://www.cnco.net/search/history.htm – 21k – 網頁快照 – 類似網頁
+
+也符合搜索要求。但是，10個結果只有兩個符合要求，未免太少了點。不過，在沒有更好的策略之前，不妨先點開一個結果看看。點開se-express.com的這個名為“搜索引擎發展歷史”的網頁，我們發現，搜索引擎的歷史，是與互聯網早期的檔檢索工具“Archie”息息相關的。此外，搜索引擎似乎有個核心程式，叫“蜘蛛”，而最早成型的搜索引擎是“Lycos”，使搜索引擎深入人心的是“Yahoo”。瞭解了這些資訊，我們就可以進一步的讓搜索結果符合要求了。
+
+注意：這裏的“ ”和“-”號，是英文字元，而不是中文字元的“＋”和“－”。此外，操作符與作用的關鍵字之間，不能有空格。比如“搜索引擎 – 文化”，搜索引擎將視為關鍵字為“搜索引擎”和“文化”的邏輯“與”操作，中間的“-”被忽略。
+
+6.3，搜索結果至少包含多個關鍵字中的任意一個。
+
+Google用大寫的“OR”表示邏輯“或”操作。搜索“A OR B”，意思就是說，搜索的網頁中，要麼有A，要麼有B，要麼同時有A和B。在上例中，我們希望搜索結果中最好含有“archie”、“lycos”、“蜘蛛”等關鍵字中的一個或者幾個，這樣可以進一步的精簡搜索結果。
+
+示例：搜索如下網頁，要求必須含有“搜索引擎”和“歷史”，沒有“文化”，可以含有以下關鍵字中人任何一個或者多個：“Archie”、“蜘蛛”、“Lycos”、“Yahoo”。
+搜索：“搜索引擎 歷史 archie OR 蜘蛛 OR lycos OR yahoo –文化”
+結果：已搜索有關搜索引擎 歷史 archie OR 蜘蛛 OR lycos OR yahoo –文化的中文(簡體)網頁。 共約有8,400項查詢結果，這是第1-10項 。 搜索用時0.16秒。
+
+我們看到，搜索結果縮小到8千多項，前20項結果中，大部分都符合搜索要求。如果你想瞭解一下解搜索引擎的歷史發展，就不妨研究一下現在搜索到的結果吧。 注意：“與”操作必須用大寫的“OR”，而不是小寫的“or”。
+
+在上面的例子中，我介紹了搜索引擎最基本的語法“與”“非”和“或”，這三種搜索語法Google分別用“ ”（空格）、“-”和“OR”表示。順著上例的思路，你也可以瞭解到如何縮小搜索範圍，迅速找到目的資訊的一般方法：目標資訊一定含有的關鍵字（用“ ”連起來），目標資訊不能含有的關鍵字（用“-”去掉），目標資訊可能含有的關鍵字（用“OR”連起來）。
+
+7，雜項語法
+
+7.1，通配符問題
+
+很多搜索引擎支援通配符號，如“*”代表一連串字元，“?”代表單個字元等。Google對通配符支持有限。它目前只可以用“*”來替代單個字元，而且包含“*”必須用“”引起來。比如，““以*治國“”，表示搜索第一個為“以”，末兩個為“治國”的四字短語，中間的“*”可以為任何字元。
+
+7.2，關鍵字的字母大小寫
+
+Google對英文字元大小寫不敏感，“GOD”和“god”搜索的結果是一樣的。
+
+7.3，搜索整個短語或者句子
+
+Google的關鍵字可以是單詞（中間沒有空格），也可以是短語（中間有空格）。但是，用短語做關鍵字，必須加英文引號，否則空格會被當作“與”操作符。
+
+示例：搜索關於第一次世界大戰的英文資訊。 
+搜索：““world war I””
+結果：已向英特網搜索“world war i”. 共約有937,000項查詢結果，這是第1-10項 。 搜索用時0.06秒。
+
+7.4，搜索引擎忽略的字元以及強制搜索
+
+Google對一些網路上出現頻率極高的英文單詞，如“i”、“com”、“www”等，以及一些符號如“*”、“.”等，作忽略處理。
+
+示例：搜索關於www起源的一些歷史資料。
+搜索：“www的歷史 internet”
+結果：以下的字詞因為使用過於頻繁，沒有被列入搜索範圍: www 的. 已搜索有關www的歷史 internet的中文(簡體)網頁。 共約有75,100項查詢結果，這是第1-10項 。 搜索用時0.22秒。
+
+我們看到，搜索“www的歷史 internet”，但搜索引擎把“www”和“的”都省略了。於是上述搜索只搜索了“歷史”和“internet”。這顯然不符合要求。這裏我順便說一點搜索引擎分詞的知識。當我們在搜索“www的歷史”的時候，搜索引擎實際上把這個短語分成三部分，“www”、“的”和“歷史”分別來檢索，這就是搜索引擎的分詞。所以儘管你輸入了連續的“www的歷史”，但搜索引擎還是把這個短語當成三個關鍵字分別檢索。
+
+如果要對忽略的關鍵字進行強制搜索，則需要在該關鍵字前加上明文的“+”號。
+搜索：“+www +的歷史 internet”
+結果：已搜索有關+www +的歷史 internet的中文(簡體)網頁。 共約有25,000項查詢結果，這是第1-10項 。 搜索用時0.05秒。
+
+另一個強制搜索的方法是把上述的關鍵字用英文雙引號引起來。在上例“”world war I””中，“I”其實也是忽略詞，但因為被英文雙引號引起來，搜索引擎就強制搜索這一特定短語。
+
+搜索：““www的歷史” internet”
+結果：已搜索有關“www的歷史” internet的中文(簡體)網頁。 共約有7項查詢結果，這是第1-6項 。 搜索用時0.26秒。
+
+我們看到，這一搜索事實上把“www的歷史”作為完整的一個關鍵字。顯然，包含這樣一個特定短語的網頁並不是很多，不過，每一項都很符合要求。
+
+注意：大部分常用英文符號（如問號，句號，逗號等）無法成為搜索關鍵字，加強制也不行。
+
+8，進階搜索
+
+上面已經探討了Google的一些最基礎搜索語法。通常而言，這些簡單的搜索語法已經能解決絕大部分問題了。不過，如果想更迅速更貼切找到需要的資訊，你還需要瞭解更多的東西。
+
+8.1，對搜索的網站進行限制
+
+“site”表示搜索結果局限於某個具體網站或者網站頻道，如“http://www.sina.com.cn”、“edu.sina.com.cn”，或者是某個功能變數名稱，如“com.cn”、“com”等等。如果是要排除某網站或者功能變數名稱範圍內的頁面，只需用“–網站/功能變數名稱”。
+
+示例：搜索中文教育科研網站（edu.cn）上關於搜索引擎技巧的頁面。
+搜索：“搜索引擎 技巧 site:edu.cn”
+結果：已搜索有關搜索引擎 技巧 site:edu.cn的中文(簡體)網頁。 共約有608項查詢結果，這是第1-10項 。 搜索用時0.05秒。
+
+示例：上著名IT門戶網站ZDNET和CNET搜索一下關於搜索引擎技巧方面的資訊。
+搜索：““search engine” tips site:www.zdnet.com OR site:www.cnet.com”
+結果：已在http://www.zdnet.com內搜索有關“search engine” tips OR site:www.cnet.com的網頁。 共約有1,040項查詢結果，這是第1-10項 。 搜索用時0.09秒。
+
+注意，在這裏Google有個小BUG。“已在http://www.zdnet.com內搜索…”，其實應該表述成“已在http://www.zdnet.com和http://www.cnet.com內搜索…”。
+
+示例：搜索新浪科技頻道中關於搜索引擎技巧的資訊。
+搜索：“搜索引擎 技巧 site:tech.sina.com.cn”
+結果：已在tech.sina.com.cn搜索有關搜索引擎 技巧 的中文(簡體)網頁。 共約有163項查詢結果，這是第1-10項 。 搜索用時0.07秒。
+
+注意：site後的冒號為英文字元，而且，冒號後不能有空格，否則，“site:”將被作為一個搜索的關鍵字。此外，網站功能變數名稱不能有“http://”首碼，也不能有任何“/”的目錄尾碼；網站頻道則只局限於“頻道名.功能變數名稱”方式，而不能是“功能變數名稱/頻道名”方式。
+
+8.2，在某一類檔中查找資訊
+
+“filetype:”是Google開發的非常強大實用的一個搜索語法。也就是說，Google不僅能搜索一般的文字頁面，還能對某些二進位文檔進行檢索。目前，Google已經能檢索微軟的Office文檔如.xls、.ppt、.doc，.rtf，WordPerfect文檔，Lotus1-2-3文檔，Adobe的.pdf文檔，ShockWave的.swf文檔（Flash動畫）等。其中最實用的文檔搜索是PDF搜索。PDF是ADOBE公司開發的電子文檔格式，現在已經成為互聯網的電子化出版標準。目前Google檢索的PDF文檔大約有2500萬左右，大約占所有索引的二進位文檔數量的80％。PDF文檔通常是一些圖文並茂的綜合性文檔，提供的資訊一般比較集中全面。
+
+示例：搜索幾個資產負債表的Office文檔。
+搜索：“資產負債表 filetype:doc OR filetype:xls OR filetype:ppt”
+結果：已搜索有關資產負債表 filetype:doc OR filetype:xls OR filetype:ppt的中文(簡體)網頁。 共約有481項查詢結果，這是第1-10項 。 搜索用時0.04秒。
+
+注意，下載的Office檔可能含有巨集病毒，謹慎操作。
+
+示例：搜索一些關於搜索引擎知識和技巧方面的PDF文檔
+搜索：?quot;search engine” tips OR tutorial filetype:pdf”
+結果：已向英特網搜索“search engine” tips OR tutorial filetype:pdf. 共約有12,600項查詢結果，這是第1-10項 。 搜索用時0.22秒。
+
+我們來看其中的一個結果：
+
+[PDF]Search Engines Tips
+文檔類型: PDF/Adobe Acrobat – HTML 版
+… http://www.google.com/press/zeitgeist.html See what people are searching on at Google.com
+* Search Engine Watch http://searchenginewatch.com/ Some free tips …
+http://www.allvertical.com/PromoKits/SearchEngineTips.pdf – 類似網頁
+
+可以看到，Google用[PDF]來標記這是一個PDF的文檔檢索，另外，它還給出了該PDF文檔的HTML版本，該HTML版保留了文檔的文字內容和結構，但沒有圖片。
+
+8.3，搜索的關鍵字包含在URL鏈結中
+
+“inurl”語法返回的網頁鏈結中包含第一個關鍵字，後面的關鍵字則出現在鏈結中或者網頁文檔中。有很多網站把某一類具有相同屬性的資源名稱顯示在目錄名稱或者網頁名稱中，比如“MP3”、“GALLARY”等，於是，就可以用INURL語法找到這些相關資源鏈結，然後，用第二個關鍵字確定是否有某項具體資料。INURL語法和基本搜索語法的最大區別在於，前者通常能提供非常精確的專題資料。 示例：查找MIDI曲“滄海一聲笑”。
+搜索：“inurl:midi “滄海一聲笑””
+結果：已搜索有關inurl:midi “滄海一聲笑“的中文(簡體)網頁。 共約有27項查詢結果，這是第1-10項 。 搜索用時0.34秒。
+
+注意：“inurl:”後面不能有空格，Google也不對URL符號如“/”進行搜索。例如，Google會把“cgi-bin/phf”中的“/”當成空格處理。
+
+“allinurl”語法返回的網頁的鏈結中包含所有作用關鍵字。這個查詢的關鍵字只集中於網頁的鏈結字串。
+
+示例：查找可能具有PHF安全漏洞的公司網站。通常這些網站的CGI-BIN目錄中含有PHF腳本程式（這個腳本是不安全的），表現在鏈結中就是“功能變數名稱/cgi-bin/phf”。
+搜索：“allinurl:”cgi-bin” phf +com”
+結果：已向英特網搜索allinurl:”cgi-bin” phf +com. 共約有51項查詢結果，這是第1-10項 。 搜索用時0.11搿?/font>
+
+8.4，搜索的關鍵字包含在網頁標題中
+
+“intitle”和“allintitle”的用法類似於上面的inurl和allinurl，只是後者對URL進行查詢，而前者對網頁的標題欄進行查詢。網頁標題，就是HTML標記語言title中之間的部分。網頁設計的一個原則就是要把主頁的關鍵內容用簡潔的語言表示在網頁標題中。因此，只查詢標題欄，通常也可以找到高相關率的專題頁面。 示例：查找日本明星藤原紀香的照片集。
+搜索：“intitle:藤原紀香 “寫真集“”
+結果：已搜索有關intitle:藤原紀香 “寫真集“的中文(簡體)網頁。 共約有315項查詢結果，這是第1-10項 。 搜索用時0.15秒。
+
+8.5，搜索的關鍵字包含在網頁的“錨”（anchor）鏈點內
+
+所謂“錨”，就是在同一個網頁中快速切換鏈結點。與URL和TITLE類似，Google提供了兩種對anchor的檢索，“inanchor”和“allincnchor”。對此不作詳述。
+
+9，其他罕用語法
+
+9.1，搜索所有鏈結到某個URL位址的網頁
+
+如果你擁有一個個人網站，估計很想知道有多少人對你的網站作了鏈結。而“link”語法就能讓你迅速達到這個目的。
+
+示例：搜索所有含指向華軍軟體園“http://www.newhua.com”鏈結的網頁。
+搜索：“link:www.newhua.com”
+結果：搜索有鏈結到http://www.newhua.com的網頁 。 共約有920項查詢結果，這是第1-10項 。 搜索用時0.12秒。
+
+注意：“link”不能與其他語法相混合操作，所以“link:”後面即使有空格，也將被Google忽略。另外還要說明的是，link只列出Google索引鏈結很小一部分，而非全部，所以如果你用Google沒有搜到鏈到你的主頁的鏈結，也不必灰心喪氣。
+
+除了上述功能，link語法還有其他妙用。一般說來，做友情鏈結的網站都有相似地方。這樣，你可以通過這些友情鏈結，找到一大批具有相似內容的網站。比如說，你是個天文愛好者，你發現某網站非常不錯，那麼，可以用link語法查一下與之做鏈結的網站，也許可以找到更多符合你興趣的內容。
+
+9.2，查找與某個頁面結構內容相似的頁面
+
+“related”用來搜索結構內容方面相似的網頁。例：搜索所有與中文新浪網主頁相似的頁面（如網易首頁，搜狐首頁，中華網首頁等），“related:wwwsina.com.cn/index.shtml”。我到現在也不明白這個語法有什麼作用，如果有誰知道，請不吝指教。預先感謝。:)
+
+9.3，從Google伺服器上緩存頁面中查詢資訊
+
+“cache”用來搜索Google伺服器上某頁面的緩存，通常用於查找某些已經被刪除的死鏈結網頁，相當於使用普通搜索結果頁面中的“網頁快照”功能。
+
+其他罕用語法如info、stock等不一一介紹，有興趣的讀者可以參閱Google大全。
+
+10，圖片搜索
+
+Google自稱可以檢索390,000,000張圖片，並稱自己為“互聯網上最好用的圖像搜索工具”。從使用結果來看，Google的圖片搜索的確不錯，但個人以為比AltaVista的還是要差一些，主要體現在檢索圖片數量比不上AV，匹配度比AV的圖片搜索器也差了些。但AltaVista國內用戶無法正常訪問，因此對中國用戶而言，Google的圖片搜索引擎已經是最好的了。
+
+Google首頁點擊“圖像”鏈結就進入了Google的圖像搜索介面“images.Google.com”。你可以在關鍵字欄位元內輸入描述圖像內容的關鍵字，如“britney spears”，就會搜索到大量的小甜甜布蘭妮的圖片。我目前尚不是很清楚圖片的排列標準，不過以觀察來看，似乎圖片檔案名完全符合關鍵字的結果排列比較考前，然後才按照普通的頁面搜索時的標準排列。
+
+Google給出的搜索結果具有一個直觀的縮略圖（THUMBNAIL），以及對該縮略圖的簡單描述，如圖像檔案名稱，以及大小等。點擊縮略圖，頁面分成兩禎，上禎是圖像之縮略圖，以及頁面鏈結，而下禎，則是該圖像所處的頁面。螢幕右上角有一個“Remove Frame”的按鈕，可以把框架頁面迅速切換到單禎的結果頁面，非常方便。
+
+Google圖像搜索目前支援的語法包括基本的搜索語法如“ ”、“-”、“OR”、“site”和 “filetype:”。其中“filetype:”的尾碼只能是幾種限定的圖片類似，如JPG，GIF等。
+
+示例：查找新浪網上本拉登的圖片
+搜索：“拉登 OR 拉丹 site:sina.com.cn”
+結果：搜索有關 拉登 OR 拉丹 site:sina.com.cn 的圖片。 共有6項查詢結果，這是第1-6項。 搜索用時0.36秒。
+
+這裏我想說明一點的是，images.google.com作為專門的圖片搜索引擎，實際上有其特殊的用途。
+
+舉個例子，互聯網上本拉登的照片成千上萬，但是，它們都是分散的，往往隨機的分佈於各種新聞報導中。如果用搜索圖片庫的方式（最容易想到的如“Ben Ladin photo”），來搜索本拉登的照片，顯然是不恰當的，因為很少有人專門為拉登建一個線上相冊。在這個時候，images.google.com就派上用場了。
+
+但是，如果查找的圖片在網上有很多主題“gallary”，如諸多電影電視明星的照片，則明顯就不適合用images.google.com來查找了。
+
+images.google.com對於很多報紙雜誌的編輯，絕對是一個雪中送炭式的工具。比如要在某個版面上插一張專題圖片，用google的圖片搜索功能幾秒鐘就可以搞定。
+
+綜上，可以有這樣的一般性結論：如果要搜索的圖片是分散的，則用google圖片搜索；如果要搜索的圖片通常是處於某個圖片集合中的，則不適合用google圖片搜索。
+
+11，目錄檢索
+
+如果不想搜索廣泛的網頁，而是想尋找某些專題網站，可以訪問Google的分類目錄“http://directory.Google.com/”，中文目錄是“http://directory.Google.com/Top/World/Chinese_Simplified/”。分類的網站目錄一般由專人負責，分類明確，資訊集中。因此讀者應該養成這樣的習慣：首先考慮所需要的資訊能否在一個專門主題的網站上找到。不過需要說明的是，用目錄檢索，往往需要用戶對查詢的領域很熟悉。否則，連查詢的內容屬於哪個類目都不知道，目錄流覽也就無從談及了。 目前Google使用的分類目錄採用了ODP的內容。“Open Directory Project”是網景公司所主持的一項大型公共網頁目錄。由全世界各地的義務編輯人員來審核挑選網頁，並依照網頁的性質及內容來分門別類。因此，在某一目錄門類中進行搜索往往能有更高的命中率。另外，Google根據其專業的“網頁級別”（PageRank）技術對目錄中登錄的網站進行了排序，可以讓一般的檢索更具高效率。
+
+示例：查找一下介紹搜索引擎方面的中文網站
+搜索：先進入中文簡體分類目錄，再進入“電腦”目錄，再進入“互聯網路”子目錄，再進入“搜尋”子目錄。我們看到在“World > Chinese Simplified > 電腦 > 互聯網路 > 搜尋”下，還有兩個子目錄“分類目錄 (33) 搜索引擎 (10)”，以及6個相關網站。顯然，這些都是我們所需要的資訊。
+
+除了用滑鼠層層點入，也可以在目錄中檢索。比如，在上例的“互聯網路”目錄下，選中“只在互聯網路中搜索”選項，在搜索欄內填入“搜索引擎”進行搜索。
+結果：在分類Google 網頁目錄項中搜索搜索引擎。 共約有387項查詢結果，這是第11-20項 。 搜索用時0.09秒。
+
+可以看到，上述查詢結果比普通的檢索更有效，因為在分類“互聯網路”下進行搜索剔除了很多不相關的諸如新聞之類的無效資訊。不過，對於中文用戶而言，現在最大的問題是志願的中文目錄編輯太少，導致收錄站點太少，因此搜索結果範圍顯得過於狹隘。但願這個問題能隨著Google以及ODP項目在國內名聲的響亮而能得到改觀。
+
+12，新聞組搜索
+
+新聞組有詳盡的分類主題，某些主題還有專人管理和編輯，具有大量的有價值資訊。由於新聞組包含的資訊實在是海量，因此不利用工具進行檢索是不大可能的。DEJA一直是新聞組搜索引擎中的佼佼者。2001年2月份，Google將DEJA收購並提供了所有DEJA的功能。現在，除了搜索之外，Google還支援新聞組的WEB方式流覽和張貼功能。
+
+進入Google新聞組“http://groups.Google.com/”，你有兩種資訊查找方式。一種是一層層的點擊進入特定主題討論組，另一種則是直接搜索。現在，我們進行一個最簡單的搜索試驗，查找一下新聞組中關於山頂洞人的討論資訊。
+
+搜索：“山頂洞人”
+結果：在各群組內搜索 山頂洞人 共約有2,400項查詢結果，這是第1-10項 。 搜索用時0.94秒。 搜索結果默認按照“留言內容”排列，但是你也可以點擊“依照日期”按鈕，讓帖子按照發布日期排列。
+
+因為新聞組中的帖子實在是多，而且又涉及一些普通搜索所沒有的語法，所以建議使用“高級群組搜尋”進入高級搜索介面。新聞組高級搜索提供留言內容、分類主題、標題、留言者、留言代碼、語言和發布日期作為條件進行搜索。其中作者項指作者發帖所用的唯一識別號電子信箱。
+
+13，Google的其他傑出功能
+
+13.1網頁快照
+
+網頁快照是Google抓下來緩存在伺服器上的網頁。它有三個作用：
+
+第一， 如果原位址打開很慢，那麼可以直接查看Google緩存頁面，因為Google伺服器速度極快。
+
+第二， 如果原鏈結已經死掉或者因為網路的原因暫時鏈結不通，那麼可以通過Google快照看到該頁面資訊。當然，快照內容不是該頁最新頁面。
+
+第三， 如果打開的頁面信息量巨大，一下子找不到關鍵字所在位置，那麼可以通過Google快照，因為快照中Google用黃色表明關鍵字位置。
+
+
+13.2，集成化的工具條
+
+為了方便搜索者，Google提供了工具條，集成於流覽器中，用戶無需打開Google主頁就可以在工具條內輸入關鍵字進行搜索。此外，工具條還提供了其他許多功能，如顯示頁面PageRank等。最方便的一點在於用戶可以快捷的在Google主頁、目錄服務、新聞組搜索、高級搜索和搜索設定之間切換。欲安裝Google的工具條，可以訪問“http://toolbar.Google.com/”，按頁面提示可以自動下載並安裝。不過，Google工具條目前只支援IE5.0以上版本。
+
+對於經常進行網路搜索者而言，Google工具條實在是必備的東西！！
+
+13.3，單詞英文解釋
+
+寫英文文章的時候，最頭疼的事情就是對某個英文單詞的用法不確定。現在有了Google，一切就迎刃而解了！無論你是想查找某個生詞的意思還是想瞭解某個單詞的用法，均可使用線上詞典。
+
+進入英文Google，輸入你要查的單詞。舉個例子，我想查一下suggest的用法。結果如下：“Searched the web for suggest. Results 1 – 10 of about 8,000,000. Search took 0.08 seconds. ”注意看上面句子中，單詞suggest下出現了一個橫線，點擊這個鏈結，就跳轉到另外一個網站“http://www.dictionary.com/”，Google已經把單詞提交給該網站的查詢腳本。看看這個網站所提供的詳盡解釋吧。:)
+
+13.4，網頁翻譯
+
+你懂英文，但是你不見得就懂德文、法文、拉丁文。如果搜索出來的頁面是這些語言怎麼辦？呵呵，Google提供了網頁翻譯功能！！雖然目前只支持有限的拉丁語、法語、西班牙語、德語和葡萄牙文，但是我不得不承認，這是個傑出功能。
+
+試著做以下搜索：“big bang site:fr”。這個表示查找關於宇宙大爆炸的法文網頁。看第一條結果：
+
+The Big Bang Website – [ Translate this page ]
+… A propos de Big Bang. Le dernier numéro en date. Les anciens numéros. Autres
+activités. Concerts progressifs en France. Emissions de radio. Liens.
+perso.club-internet.fr/calyx/bigbang/ – 3k – Cached – Similar pages
+
+有點暈。沒關係，點擊“Translate this page”按鈕。再看結果，嗯，大致能看明白，這原來是個叫“big bang”的樂隊的網站，與大爆炸無關…
+
+機器翻譯是一個很前沿的人工智慧課題，想指望翻譯出來的結果跟專門用英語撰寫的內容是不可能的。但西文間的互相轉譯比中英文機譯強得多得多了。至少能看明白。
+
+13.5，單詞糾錯
+
+筆者記憶力很差，英文單詞經常拼寫錯誤。但Google有糾錯功能。比如在寫上文的時候，我要用到英文單詞“tutorial”，我只是依稀記得好像是“tatorial”的樣子，但不肯定，於是用Google查了一下，它馬上提醒：“您要找的會不會是： tutorial ”，呵呵，正是這個單詞。
+
+13.6，繁簡轉換
+
+對中文用戶而言，常希望能同時檢索繁體和簡體資訊。Google能做到這一點。Google默認使用繁簡自動轉換功能，因此你輸入的簡體關鍵字也將被轉換成繁體做檢索。這樣省了不少力氣。當然，如果你不希望這樣的話，也可以在“使用偏好”中把這個選項關掉。
+
+13.7，搜索結果過濾
+
+網路上的成人內容浩如煙海，而且很多站點具有欺騙或者其他不良企圖，流覽者很容易掉入其中的陷阱。為此，Google新設立了成人內容過濾功能，見Google的設置頁面，http://www.Google.com/preferences，最底下有一個選項SafeSearch Filtering。不過，中文狀態下的Google尚沒有這個功能。
+
+14，Google尚未發佈的一些新特性和功能
+
+14.1，對網頁更新日期做出限定“daterange:”
+
+評價一個搜索引擎的好壞，更新頻率是一個很關鍵因素。通常情況下，我們總希望能找到最新的網頁。Google已經開發了對更新日期做限定的搜索語法，但目前還未公佈。而且比較麻煩的是，Google現在支持的日期格式為julian（凱撒日）格式，把通用日期數值切換成julian格式需要借助第三方網站：http://www.tesre.bo.cnr.it/~mauro/JD/。不過，在下面這個自稱是“Google終極搜索介面”的網頁上，你已經可以利用Google的這項新特性了，它自動提供日期轉換功能。
+
+Google Ultimate Interface：http://www.faganfinder.com/google.html
+
+Google為什麼要這樣做呢？也許是在測試階段，不想讓太多人使用吧。:)
+
+14.2，新聞搜索“http://news.google.com/”
+
+Google的新聞搜索尚在B測試階段，但使用起來已經非常不錯了。新聞首頁按頭條新聞，各國新聞，以及不同領域做了分類。你可以通過Google搜索各大門戶和新聞網站的新聞，簡單、快捷、方便。遺憾的是，目前Google新聞只檢索英文資訊。
+
+14.3，分類廣告搜索“http://catalogs.google.com/”
+
+這也在B測試階段。主要是對電子分類廣告做檢索。廣告頁為JPG圖片格式。
+
+14.4，其他Google的最新發展動態
+
+想瞭解Google公司的工程師們都在忙些什麼嗎？去看一下Google實驗室（http://labs.google.com/）吧。Google的最新設想都在這個地方向訪問者展現出來。現在處於發展和試驗階段的新功能有：術語查詢、語音查詢、鍵盤查詢等等。
+
+網路工程師和程式師可以看看這個地方：http://www.google.com/apis/，我想可以讓你喜出望外的。
+
+14.5，一個有趣的地方
+
+想看看世界各國線民都用Google搜索什麼資訊麼？到http://www.google.com/press/zeitgeist.html看一下就知道了。從這些資訊中，你大致可以瞭解到世界熱點和流行時尚走向。:)
+
+15，後記
+
+這個文章4.0版本與3.0版本相比，變更很大，主要把一些與Google無關的東西刪除了，另外隨Google的變化作了一些修正，並增加了一些Google尚未發佈的新功能。關於搜索技巧和搜索實例，是各個搜索引擎共通的東西，是搜索者長期的經驗積累，要寫出來，是件工程很浩大的事情，因此在這個小文章中我就不獻醜了。
+
+隨著時間的推移，我發現搜索已經成為網路生活的一部分。工作需要搜索技術文檔、客戶資訊；購物需要搜索商品資訊和指南；娛樂需要搜索相關背景資料和圖片。搜索已經變得無處不在，而Google則相應的成了工作和生活中的一個必備工具。套用雅虎的一句廣告詞，我們也許應該這樣說：“今天你Google了嗎？”
