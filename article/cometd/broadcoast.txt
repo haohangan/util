@@ -1,0 +1,14 @@
+service.scheduleAtFixedRate(new Runnable() {
+
+			@Override
+			public void run() {
+				Map<String, Object> map = new HashMap<>();
+				map.put("key", true);
+				ServerChannel channel = getBayeux().getChannel(REFRESH);
+				Set<ServerSession> subs = channel.getSubscribers();
+				System.out.println("ÓÃ»§¶©ÔÄÊý:" + subs.size());
+				for (ServerSession sub : subs) {
+					sub.deliver(getServerSession(), REFRESH, map);
+				}
+			}
+		}, 5, 5, TimeUnit.SECONDS);
