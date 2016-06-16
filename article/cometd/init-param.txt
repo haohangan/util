@@ -1,0 +1,9 @@
+timeout
+30000
+The time, in milliseconds, that a server waits for a message before replying to a /meta/connect with an empty reply.
+interval
+0
+The time, in milliseconds, that the client must wait between the end of one /meta/connect request and the start of the next.
+maxInterval
+10000
+The maximum period of time, in milliseconds, that the server waits for a new /meta/connect message from a client before that client is considered invalid and is removed.
