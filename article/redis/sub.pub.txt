@@ -1,0 +1,3 @@
+http://docs.spring.io/spring-data/redis/docs/1.0.0.RELEASE/reference/redis.html
+
+http://blog.geekingfrog.com/object-pooling-in-spring/
