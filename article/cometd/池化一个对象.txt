@@ -1,0 +1,20 @@
+<bean id="targetBean" class="my.compagny.TargetBean" scope="prototype">  
+</bean>
+
+<bean id="poolTargetBean" class="org.springframework.aop.target.CommonsPoolTargetSource">  
+  <property name="targetBeanName" value="targetBean" />
+  <property name="maxSize" value="10"/>
+  <property name="maxIdle" value="10" />
+  <property name="minIdle" value="5" />
+</bean>  
+
+@Autowired
+CommonsPoolTargetSource pool;  
+...
+TargetBean bean = (TargetBean) pool.getTarget();  
+(do some stuff with the bean)
+pool.releaseTarget(bean);  
+
+
+
+ π”√common2pool
