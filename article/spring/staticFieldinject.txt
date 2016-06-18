@@ -1,0 +1,8 @@
+<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod"
+			value="com.grgbanking.aptoto.controller.cometd.ForwardController.setMESSAGE_TIME_OUT" />
+		<property name="arguments" value="${redis.message.timeout}">
+			<!-- <list> <ref bean=""/> </list> -->
+		</property>
+	</bean>
