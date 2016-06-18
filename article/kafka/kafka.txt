@@ -1,0 +1,23 @@
+http://kafka.apache.org/documentation.html
+机器翻译（部分）
+
+Kafka maintains feeds of messages in categories called topics.
+卡夫卡中保持消息的源类别称为主题。
+
+
+We'll call processes that publish messages to a Kafka topic producers.
+我们会打电话给过程，它与卡夫卡主题发布消息的生产者。
+我们称向主题中发布消息的进程为生产者。
+
+We'll call processes that subscribe to topics and process the feed of published messages consumers.
+我们会打电话给订阅主题和过程的进程发布的消息消费者饲料。
+订阅主题并接受数据的为消费者
+
+Kafka is run as a cluster comprised of one or more servers each of which is called a broker.
+卡夫卡是作为由一个或多个服务器集群运行每个被称为经纪人。
+
+language agnostic
+语言无关
+
+A topic is a category or feed name to which messages are published.For each topic, the Kafka cluster maintains a partitioned log that looks like this
+主题是一种类别或发布消息的源名称。每个主题，卡夫卡群集维护一个分区的日志，如下所示
