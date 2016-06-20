@@ -1,0 +1,10 @@
+
+up vote
+21
+down vote
+If the project is Maven, you can try this way :
+
+right click the "Maven Dependencies"-->"Build Path"-->"Remove from the build path";
+right click the project ,navigate to "Maven"--->"Update project....";
+
+http://stackoverflow.com/questions/16918959/import-cannot-be-resolved
