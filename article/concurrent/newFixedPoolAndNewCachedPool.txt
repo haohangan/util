@@ -1,0 +1,27 @@
+
+
+I think the docs explain the difference and usage of these two functions pretty well:
+
+newFixedThreadPool
+
+    Creates a thread pool that reuses a fixed number of threads operating off a shared unbounded queue. At any point, at most nThreads threads will be active processing tasks. If additional tasks are submitted when all threads are active, they will wait in the queue until a thread is available. If any thread terminates due to a failure during execution prior to shutdown, a new one will take its place if needed to execute subsequent tasks. The threads in the pool will exist until it is explicitly shutdown.
+
+newCachedThreadPool
+
+    Creates a thread pool that creates new threads as needed, but will reuse previously constructed threads when they are available. These pools will typically improve the performance of programs that execute many short-lived asynchronous tasks. Calls to execute will reuse previously constructed threads if available. If no existing thread is available, a new thread will be created and added to the pool. Threads that have not been used for sixty seconds are terminated and removed from the cache. Thus, a pool that remains idle for long enough will not consume any resources. Note that pools with similar properties but different details (for example, timeout parameters) may be created using ThreadPoolExecutor constructors.
+
+In terms of resources, the newFixedThreadPool will keep all the threads running until they are explicitly terminated. In the newCachedThreadPool Threads that have not been used for sixty seconds are terminated and removed from the cache.
+
+Given this, the resource consumption will depend very much in the situation. For instance, If you have a huge number of long running tasks I would suggest the FixedThreadPool. As for the CachedThreadPool, the docs say that "These pools will typically improve the performance of programs that execute many short-lived asynchronous tasks".
+shareimprove this answer
+	
+answered Jun 4 '09 at 9:25
+bruno conde
+34.8k876100
+	
+1 	 
+	
+yes i have gone through the docs..the problem is...fixedThreadPool is causing a out of memory error @ 3 threads.. where as cachedPool is internally creating only a single thread..on increasing the heap size i am getting the same performance for both..is there anything else i am missing!! – hakish Jun 4 '09 at 12:22
+1 	 
+	
+Are you providing any Threadfactory to the ThreadPool? My guess is that might be storing some state in the threads that is not being garbage collected. If not, maybe your program is running so close to the heap limit size that with the creation of 3 threads it causes an OutOfMemory. Also, if cachedPool is internally creating only a single thread then this possible indicates that your tasks are running syncronhized.
