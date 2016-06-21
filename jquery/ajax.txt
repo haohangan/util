@@ -10,3 +10,5 @@ $.ajax({
     data: {},
     async: false
 });
+
+http://www.jianshu.com/p/46e6e03a0d53   ajax upload file
