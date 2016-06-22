@@ -13,3 +13,33 @@
 		JSONPObject obj = new JSONPObject(callback, j);
 		return obj;
 	}
+
+
+
+
+
+客户端JQuery.ajax的调用代码示例：
+
+$.ajax({
+	type : "get",
+	async:false,
+	url : "http://www.xxx.com/ajax.do",
+	dataType : "jsonp",
+	jsonp: "callbackparam",//服务端用于接收callback调用的function名的参数
+	jsonpCallback:"success_jsonpCallback",//callback的function名称
+	success : function(json){
+		alert(json);
+		alert(json[0].name);
+	},
+	error:function(){
+		alert('fail');
+	}
+});
+
+    服务端返回数据的示例代码：
+
+public void ProcessRequest (HttpContext context) {
+	context.Response.ContentType = "text/plain";
+	String callbackFunName = context.Request["callbackparam"];
+	context.Response.Write(callbackFunName + "([ { name:\"John\"}])");
+}
