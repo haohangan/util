@@ -1,0 +1,15 @@
+
+	/**
+	 * 查询通知消息
+	 * 
+	 * @param svo
+	 * @return
+	 */
+	@RequestMapping(value = "/notice_list", method = RequestMethod.POST)
+	@ResponseBody
+	public JSONPObject noticeList(@Valid NoticeMessageSVO svo, String callback) {
+		List<MessageNotice> list = service.query(svo);
+		Json j = new Json.Builder().success("").data(list).build();
+		JSONPObject obj = new JSONPObject(callback, j);
+		return obj;
+	}
