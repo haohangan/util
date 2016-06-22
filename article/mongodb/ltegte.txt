@@ -3,3 +3,5 @@ If you are using MongoTemplate of Spring-Data Mongodb, you can do the same in fo
 public List<Link> getLinksBetweenDate(Date startDate, Date endDate) {
             Query query = new Query().addCriteria(Criteria.where("updatedOn").gt(startDate).lte(endDate));
             return mongoTemplate.find(query, Link.class);
+
+http://stackoverflow.com/questions/6840540/java-mongodb-query-by-date
