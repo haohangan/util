@@ -1,0 +1,3 @@
+db.getCollection('messages').findOne({key:'002'},{'list':{'$slice':[0,2]}});
+
+
