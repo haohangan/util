@@ -1,3 +1,8 @@
 db.getCollection('messages').findOne({key:'002'},{'list':{'$slice':[0,2]}});
 
 
+
+db.getCollection('messages').update(
+{'_id':'36c9377a-2679-428d-b7f2-26a0b9434052','details.msgId':'93ac6bf8-7005-4354-95de-7f515d4e1885'},
+{$set:{'details.$.status':'2'}}
+);

@@ -1,0 +1,76 @@
+public ServerSession gettargetSession(){
+		return null;
+	}
+	
+	
+//	private final ConcurrentMap<String, Set<ChatBox>> chats = new ConcurrentHashMap<>();
+	/**
+	 * 用户加入到某一个会话当中
+	 * 
+	 * @param chatId
+	 * @param cb
+	 */
+	public void joinChat(String chatId, ChatBox cb) {
+		if (!chats.containsKey(chatId)) {// 如果会话不存在，则创建一个
+			Set<ChatBox> set = new HashSet<>();
+			set.add(cb);
+			chats.put(chatId, set);
+		} else {
+			Set<ChatBox> set = chats.get(chatId);
+			if (set == null) {
+				set = new HashSet<>();
+			}
+			if (!set.contains(cb)) {
+				set.add(cb);
+			} else {
+				set.remove(cb);// 替换掉session
+				set.add(cb);
+			}
+		}
+	}
+
+	/**
+	 * 用户离开某个会话
+	 * 
+	 * @param chatId
+	 * @param userId
+	 */
+	public void leave(String chatId, String userId) {
+		if (chats.containsKey(chatId)) {
+			if (chats.get(chatId) != null) {
+				ChatBox cb = new ChatBox(userId);
+				chats.get(chatId).remove(cb);
+				if (chats.get(chatId).isEmpty()) {// 会话成员为空，则删除该会话
+					chats.remove(chatId);
+				}
+			}
+		}
+	}
+
+	// public static void main(String[] args) {
+	// Set<ChatBox> set = new HashSet<>();
+	// ChatBox cb1 = new ChatBox();
+	// cb1.setUserId("1");
+	// cb1.setStatus("1");
+	//
+	// ChatBox cb2 = new ChatBox();
+	// cb2.setUserId("1");
+	// cb2.setStatus("2");
+	//
+	// set.add(cb1);
+	// set.add(cb2);
+	// if (set.contains(cb2)) {
+	// set.remove(cb2);
+	// set.add(cb2);
+	// }
+	// for (ChatBox cb : set) {
+	// System.out.println(cb.getUserId() + "\t" + cb.getStatus());
+	// }
+	//
+	// Set<String> set2 = new HashSet<>();
+	// set2.add("21313");
+	// set2.remove("1231313131");
+	// for(String str:set2){
+	// System.out.println(str);
+	// }
+	// }
