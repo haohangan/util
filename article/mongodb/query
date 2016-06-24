@@ -6,3 +6,31 @@ db.getCollection('messages').update(
 {'_id':'36c9377a-2679-428d-b7f2-26a0b9434052','details.msgId':'93ac6bf8-7005-4354-95de-7f515d4e1885'},
 {$set:{'details.$.status':'2'}}
 );
+
+
+
+
+##一样
+db.getCollection('messages').find({
+    '_id':'36c9377a-2679-428d-b7f2-26a0b9434052',
+    'details':{
+      $elemMatch:{
+          'msgId':'93ac6bf8-7005-4354-95de-7f515d4e1885'
+      }
+     }
+});
+
+
+db.getCollection('messages').find({
+    '_id':'36c9377a-2679-428d-b7f2-26a0b9434052',
+    'details.msgId':'93ac6bf8-7005-4354-95de-7f515d4e1885'
+});
+
+##一样
+
+
+db.getCollection('messages').find({
+    'details':{$elemMatch:{'msgId':'93ac6bf8-7005-4354-95de-7f515d4e1885'}}
+    },
+    {'details.$':1});   
+##第二个参数

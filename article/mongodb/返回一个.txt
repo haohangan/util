@@ -1,0 +1,32 @@
+返回与查询条件相匹配的任意一个数组元素
+
+       我们可以使用"$slice"操作符进行数组元素返回限制，但是当数组里面保存的是文档的时候，我就想返回与我查询条件相匹配的那个元素，其他的不要，怎么做？有技巧的哦！
+文档结构如下：
+Js代码  收藏代码
+db.blog.insert({  
+    "_id":"B001",  
+    "title":"MongoDB查询",  
+    "comments":[  
+      {"name":"ickes","score":3,"comment":"nice"},  
+      {"name":"xl","score":4,"comment":"nice"},  
+      {"name":"eksliang","score":5,"comment":"nice"},  
+      {"name":"ickes","score":6,"comment":"nice"}  
+    ]  
+})  
+ 
+参考实例：
+Js代码  收藏代码
+db.blog.find({"comments":{  
+    "$elemMatch":{"name":"ickes","score":{"$gt":5}}}},  
+    {"comments.$":1}--第二个参数是限制返回数据的，别看错了，这是第二个参数  
+)  
+ 返回结果如下：仅返回与当前查询条件相匹配的那个内嵌文档。
+Js代码  收藏代码
+{  
+  "_id" : "B001",   
+  "comments" : [ { "name" : "ickes", "score" : 6, "comment" : "nice" } ]   
+}  
+ 如果当前查询有多个内嵌文档匹配，只会返回第一个。
+
+
+http://eksliang.iteye.com/blog/2177301
