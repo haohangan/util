@@ -1,0 +1,31 @@
+find查询时指定返回的需要的字段
+    org.springframework.data.mongodb.core.query.BasicQuery提供了
+             构造方法
+         
+             BasicQuery(DBObject queryObject, DBObject fieldsObject)
+            BasicQuery(java.lang.String query, java.lang.String fields)
+
+
+      BasicQuery查询语句可以指定返回字段，构造函数
+             BasicQuery(DBObject queryObject, DBObject fieldsObject)
+            fieldsObject 这个字段可以指定返回字段
+            fieldsObject.put(key,value)
+            key：字段
+           value：
+             说明：
+                  1或者true表示返回字段
+                 0或者false表示不返回该字段
+               _id:默认就是1，没指定返回该字段时，默认会返回，除非设置为0是，就不会返回该字段。
+               指定返回字段，有时文档字段多并数据大时，我们指定返回我们需要的字段，这样既节省传输数据量，减少了内存消耗，提高了性能，在数据大时，性能很明显的。
+[java] view plain copy
+QueryBuilder queryBuilder = new QueryBuilder();   
+queryBuilder.or(new BasicDBObject("onumber", "002"), new BasicDBObject("cname","zcy1"));   
+BasicDBObject fieldsObject=new BasicDBObject();  
+fieldsObject.put("onumber", 1);  
+fieldsObject.put("cname", 1);  
+uery query=new BasicQuery(queryBuilder.get(),fieldsObject);  
+
+   返回结果：
+            
+[java] view plain copy
+[{"cname":"zcy1","date":null,"id":"55bb9a3c27547f55fef9a10f","items":[],"onumber":"001"},{"cname":"zcy1","date":null,"id":"55bb9a2727544d40b95156e1","items":[],"onumber":"001"}]  
