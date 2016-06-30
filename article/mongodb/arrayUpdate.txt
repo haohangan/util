@@ -1,0 +1,27 @@
+https://stackoverflow.com/questions/14720734/mongodb-update-multiple-records-of-array
+https://stackoverflow.com/questions/4669178/how-to-update-multiple-array-elements-in-mongodb
+
+var runUpdate = function(){
+    db.article.find({"comments.user":"test").forEach( function(article) {
+        for(var i in article.comments){
+            article.comments[i].avatar = 'new_avatar.jpg';
+        }
+        db.article.save(article);
+    });
+};
+
+db.eval(runUpdate);
+
+
+**************************************************
+db.collection.find({ _id: ObjectId('4d2d8deff4e6c1d71fc29a07') })
+  .forEach(function (doc) {
+    doc.events.forEach(function (event) {
+      if (event.profile === 10) {
+        event.handled=0;
+      }
+    });
+    db.collection.save(doc);
+  });
+
+****************************************************
