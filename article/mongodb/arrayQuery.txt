@@ -1,0 +1,46 @@
+ongoDB 2.2's new $elemMatch projection operator provides another way to alter the returned document to contain only the first matched shapes element:
+
+db.test.find(
+    {"shapes.color": "red"}, 
+    {_id: 0, shapes: {$elemMatch: {color: "red"}}});
+
+Returns:
+
+{"shapes" : [{"shape": "circle", "color": "red"}]}
+
+In 2.2 you can also do this using the $ projection operator, where the $ in a projection object field name represents the index of the field's first matching array element from the query. The following returns the same results as above:
+
+db.test.find({"shapes.color": "red"}, {_id: 0, 'shapes.$': 1});
+
+MongoDB 3.2 Update
+
+Starting with the 3.2 release, you can use the new $filter aggregation operator to filter an array during projection, which has the benefit of including all matches, instead of just the first one.
+
+db.test.aggregate([
+    // Get just the docs that contain a shapes element where color is 'red'
+    {$match: {'shapes.color': 'red'}},
+    {$project: {
+        shapes: {$filter: {
+            input: '$shapes',
+            as: 'shape',
+            cond: {$eq: ['$$shape.color', 'red']}
+        }},
+        _id: 0
+    }}
+])
+
+Results:
+
+[ 
+    {
+        "shapes" : [ 
+            {
+                "shape" : "circle",
+                "color" : "red"
+            }
+        ]
+    }
+]
+
+
+https://stackoverflow.com/questions/3985214/retrieve-only-the-queried-element-in-an-object-array-in-mongodb-collection
