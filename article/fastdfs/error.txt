@@ -1,0 +1,5 @@
+
+adding module in /home/nginx/fastdfs-nginx-module/src
+/home/nginx/fastdfs-nginx-module/src/config: line 2: $'\r': command not found
+/home/nginx/fastdfs-nginx-module/src/config: line 19: syntax error: unexpected end of file
+ was configuredtdfs_module
