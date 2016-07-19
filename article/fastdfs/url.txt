@@ -1,4 +1,4 @@
-http://bbs.chinaunix.net/forum-240-1.html
+﻿http://bbs.chinaunix.net/forum-240-1.html
 
 http://the.earth.li/~sgtatham/putty/0.52/htmldoc/Chapter6.html
 
@@ -6,3 +6,6 @@ https://linux.cn/article-5926-1.html
 
 
 http://blog.csdn.net/poechant/article/details/6977407   比较全
+
+
+http://www.linux178.com/storage/fastdfs-nginx-cache.html    非常全
