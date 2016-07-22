@@ -9,3 +9,6 @@ http://blog.csdn.net/poechant/article/details/6977407   比较全
 
 
 http://www.linux178.com/storage/fastdfs-nginx-cache.html    非常全
+
+
+http://bbs.chinaunix.net/thread-1644309-1-1.html  mfs
