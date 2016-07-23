@@ -2,3 +2,25 @@ http://a280606790.iteye.com/blog/1597847
 
 
 mvn deploy:deploy-file -DgroupId=org.springside -DartifactId=springside-core -Dversion=4.2.1.GA -Dpackaging=jar -Dfile=D:\gitworkspace\maven\master\org\springside\springside-core\4.2.1.GA\springside-core-4.2.1.GA.jar -Durl=http://192.168.0.18:8081/nexus/content/repositories/releases/ -DrepositoryId=releases
+
+
+1)   Apache Archiva安装, 这个很简单,请直接查看官网或到Google搜索,很多的.
+
+2)   Apache Archiva的Repository配置,在添加了Remote Repositories后, 要记得如果是使用代理访问互联网,首先要添加Network Proxies, 之后在Proxy Connectors里将添加的Remote Repositories与Network Proxies关联.
+
+3)   Maven的Settings.xml的配置. 
+有时我们在项目的POM与Settings.xml里加入了上面创建的Archiva Repository后,可是在跑Maven命令时Maven仍然会到它默认的仓库( http://repo.maven.apache.org/maven2 ) 去下载所依赖的Jar. 要实现一切下载都经由我们自己的私服Archiva,需要在Maven的Settings.xml增加如下配置:
+
+1 <mirror>
+2       <id>MyOwnRepo</id>
+3       <mirrorOf>*</mirrorOf>
+4       <name>MyOwnRepo </name>
+5       <url>http://192.168.1.1/archiva/repository/internal</url>
+6 </mirror>
+　　这样所有的下载都只会经我们自己的Archiva了.
+
+4)   到这一步,如果再跑Maven命令时依赖的Jar仍然不能下载或下载出错或找不到包, 请在mvn命令后增加 –U 参数, 就可以了.
+
+5)   关于安装第三方jar到Artifact, 从Artifact的官方上看到其实有很多种方法(请看这里),最简单的就是从Archiva的web 页面上找到Upload Artifact这个功能. 我使用的方法是maven的 deploy:deploy-file 命令,这种方法时要注意的是如果你要安装的jar和pom是位于本地repository的目录下,这个命令就会出错 (Cannot deploy artifact from the local repository…), 解决方法:将要安装的jar和pom copy到其它目录再安装,只要不在本地仓库目录都应该可以.
+
+标签: 技术
