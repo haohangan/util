@@ -1,0 +1,10 @@
+public void sort() {
+		java.util.Comparator<ChatDetail> mycmp = ComparableComparator.getInstance();
+		mycmp = ComparatorUtils.nullLowComparator(mycmp); // ÔÊÐínull
+		mycmp = ComparatorUtils.reversedComparator(mycmp); // ÄæÐò
+
+		ArrayList<Object> sortFields = new ArrayList<Object>();
+		sortFields.add(new BeanComparator("date", mycmp)); // idÄæÐò (Ö÷)
+		ComparatorChain multiSort = new ComparatorChain(sortFields);   
+        Collections.sort(details,multiSort);
+	}
