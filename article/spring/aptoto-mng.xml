@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- <context:component-scan base-package="com.grgbanking.aptoto.mongo.service"></context:component-scan> -->
+
+	<!-- 需要的一些配置文件 -->
+	<bean id="configProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath*:application.properties</value>
+				<value>classpath*:redis.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="properties" ref="configProperties" />
+	</bean>
+
+	<!-- cometd java客户端的连接  destroy-method="disConnect" -->
+	<bean id="bayeuxJavaClient" class="com.grgbanking.aptoto.cometd.BayeuxJavaClient"
+		init-method="connect" scope="prototype">
+		<property name="url" value="${cometd.url}"></property>
+	</bean>
+
+	<!-- cometd连接对象池化 -->
+	<bean id="poolTargetBean" class="com.grgbanking.aptoto.cometd.CometDConnPool">
+		<property name="targetBeanName" value="bayeuxJavaClient" />
+		<property name="maxSize" value="50" />
+		<property name="maxIdle" value="10" />
+		<property name="minIdle" value="5" />
+	</bean>
+
+	<!-- mongoDB注解配置的类 -->
+	<bean id="mongodbConfig"
+		class="com.grgbanking.aptoto.config.database.mongodb.MongoDBConfig">
+		<property name="URL" value="${mongo.url}"></property>
+	</bean>
+
+	<!-- mongoDBService -->
+	<!-- <bean id="dbMessageService" class="com.grgbanking.aptoto.mongo.service.DBMessageService"> 
+		<property name="template" ref="mongoTemplate"></property> </bean> -->
+
+	<!-- redis监听通道的类 -->
+	<bean id="messageDelegate"
+		class="com.grgbanking.aptoto.config.database.redis.ExpiredMessageDelegate">
+		<!-- <property name="template" ref="mongoTemplate"></property> -->
+		<property name="service" ref="DBMessageService"></property>
+		<property name="pool" ref="poolTargetBean"></property>
+	</bean>
+
+	<!-- redis注解配置的类 -->
+	<bean id="redisConfig" class="com.grgbanking.aptoto.config.database.redis.RedisConfig">
+		<property name="redisHost" value="${redis.host}"></property>
+		<property name="redisPort" value="${redis.port}"></property>
+		<property name="password" value="${redis.pass}"></property>
+		<property name="messageDelegate" ref="messageDelegate"></property>
+	</bean>
+
+	<!-- 注入消息的失效时间 -->
+	<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod"
+			value="com.grgbanking.aptoto.controller.cometd.ForwardController.setMESSAGE_TIME_OUT" />
+		<property name="arguments" value="${redis.message.timeout}">
+		</property>
+	</bean>
+
+	<!-- 注入 -->
+	<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod"
+			value="com.grgbanking.aptoto.fastdfs.FastDFSClient.config" />
+		<property name="arguments">
+			<list>
+				<value>${fastdfs.config}</value>
+				<value>${fastdfs.port}</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- FASTDFS 访问对象  destroy-method="close" -->
+	<bean id="fastDFSClient" class="com.grgbanking.aptoto.fastdfs.FastDFSClient"
+		init-method="init" scope="prototype">
+	</bean>
+
+	<bean id="fastDFSPool" class="com.grgbanking.aptoto.fastdfs.FastDFSClientPool">
+		<property name="targetBeanName" value="fastDFSClient" />
+		<property name="maxSize" value="50" />
+		<property name="maxIdle" value="10" />
+		<property name="minIdle" value="5" />
+	</bean>
+</beans>
