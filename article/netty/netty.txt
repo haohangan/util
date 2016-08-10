@@ -1,1 +1,28 @@
 http://www.infoq.com/cn/articles/netty-high-performance/
+
+
+gitbook
+
+https://waylau.gitbooks.io/essential-netty-in-action/content/CORE%20FUNCTIONS/ByteBuf%20-%20The%20byte%20data%20container.html
+
+DIRECT BUFFER(直接缓冲区)
+
+“直接缓冲区”是另一个 ByteBuf 模式。对象的所有内存分配发生在 堆，对不对？好吧，并非总是如此。在 JDK1.4 中被引入 NIO 的ByteBuffer 类允许 JVM 通过本地方法调用分配内存，其目的是
+通过免去中间交换的内存拷贝, 提升IO处理速度; 直接缓冲区的内容可以驻留在垃圾回收扫描的堆区以外。
+DirectBuffer 在 -XX:MaxDirectMemorySize=xxM大小限制下, 使用 Heap 之外的内存, GC对此”无能为力”,也就意味着规避了在高负载下频繁的GC过程对应用线程的中断影响.(详见http://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html.)
+这就解释了为什么“直接缓冲区”对于那些通过 socket 实现数据传输的应用来说，是一种非常理想的方式。如果你的数据是存放在堆中分配的缓冲区，那么实际上，在通过 socket 发送数据之前，JVM 需要将先数据复制到直接缓冲区。
+但是直接缓冲区的缺点是在内存空间的分配和释放上比堆缓冲区更复杂，另外一个缺点是如果要将数据传递给遗留代码处理，因为数据不是在堆上，你可能不得不作出一个副本，如下：
+Listing 5.2 Direct buffer data access
+ByteBuf directBuf = ...
+if (!directBuf.hasArray()) {            //1
+    int length = directBuf.readableBytes();//2
+    byte[] array = new byte[length];    //3
+    directBuf.getBytes(directBuf.readerIndex(), array);        //4    
+    handleArray(array, 0, length);  //5
+}
+1.检查 ByteBuf 是不是由数组支持。如果不是，这是一个直接缓冲区。
+2.获取可读的字节数
+3.分配一个新的数组来保存字节
+4.字节复制到数组
+5.将数组，偏移量和长度作为参数调用某些处理方法
+显然，这比使用数组要多做一些工作。因此，如果你事前就知道容器里的数据将作为一个数组被访问，你可能更愿意使用堆内存。
