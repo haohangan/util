@@ -3,3 +3,15 @@ Criteria criteria = new Criteria();
         Query query = new Query(criteria);
 
         mongoOps.find(query, <Yourclass>.class, "collectionName");
+		
+		
+===================================================================================
+
+
+DBObject queryCondition = new BasicDBObject();        
+BasicDBList values = new BasicDBList();
+values.add(new BasicDBObject("A", 10));
+values.add(new BasicDBObject("B", 20));
+queryCondition.put("$or", values);
+Query query = new BasicQuery(queryCondition);
+mongoTemplate.find(query, clazz);
