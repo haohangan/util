@@ -1,0 +1,27 @@
+ 在spring的bean中获取ServletContext
+标签： springbean应用服务器junit单元测试google
+2009-04-28 11:04 9877人阅读 评论(0) 收藏 举报
+ 分类： spring（12）  
+版权声明：本文为博主原创文章，未经博主允许不得转载。
+  我的需求是获取spring开发的web项目在服务器上的绝对路径。
+  进而引申到我需要知道servletContext，因为servletContext有一个servletContext.getRealPath("/");方法，这个方法就能获取项目的绝对路径。
+  常规方式下我们如何获取servletContext呢？我们需要让我们的类继承HttpServlet类，然后获取servletConfig，通过这个获取servletContext（servletConfig.getServletContext()）。（至于如何获取servletconfig对象，大家去google，百度找找吧）
+  但是我需要在spring的bean中直接获取，这下可和我们常规的操作有些不同，因为spring的bean都是pojo的。根本见不着servletconfig和servletcontext的影子。
+  这里我需要指出spring给我们提供了两个接口：org.springframework.web.context.ServletContextAware和
+org.springframework.web.context.ServletConfigAware。我们可以让我们的bean实现上边的任何一个接口就能获取到servletContext了 .
+代码如下：
+[java] view plain copy
+public class DicBean implements ServletContextAware{  
+      
+private ServletContext servletContext;  
+  
+public void setServletContext(ServletContext sc) {  
+    this.servletContext=sc;  
+    System.out.println("项目的绝对路径为："+servletContext.getRealPath("/"));  
+}  
+}  
+这样，我们的bean就能够直接获取到servletContext了
+如果你想要servletConfig，那方法一样，只是实现的接口不同了。
+原理推想：应该是在创建spring的sessionFactory的时候，将应用服务器的相关属性一并加载，查看创建的bean是否实现相关接口，如果实现了，就将相关值赋予bean。
+注意点：
+  1、这东西是无法用junit进行单元测试的，因为他依赖于应用服务器
