@@ -1,0 +1,31 @@
+
+再说说CentOS
+1.查看现运行的内核版本
+[root@CC boot]# uname -r
+2.6.32-220.13.1.el6.centos.plus.x86_64
+ 
+2.列出所有的内核文件
+[root@CC boot]# rpm -q kernel
+kernel-2.6.32-131.0.15.el6.x86_64
+kernel-2.6.32-220.13.1.el6.x86_64
+kernel-2.6.32-220.13.1.el6.centos.plus.x86_64
+kernel-2.6.32-220.7.1.el6.x86_64
+ 
+3.删除所有旧的内核文件
+（注意不要删除当前系统正在运行的内核文件）
+[root@CC boot]# rpm -e kernel-2.6.32-131.0.15.el6.x86_64
+[root@CC boot]# rpm -e kernel-2.6.32-220.7.1.el6.x86_64
+ 
+到此，旧的内核文件就安全删除
+[root@CC boot]# rpm -q kernel
+kernel-2.6.32-220.13.1.el6.x86_64
+kernel-2.6.32-220.13.1.el6.centos.plus.x86_64
+ 
+4.查看文件系统使用情况和文件系统被挂在的位置
+[root@CC boot]# df -lh
+文件系统 　　　　容量 　　已用 　　可用 　　已用%% 　　挂载点
+/dev/sda2 　　　9.7G 　 4.3G      4.9G     47% 　　　　/
+tmpfs 　　　　　504M    276K      504M    1% 　　　　  /dev/shm
+/dev/sda1 　　　97M     47M        46M      51% 　　　　/boot
+/dev/sda3 　　　4.9G    987M      3.6G     22% 　　　　/home
+解决CentOS和Ubuntu /boot分区空间不足问题
