@@ -1,0 +1,65 @@
+ 现象描述：
+
+windows上加解密正常，linux上加密正常，解密时发生 如下异常：
+
+Des修改方式如下：
+
+
+ public void getKey(String strKey) { try { KeyGenerator _generator = KeyGenerator.getInstance("DES"); SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG"); secureRandom.setSeed(strKey.getBytes()); _generator.init(secureRandom); this.key = _generator.generateKey(); } catch (Exception e) { e.printStackTrace(); } }
+
+
+
+AES修改方式如下：
+javax.crypto.BadPaddingException: Given final block not properly padded
+
+       at com.sun.crypto.provider.SunJCE_f.b(DashoA13*..)
+       at com.sun.crypto.provider.SunJCE_f.b(DashoA13*..)
+       at com.sun.crypto.provider.AESCipher.engineDoFinal(DashoA13*..)
+       at javax.crypto.Cipher.doFinal(DashoA13*..)
+       at chb.test.crypto.AESUtils.crypt(AESUtils.java:386)
+       at chb.test.crypto.AESUtils.AesDecrypt(AESUtils.java:254)
+       at chb.test.crypto.AESUtils.main(AESUtils.java:40) 
+解决方法：
+经过检查之后，定位在生成KEY的方法上，如下：
+view plain copy to clipboard print ?
+
+    public static SecretKey getKey (String strKey) {  
+             try {           
+                KeyGenerator _generator = KeyGenerator.getInstance( "AES" );  
+                _generator.init(128, new SecureRandom(strKey.getBytes()));  
+                    return _generator.generateKey();  
+            }  catch (Exception e) {  
+                 throw new RuntimeException( " 初始化密钥出现异常 " );  
+            }  
+          }   
+
+修改到如下方式，问题解决：
+
+view plain copy to clipboard print ?
+
+    public static SecretKey getKey(String strKey) {  
+           try {           
+              KeyGenerator _generator = KeyGenerator.getInstance( "AES" );  
+               SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG" );  
+              secureRandom.setSeed(strKey.getBytes());  
+              _generator.init(128,secureRandom);  
+                  return _generator.generateKey();  
+          }  catch (Exception e) {  
+               throw new RuntimeException( " 初始化密钥出现异常 " );  
+          }  
+        }   
+
+
+原因分析
+
+SecureRandom 实现完全隨操作系统本身的內部狀態，除非調用方在調用 getInstance 方法之後又調用了 setSeed 方法；该实现在 windows 上每次生成的 key 都相同，但是在 solaris 或部分 linux 系统上则不同。
+
+原因二：
+
+1、加密完byte[] 后，需要将加密了的byte[] 转换成base64保存，如： 
+BASE64Encoder base64encoder = new BASE64Encoder(); 
+String encode=base64encoder.encode(bytes)； 
+
+2、解密前，需要将加密后的字符串从base64转回来再解密，如： 
+BASE64Decoder base64decoder = new BASE64Decoder(); 
+byte[] encodeByte = base64decoder.decodeBuffer(str); 
