@@ -7,3 +7,14 @@ db.CollectionNameGoesHere.aggregate({ $match: {
 { $group: { _id : null, sum : { $sum: "$incoming" } } });
 
 http://stackoverflow.com/questions/18969916/mongodb-sum-query
+
+
+
+
+db.getCollection('messages').aggregate([
+    {
+      $match:{date:{'$gte':ISODate("2016-08-31T04:28:00.000Z"),'$lt':ISODate("2016-08-31T04:47:00.000Z")}}
+    },
+    {
+    $group: {  _id : null,total : { $sum: "$size" }}
+    }]);  
