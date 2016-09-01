@@ -1,0 +1,9 @@
+db.CollectionNameGoesHere.aggregate({ $match: {
+    $and: [
+        { hour: { $gte: 11 } },
+        { hour: { $lte: 12 } }
+    ]
+} },
+{ $group: { _id : null, sum : { $sum: "$incoming" } } });
+
+http://stackoverflow.com/questions/18969916/mongodb-sum-query
