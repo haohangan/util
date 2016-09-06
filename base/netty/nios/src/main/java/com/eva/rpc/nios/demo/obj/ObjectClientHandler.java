@@ -7,15 +7,23 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class ObjectClientHandler extends ChannelInboundHandlerAdapter {
+
 	final static Logger LOG = Logger.getGlobal();
 	static {
 		LOG.setLevel(Level.INFO);
 	}
 
+	private Object obj;
+
+	public ObjectClientHandler(Object obj) {
+		super();
+		this.obj = obj;
+	}
+
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		LOG.info("channelActive");
-		ctx.writeAndFlush("hello world!");
+		ctx.writeAndFlush(obj);
 	}
 
 	@Override

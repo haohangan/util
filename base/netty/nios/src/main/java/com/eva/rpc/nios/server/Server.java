@@ -53,6 +53,7 @@ public class Server {
 		}
 	}
 
+	@Deprecated
 	public void run(ChannelHandler...ciha) {
 		LOG.info("Server starting...2");
 		EventLoopGroup bossGroup = new NioEventLoopGroup(1);
