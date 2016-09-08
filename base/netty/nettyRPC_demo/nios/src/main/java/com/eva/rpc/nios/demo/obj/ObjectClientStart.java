@@ -37,7 +37,7 @@ public class ObjectClientStart {
 		} else {
 			sslCtx = null;
 		}
-		final String HOST = "127.0.0.1";// ,8888
+		final String HOST = "10.1.2.249";// ,8888
 		final int PORT = 8888;
 		sw.start();
 //		int i = 0;

@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
-Implementation-Vendor: Pivotal Software, Inc.
 Implementation-Title: nios
 Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: root
 Implementation-Vendor-Id: com.eva.rpc
-Build-Jdk: 1.7.0_80
-Built-By: Administrator
+Build-Jdk: 1.8.0_73
 Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
 
