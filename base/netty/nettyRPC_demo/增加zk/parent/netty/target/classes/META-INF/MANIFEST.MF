@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-Title: netty
+Implementation-Version: 1.0
+Implementation-Vendor-Id: com.eva.rpc
+Build-Jdk: 1.7.0_80
+Built-By: Administrator
+Created-By: Maven Integration for Eclipse
+
