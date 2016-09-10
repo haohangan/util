@@ -1,6 +1,8 @@
 
 https://defensivecode.wordpress.com/2013/09/03/spring-security-xss/
 
+http://www.servletsuite.com/servlets/xssflt.htm     xss
+
 
 Defensive Code
 
