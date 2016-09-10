@@ -1,0 +1,17 @@
+2016-09-09 16:07:29  [ main:0 ] - [ INFO ]  Client environment:zookeeper.version=3.4.8--1, built on 02/06/2016 03:18 GMT
+2016-09-09 16:07:29  [ main:1 ] - [ INFO ]  Client environment:host.name=PC-20160618KLX9
+2016-09-09 16:07:29  [ main:2 ] - [ INFO ]  Client environment:java.version=1.7.0_80
+2016-09-09 16:07:29  [ main:2 ] - [ INFO ]  Client environment:java.vendor=Oracle Corporation
+2016-09-09 16:07:29  [ main:3 ] - [ INFO ]  Client environment:java.home=D:\work\jdk1.7\jre
+2016-09-09 16:07:29  [ main:3 ] - [ INFO ]  Client environment:java.class.path=D:\workspace\parent\zk\target\classes;D:\m2\org\apache\zookeeper\zookeeper\3.4.8\zookeeper-3.4.8.jar;D:\m2\org\slf4j\slf4j-api\1.7.21\slf4j-api-1.7.21.jar;D:\m2\org\slf4j\slf4j-log4j12\1.7.21\slf4j-log4j12-1.7.21.jar;D:\m2\log4j\log4j\1.2.17\log4j-1.2.17.jar;D:\m2\jline\jline\2.11\jline-2.11.jar;D:\m2\io\netty\netty\3.7.0.Final\netty-3.7.0.Final.jar;D:\m2\org\springframework\spring-context\4.3.2.RELEASE\spring-context-4.3.2.RELEASE.jar;D:\m2\org\springframework\spring-aop\4.3.2.RELEASE\spring-aop-4.3.2.RELEASE.jar;D:\m2\org\springframework\spring-beans\4.3.2.RELEASE\spring-beans-4.3.2.RELEASE.jar;D:\m2\org\springframework\spring-core\4.3.2.RELEASE\spring-core-4.3.2.RELEASE.jar;D:\m2\org\springframework\spring-expression\4.3.2.RELEASE\spring-expression-4.3.2.RELEASE.jar;D:\m2\commons-beanutils\commons-beanutils\1.9.2\commons-beanutils-1.9.2.jar;D:\m2\commons-collections\commons-collections\3.2.2\commons-collections-3.2.2.jar;D:\m2\commons-logging\commons-logging\1.2\commons-logging-1.2.jar
+2016-09-09 16:07:29  [ main:4 ] - [ INFO ]  Client environment:java.library.path=D:\work\jdk1.7\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:/work/jdk1.7/bin/../jre/bin/server;D:/work/jdk1.7/bin/../jre/bin;D:/work/jdk1.7/bin/../jre/lib/amd64;D:\work\jdk1.7\bin;D:\Program Files\TortoiseSVN\bin;D:\Program Files\Git\cmd;D:\tool\apache-maven-3.3.9\bin;D:\Program Files (x86)\Microsoft VS Code\bin;C:\Windows\System32;D:\work\gradle-3.0\bin;D:\work\eclipse;;.
+2016-09-09 16:07:29  [ main:4 ] - [ INFO ]  Client environment:java.io.tmpdir=C:\Users\ADMINI~1.PC-\AppData\Local\Temp\
+2016-09-09 16:07:29  [ main:4 ] - [ INFO ]  Client environment:java.compiler=<NA>
+2016-09-09 16:07:29  [ main:4 ] - [ INFO ]  Client environment:os.name=Windows 7
+2016-09-09 16:07:29  [ main:4 ] - [ INFO ]  Client environment:os.arch=amd64
+2016-09-09 16:07:29  [ main:4 ] - [ INFO ]  Client environment:os.version=6.1
+2016-09-09 16:07:29  [ main:4 ] - [ INFO ]  Client environment:user.name=Administrator
+2016-09-09 16:07:29  [ main:4 ] - [ INFO ]  Client environment:user.home=C:\Users\Administrator.PC-20160618KLXB
+2016-09-09 16:07:29  [ main:4 ] - [ INFO ]  Client environment:user.dir=D:\workspace\parent\zk
+2016-09-09 16:07:29  [ main:5 ] - [ INFO ]  Initiating client connection, connectString=127.0.0.1:2181 sessionTimeout=3000 watcher=zk.utils.demo.Demo$1@6879c0f4
+2016-09-09 16:07:29  [ main:9 ] - [ DEBUG ]  zookeeper.disableAutoWatchReset is false
