@@ -1,0 +1,3 @@
+<textarea disabled="" id="content">/&gt;&lt;script&gt;alert(document.cookie)&lt;/script&gt;&lt;!-</textarea>
+
+
