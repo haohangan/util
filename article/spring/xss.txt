@@ -1,0 +1,196 @@
+
+https://defensivecode.wordpress.com/2013/09/03/spring-security-xss/
+
+
+Defensive Code
+
+Learning new technologies
+
+Menu
+
+Skip to content
+Home
+About
+Introduction to NoSql
+ 
+Spring Security Cross-site Scripting
+
+September 3, 2013 by manavdewan
+xss 
+
+XSS is the most prevalent web application security flaw. XSS flaws occur when an application includes user supplied data in a page sent to the browser without properly validating or escaping that content. There are three known types of XSS flaws: 1) Stored, 2) Reflected, and 3)DOM based XSS.
+
+Detection of most XSS flaws is fairly easy via testing or code analysis.
+
+How Do I Prevent ¡®Cross-Site Scripting (XSS)¡¯?
+
+Prevention 1: HTML escaping
+
+The basic principle to follow in order to tackle these kind of attacks is to apply full HTML escaping on the form input. Convert all special characters into their corresponding HTML entity references (e.g. < into &lt;) as defined in HTML 4.01 recommendation. The script injection attacks work because the script becomes embedded in the HTML and gets executed by the browser when the HTML is rendered. After escaping, the script is no longer a valid script and gets embedded as just pure text.
+There are two approaches to the implementation of the above principle depending on exactly when the HTML escaping is applied.
+
+Approach#1: Escaping of Input
+
+This can be achieved by using two different ways
+
+Way#1: Escaping when form field values are bound to the form
+
+In the first approach, the escaping is applied at input-time when the form field values are bound to the form backing beans in the application. Since the HTML escaping gets applied to incoming data, the application sees and stores the values in the escaped form. When these values are displayed back on the web-site pages, the risk of a malicious script executing is no more there as the script is no more a valid script. The text gets rendered just as it was entered.
+
+When building a Spring MVC application using Spring¡¯s SimpleFormController, an easy way to do this is to hook into the form binding process. First, define a class that extends from java.beans.PropertyEditorSupport and takes care of converting form input strings to the corresponding backing bean field values and vice versa. You¡¯ll need to override two methods ¨C setAsText and getAsText as follows.
+
+import java.beans.PropertyEditorSupport;
+import org.springframework.web.util.HtmlUtils;
+
+public class HtmlEscapeStringEditor extends PropertyEditorSupport {
+    @Override
+    public void setAsText(String text) throws IllegalArgumentException {
+        String out = "";
+        if(text != null)
+            out = HtmlUtils.htmlEscape(text.trim());
+
+        setValue(out);
+    }
+
+    @Override
+    public String getAsText() {
+        String out = (String) getValue();
+        if(out == null)
+            out = "";
+        return out;
+    }
+}
+Way#2: Escaping all the request parameters with filters
+
+Using a XSS filter to filter out malicious request parameters by using HTML escaping.
+
+Here is a good and simple anti cross-site scripting (XSS) filter written for Java web applications. What it basically does is remove all suspicious strings from request parameters before returning them to the application. It¡¯s an improvement over my previous post on the topic.
+
+You should configure it as the first filter in your chain (web.xml) and it¡¯s generally a good idea to let it catch every request made to your site.
+
+The actual implementation consists of two classes, the actual filter is quite simple, it wraps the HTTP request object in a specialized HttpServletRequestWrapper that will perform our filtering.
+
+public class XSSFilter implements Filter {
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
+
+    @Override
+    public void destroy() {
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+        throws IOException, ServletException {
+        chain.doFilter(new XSSRequestWrapper((HttpServletRequest) request), response);
+    }
+
+}
+The wrapper overrides the getParameterValues(), getParameter() and getHeader() methods to execute the filtering before returning the desired field to the caller. The actual XSS checking and striping is performed in the stripXSS() private method.
+
+import java.util.regex.Pattern;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+
+public class XSSRequestWrapper extends HttpServletRequestWrapper {
+
+    private static Pattern[] patterns = new Pattern[]{
+        // Script fragments
+        Pattern.compile("<script>(.*?)</script>", Pattern.CASE_INSENSITIVE),
+        // src='...'
+        Pattern.compile("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL),
+        Pattern.compile("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL),
+        // lonely script tags
+        Pattern.compile("</script>", Pattern.CASE_INSENSITIVE),
+        Pattern.compile("<script(.*?)>", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL),
+        // eval(...)
+        Pattern.compile("eval\\((.*?)\\)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL),
+        // expression(...)
+        Pattern.compile("expression\\((.*?)\\)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL),
+        // javascript:...
+        Pattern.compile("javascript:", Pattern.CASE_INSENSITIVE),
+        // vbscript:...
+        Pattern.compile("vbscript:", Pattern.CASE_INSENSITIVE),
+        // onload(...)=...
+        Pattern.compile("onload(.*?)=", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL)
+    };
+
+    public XSSRequestWrapper(HttpServletRequest servletRequest) {
+        super(servletRequest);
+    }
+
+    @Override
+    public String[] getParameterValues(String parameter) {
+        String[] values = super.getParameterValues(parameter);
+
+        if (values == null) {
+            return null;
+        }
+
+        int count = values.length;
+        String[] encodedValues = new String[count];
+        for (int i = 0; i < count; i++) {
+            encodedValues[i] = stripXSS(values[i]);
+        }
+
+        return encodedValues;
+    }
+
+    @Override
+    public String getParameter(String parameter) {
+        String value = super.getParameter(parameter);
+
+        return stripXSS(value);
+    }
+
+    @Override
+    public String getHeader(String name) {
+        String value = super.getHeader(name);
+        return stripXSS(value);
+    }
+
+    private String stripXSS(String value) {
+        if (value != null) {
+            // NOTE: It's highly recommended to use the ESAPI library and uncomment the following line to
+            // avoid encoded attacks.
+            // value = ESAPI.encoder().canonicalize(value);
+
+            // Avoid null characters
+            value = value.replaceAll("", "");
+
+            // Remove all sections that match a pattern
+            for (Pattern scriptPattern : patterns){
+                value = scriptPattern.matcher(value).replaceAll("");
+            }
+        }
+        return value;
+    }
+}
+Way#3:Using JSoup XSS Api to Sanitize untrusted HTML.
+
+See the  XSS cheat sheet and filter evasion guide, as an example of how regular-expression filters don¡¯t work, and why a safe whitelist parser-based sanitizer is the correct approach
+
+Approach#2: Escaping of output
+With the previous approach, the values get stored in the application model and the persistence in their escaped form. Sometimes, this may not be the desired behavior. In such cases, we can take a second approach where we don¡¯t process the input at all and store the values on as-is basis. The HTML escaping is applied when rendering the value back on a page.
+Spring framework directly supports this at three different levels:
+Application level
+HTML escaping for all Spring tags can be turned on at the application level by specifying a context parameter named defaultHtmlEscape in the web.xml and setting it to true:
+
+<context-param>
+<param-name>defaultHtmlEscape</param-name>
+<param-value>true</param-value>
+</context-param>
+If the value is specified as false, no escaping will be applied to any of the tags. Note that the default behavior, when no defaultHtmlEscape context parameter is defined, is to apply HTML escaping to all Spring tags in the form tag library (that render values), but not to the other tags that merely expose values but don¡¯t render the values themselves.
+Page level
+Spring can be asked to turn on/off HTML escaping for all form tags on a specific page by using a Spring tag declaration at the top of the page:
+
+<spring:htmlEscape defaultHtmlEscape="true" />
+Only the form tags declared after the above tag declaration will use HTML escaping. If we want it to apply to all the tags on the page, it should be declared before all of them.
+Tag level
+Spring can be asked to turn HTML escaping on/off for a specific form tag by setting the htmlEscape attribute of the form tag to true:
+
+<form:input path="name" htmlEscape="true" />
+Which approach to take?
+Which approach you should take depends on the kind of application you are developing. Can your application afford to store form inputs as they were entered or do you think that even that might be risky. It could be risky due to the ways that data is used elsewhere in the application. Thus, escaping at input-time provides somewhat better security. On the other hand, in some cases, it may be desirable that values be stored as-is due to some dependency and you will use escaping at output-time. Note that even if you decide to do escaping at input-time, you can always de-escape the data before it is used elsewhere in the application, if need be. However, it must never be de-escaped on the way to the JSPs. That¡¯s the whole idea basically.
+Now a *caveat*: In most applications, JSP pages are built by mixing Spring¡¯s form tags with the standard JSTL tags as well as JSP 2.0¡äs embedded ${¡­} expressions. While the JSTL¡¯a <c:out> tag performs XML escaping (which is sufficient for most modern browsers), the embedded ${¡­} expressions do not perform any kind of escaping! So apart from using the above described mechanisms to perform HTML escaping for Spring¡¯s form tags, any embedded use of ${¡­} must to be replaced with <c:out value=¡±${¡­}¡±/> in order to guard against CSS attacks!
