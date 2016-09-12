@@ -1,0 +1,102 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.eva.rpc</groupId>
+	<artifactId>parent</artifactId>
+	<version>${global.version}</version>
+	<packaging>pom</packaging>
+
+	<name>parent</name>
+	<url>http://maven.apache.org</url>
+
+	<parent>
+		<groupId>io.spring.platform</groupId>
+		<artifactId>platform-bom</artifactId>
+		<version>2.0.7.RELEASE</version>
+		<!-- <type>pom</type> -->
+		<!-- <scope>import</scope> -->
+	</parent>
+
+	<properties>
+		<global.version>1.0</global.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.version>4.3.2.RELEASE</spring.version>
+		<commons-beanutils.version>1.9.2</commons-beanutils.version>
+		<commons-lang3.version>3.4</commons-lang3.version>
+		<commons-io.version>2.5</commons-io.version>
+		<guava.version>19.0</guava.version>
+	</properties>
+
+	<dependencies>
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<!-- Spring.end -->
+
+		<!-- apache utils -->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<!-- apache utils.end -->
+
+		<!--guava utils -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<!-- <version>19.0</version> -->
+		</dependency>
+
+		<!--guava utils.end -->
+
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<!-- <version>3.5.1</version> -->
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<!-- <version>3.0.1</version> -->
+			</plugin>
+
+		</plugins>
+	</build>
+	<modules>
+		<module>intfs</module>
+		<module>impl</module>
+		<module>server</module>
+		<module>client</module>
+		<module>netty</module>
+		<module>zk</module>
+		<module>jmh-test</module>
+		<module>common-utils</module>
+	</modules>
+</project>
