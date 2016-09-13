@@ -1,5 +1,6 @@
 package impl.reader;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +23,7 @@ public class ClassReader {
 		return clazzs;
 	}
 
-	public static Class<?>[] readAll(String... paths) {
+	public static Class<?>[] readAll(String... paths) throws IOException {
 		Set<Class<?>> classes = new HashSet<>();
 		for (String path : paths) {
 			classes.addAll(PackUtils.getClassFromPackage(path));

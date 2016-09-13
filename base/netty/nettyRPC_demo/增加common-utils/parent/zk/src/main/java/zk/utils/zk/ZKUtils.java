@@ -15,6 +15,7 @@ import org.apache.zookeeper.ZooKeeper;
 import zk.utils.vo.NodeInfo;
 import zk.utils.vo.PathNode;
 
+@Deprecated
 public enum ZKUtils {
 	INSTANCE;
 
