@@ -4,21 +4,25 @@ import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Rule;
 
-@Rule(name="demorule")
+@Rule(name = "demorule")
 public class DemoRule {
-   
+
+	private String input;
+
 	@Condition
-	public boolean when(){
-		return Boolean.TRUE;
+	public boolean when() {
+		if ("yes".equals(input)) {
+			return Boolean.TRUE;
+		}
+		return Boolean.FALSE;
 	}
-	
-	@Action(order=1)
-    public void then(){
-    	System.out.println("then...");
-    }
-	
-	@Action(order=2)
-    public void then2(){
-    	System.out.println("222222");
-    }
+
+	@Action(order = 0)
+	public void then() {
+		System.out.println("then...");
+	}
+
+	public void setInput(String input) {
+		this.input = input;
+	}
 }

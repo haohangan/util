@@ -14,5 +14,10 @@
 			<artifactId>intfs</artifactId>
 			<version>${global.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.eva.rpc</groupId>
+			<artifactId>common-utils</artifactId>
+			<version>${global.version}</version>
+		</dependency>
 	</dependencies>
 </project>

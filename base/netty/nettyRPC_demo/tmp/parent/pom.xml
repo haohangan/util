@@ -24,6 +24,8 @@
 		<spring.version>4.3.2.RELEASE</spring.version>
 		<commons-beanutils.version>1.9.2</commons-beanutils.version>
 		<commons-lang3.version>3.4</commons-lang3.version>
+		<commons-io.version>2.5</commons-io.version>
+		<guava.version>19.0</guava.version>
 	</properties>
 
 	<dependencies>
@@ -49,7 +51,28 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
 		<!-- apache utils.end -->
+
+		<!--guava utils -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<!-- <version>19.0</version> -->
+		</dependency>
+
+		<!--guava utils.end -->
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 
 	</dependencies>
 
@@ -80,5 +103,6 @@
 		<module>netty</module>
 		<module>zk</module>
 		<module>jmh-test</module>
+		<module>common-utils</module>
 	</modules>
 </project>
