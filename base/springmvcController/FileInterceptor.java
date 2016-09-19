@@ -65,3 +65,12 @@ public class FileInterceptor extends HandlerInterceptorAdapter {
 		return false;
 	}
 }
+
+
+String[] arr = fileName.split("\\.");
+		if (arr != null && arr.length > 1) {
+			String ext = arr[arr.length - 1];
+			if (suffix.contains(ext)) {
+				return true;
+			}
+		}
