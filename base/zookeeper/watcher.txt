@@ -1,0 +1,20 @@
+/**
+	 * watchFlag 设置是否观察（解决是否立即返回查询的值），false 立即返回，true 改变时返回改变前的值
+	 */
+	@Override
+	public String getZNodeData(String path, boolean watchFlag) throws KeeperException, InterruptedException {
+		Stat stat = getZNodeStats(path);
+		String rtnData = null;
+		if (stat != null) {
+			byte[] bytes = null;
+			if (watchFlag) {
+				ZKWatcher watcher = new ZKWatcher();
+				bytes = zk.getData(path, watcher, stat);
+				watcher.await();
+			} else {
+				bytes = zk.getData(path, false, stat);
+			}
+			rtnData = new String(bytes, StandardCharsets.UTF_8);
+		}
+		return rtnData;
+	}
