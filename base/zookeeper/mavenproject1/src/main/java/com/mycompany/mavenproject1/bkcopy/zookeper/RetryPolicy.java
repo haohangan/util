@@ -11,5 +11,8 @@ package com.mycompany.mavenproject1.bkcopy.zookeper;
  * @author gh
  */
 public interface RetryPolicy {
-    
+
+    boolean allowRetry(int retryCount, long elapsedRetryTime);
+
+    long nextRetryWaitTime(int retryCount, long elapsedRetryTime);
 }

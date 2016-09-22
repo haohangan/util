@@ -5,6 +5,7 @@
  */
 package com.mycompany.mavenproject1.bkcopy.zookeper;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicReference;
@@ -26,7 +27,16 @@ public class ZookeeperClient {
 //    
 //    private final ScheduledExecutorService retryExecutor;
 //    private final ExecutorService connectExecutor;
-    
-    //polices
-    
+//    
+//    //polices
+//    private final RetryPolicy connectRetryPolicy;
+//    private final RetryPolicy operationRetryPolicy;
+//    
+//    private final Callable<ZooKeeper> clientCreator = new Callable<ZooKeeper>() {
+//        @Override
+//        public ZooKeeper call() throws Exception {
+//            
+//            return null;
+//        }
+//    };
 }
