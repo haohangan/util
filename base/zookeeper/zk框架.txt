@@ -1,0 +1,17 @@
+http://bigplus.github.io/%E5%9F%BA%E4%BA%8Ezookeeper%E5%AE%9E%E7%8E%B0HA.html
+
+在此我们推荐Curator这个框架，它为我们很好的封装了Zookeeper的基本操作，同时屏蔽了繁琐的Zookeeper连接等操作。
+CuratorFramework简介
+CuratorFramework极大的简化了ZooKeeper的使用，它提供了high-level的API，并且基于ZooKeeper添加了很多特性，包括
+1.自动连接管理：连接到ZooKeeper的Client有可能会连接中断，Curator处理了这种情况，对于Client来说自动重连是透明的。
+2.简洁的API：简化了原生态的ZooKeeper的方法，事件等；提供了一个简单易用的接口。
+3.Recipe的实现（更多介绍请点击Recipes）：
+Leader的选择
+共享锁
+缓存和监控
+分布式的队列
+分布式的优先队列
+基于Curator实现HA，100行代码就可以搞定，在此不做代码描述，站在的巨人的肩膀上，谁又会去重复发明轮子呢？
+
+
+http://curator.apache.org/getting-started.html#
