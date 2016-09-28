@@ -1,0 +1,5 @@
+配置好maven环境，在cmd模式下进入项目所在目录，然后用如下2种命令都可以生成html格式doc文档：
+
+　　1：mvn javadoc:jar          文档生成在项目的target\apidocs目录下；
+
+　　2：mvn javadoc:javadoc   文档生成在项目的target\site\apidocs目录下。
