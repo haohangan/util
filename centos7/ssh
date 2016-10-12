@@ -1,0 +1,24 @@
+Linux 下开启ssh服务
+在虚拟机里安装完后，想往虚拟机里拷贝软件 当使用Xmanager ftp连接时候 出现 连接不上的问题，其解决方案如下：
+
+ 
+
+1、修改sshd_config文件，命令为：vi /etc/ssh/sshd_config
+ 
+ 
+ 
+2、将#PasswordAuthentication no的注释去掉，并且将NO修改为YES
+ 
+ 
+ 
+3、将#PermitRootLogin yes的注释去掉
+ 
+ 
+4、验证SSH服务状态，命令为：/etc/init.d/sshd status
+ 
+ 
+5、重新启动SSH服务，命令为：/etc/init.d/sshd restart
+ 
+这样子就能连接上了。
+
+http://www.cnblogs.com/zhangyongli2011/archive/2011/10/11/2207269.html
