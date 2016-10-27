@@ -1,0 +1,11 @@
+syntax = "proto3";
+package tutorial;
+option java_package = "org.eva.id.xt";
+option java_outer_classname = "GHProtos";
+
+
+message gh{
+string name = 1;
+int32 id = 2;
+string mail = 3;
+}
