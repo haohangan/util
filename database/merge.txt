@@ -1,0 +1,40 @@
+http://stackoverflow.com/questions/15760760/mysql-merge-rows
+
+I have this table:
+
+ip   country
+
+1     A
+2     A
+3     B
+4     B
+4     B
+I am trying to write a query, which will return something like:
+
+A 1,2
+B 3,4
+E.g. SELECT * FROM table GROUP BY country returns:
+
+A 1
+B 3
+
+
+
+
+
+answer£º
+
+SELECT country, GROUP_CONCAT(DISTINCT ip SEPARATOR ',') AS ips 
+FROM my_table 
+GROUP BY country
+
+
+
+SELECT country, GROUP_CONCAT(DISTINCT ip SEPARATOR ',') AS ids 
+FROM my_table 
+GROUP BY country
+
+
+SELECT country, GROUP_CONCAT(ip)
+FROM table1
+GROUP BY country
