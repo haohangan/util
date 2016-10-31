@@ -1,0 +1,7 @@
+te user 'eva'@'192.168.0.105' identified by 'tiger';
+grant all on *.* to 'eva'@'192.168.0.105' with grant option;
+
+
+
+create user 'cat'@'%' identified by 'tiger';
+grant all on *.* to 'cat'@'%' with grant option;
