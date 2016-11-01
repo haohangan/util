@@ -1,2 +1,5 @@
 http://share.zhbor.com/article/40900.html
 http://tecadmin.net/install-and-configure-haproxy-on-centos/
+
+
+https://wizardforcel.gitbooks.io/puppet-27-cookbook/content/107.html
