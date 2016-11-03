@@ -1,0 +1,91 @@
+select PM_MOVIE_CODE,                    
+sum(case when PM_MATERIAL_CODE = '01' then PM_MATERIAL_NUM end) as "03"                   ,
+sum(case when PM_MATERIAL_CODE = '02' then PM_MATERIAL_NUM end) as "01"                   , 
+sum(case when PM_MATERIAL_CODE = '03' then PM_MATERIAL_NUM end) as "02"                   , 
+sum(case when PM_MATERIAL_CODE = '04' then PM_MATERIAL_NUM end) as "04"                   , 
+sum(case when PM_MATERIAL_CODE = '05' then PM_MATERIAL_NUM end) as "05"                   , 
+sum(case when PM_MATERIAL_CODE = '06' then PM_MATERIAL_NUM end) as "06"                   , 
+sum(case when PM_MATERIAL_CODE = '07' then PM_MATERIAL_NUM end) as "07"                   , 
+sum(case when PM_MATERIAL_CODE = '08' then PM_MATERIAL_NUM end) as "08"                   , 
+sum(case when PM_MATERIAL_CODE = '09' then PM_MATERIAL_NUM end) as "09"                   , 
+sum(case when PM_MATERIAL_CODE = '10' then PM_MATERIAL_NUM end) as "10"                   , 
+sum(case when PM_MATERIAL_CODE = '11' then PM_MATERIAL_NUM end) as "11"                   , 
+sum(case when PM_MATERIAL_CODE = '12' then PM_MATERIAL_NUM end) as "12"                   , 
+sum(case when PM_MATERIAL_CODE = '13' then PM_MATERIAL_NUM end) as "13"                 
+from PM_ALLOCATE_MOVIE                          
+group by PM_MOVIE_CODE
+
+select PM_MOVIE_CODE,                    
+sum(case when PM_MATERIAL_CODE = '01' then PM_MATERIAL_NUM end) as A                   ,
+sum(case when PM_MATERIAL_CODE = '02' then PM_MATERIAL_NUM end) as B                   , 
+sum(case when PM_MATERIAL_CODE = '03' then PM_MATERIAL_NUM end) as C                   , 
+sum(case when PM_MATERIAL_CODE = '04' then PM_MATERIAL_NUM end) as D                   , 
+sum(case when PM_MATERIAL_CODE = '05' then PM_MATERIAL_NUM end) as E                   , 
+sum(case when PM_MATERIAL_CODE = '06' then PM_MATERIAL_NUM end) as F                   , 
+sum(case when PM_MATERIAL_CODE = '07' then PM_MATERIAL_NUM end) as G                   , 
+sum(case when PM_MATERIAL_CODE = '08' then PM_MATERIAL_NUM end) as H                   , 
+sum(case when PM_MATERIAL_CODE = '09' then PM_MATERIAL_NUM end) as I                   , 
+sum(case when PM_MATERIAL_CODE = '10' then PM_MATERIAL_NUM end) as J                   , 
+sum(case when PM_MATERIAL_CODE = '11' then PM_MATERIAL_NUM end) as K                   , 
+sum(case when PM_MATERIAL_CODE = '12' then PM_MATERIAL_NUM end) as L                   , 
+sum(case when PM_MATERIAL_CODE = '13' then PM_MATERIAL_NUM end) as M                 
+from PM_ALLOCATE_MOVIE                          
+group by PM_MOVIE_CODE
+
+
+----- ok .
+
+
+
+---error
+select PM_MOVIE_CODE,                    
+sum(case when PM_MATERIAL_CODE = "01" then PM_MATERIAL_NUM end) as "03"                   ,
+sum(case when PM_MATERIAL_CODE = "02" then PM_MATERIAL_NUM end) as "01"                   , 
+sum(case when PM_MATERIAL_CODE = "03" then PM_MATERIAL_NUM end) as "02"                   , 
+sum(case when PM_MATERIAL_CODE = "04" then PM_MATERIAL_NUM end) as "04"                   , 
+sum(case when PM_MATERIAL_CODE = "05" then PM_MATERIAL_NUM end) as "05"                   , 
+sum(case when PM_MATERIAL_CODE = "06" then PM_MATERIAL_NUM end) as "06"                   , 
+sum(case when PM_MATERIAL_CODE = "07" then PM_MATERIAL_NUM end) as "07"                   , 
+sum(case when PM_MATERIAL_CODE = "08" then PM_MATERIAL_NUM end) as "08"                   , 
+sum(case when PM_MATERIAL_CODE = "09" then PM_MATERIAL_NUM end) as "09"                   , 
+sum(case when PM_MATERIAL_CODE = "10" then PM_MATERIAL_NUM end) as "10"                   , 
+sum(case when PM_MATERIAL_CODE = "11" then PM_MATERIAL_NUM end) as "11"                   , 
+sum(case when PM_MATERIAL_CODE = "12" then PM_MATERIAL_NUM end) as "12"                   , 
+sum(case when PM_MATERIAL_CODE = "13" then PM_MATERIAL_NUM end) as "13"                 
+from PM_ALLOCATE_MOVIE                          
+group by PM_MOVIE_CODE
+
+
+select PM_MOVIE_CODE,                    
+sum(case when PM_MATERIAL_CODE = "01" then PM_MATERIAL_NUM end) as 03                   ,
+sum(case when PM_MATERIAL_CODE = "02" then PM_MATERIAL_NUM end) as 01                   , 
+sum(case when PM_MATERIAL_CODE = "03" then PM_MATERIAL_NUM end) as 02                   , 
+sum(case when PM_MATERIAL_CODE = "04" then PM_MATERIAL_NUM end) as 04                   , 
+sum(case when PM_MATERIAL_CODE = "05" then PM_MATERIAL_NUM end) as 05                   , 
+sum(case when PM_MATERIAL_CODE = "06" then PM_MATERIAL_NUM end) as 06                   , 
+sum(case when PM_MATERIAL_CODE = "07" then PM_MATERIAL_NUM end) as 07                   , 
+sum(case when PM_MATERIAL_CODE = "08" then PM_MATERIAL_NUM end) as 08                   , 
+sum(case when PM_MATERIAL_CODE = "09" then PM_MATERIAL_NUM end) as 09                   , 
+sum(case when PM_MATERIAL_CODE = "10" then PM_MATERIAL_NUM end) as 10                   , 
+sum(case when PM_MATERIAL_CODE = "11" then PM_MATERIAL_NUM end) as 11                   , 
+sum(case when PM_MATERIAL_CODE = "12" then PM_MATERIAL_NUM end) as 12                   , 
+sum(case when PM_MATERIAL_CODE = "13" then PM_MATERIAL_NUM end) as 13                 
+from PM_ALLOCATE_MOVIE                          
+group by PM_MOVIE_CODE
+
+select PM_MOVIE_CODE,                    
+sum(case when PM_MATERIAL_CODE = '01' then PM_MATERIAL_NUM end) as 03                   ,
+sum(case when PM_MATERIAL_CODE = '02' then PM_MATERIAL_NUM end) as 01                   , 
+sum(case when PM_MATERIAL_CODE = '03' then PM_MATERIAL_NUM end) as 02                   , 
+sum(case when PM_MATERIAL_CODE = '04' then PM_MATERIAL_NUM end) as 04                   , 
+sum(case when PM_MATERIAL_CODE = '05' then PM_MATERIAL_NUM end) as 05                   , 
+sum(case when PM_MATERIAL_CODE = '06' then PM_MATERIAL_NUM end) as 06                   , 
+sum(case when PM_MATERIAL_CODE = '07' then PM_MATERIAL_NUM end) as 07                   , 
+sum(case when PM_MATERIAL_CODE = '08' then PM_MATERIAL_NUM end) as 08                   , 
+sum(case when PM_MATERIAL_CODE = '09' then PM_MATERIAL_NUM end) as 09                   , 
+sum(case when PM_MATERIAL_CODE = '10' then PM_MATERIAL_NUM end) as 10                   , 
+sum(case when PM_MATERIAL_CODE = '11' then PM_MATERIAL_NUM end) as 11                   , 
+sum(case when PM_MATERIAL_CODE = '12' then PM_MATERIAL_NUM end) as 12                   , 
+sum(case when PM_MATERIAL_CODE = '13' then PM_MATERIAL_NUM end) as 13                 
+from PM_ALLOCATE_MOVIE                          
+group by PM_MOVIE_CODE
