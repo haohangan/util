@@ -89,3 +89,20 @@ sum(case when PM_MATERIAL_CODE = '12' then PM_MATERIAL_NUM end) as 12           
 sum(case when PM_MATERIAL_CODE = '13' then PM_MATERIAL_NUM end) as 13                 
 from PM_ALLOCATE_MOVIE                          
 group by PM_MOVIE_CODE
+
+
+
+
+<sql id="baseSql">
+		<![CDATA[
+		    select PAM.*,PM.PM_MOVIE_NAME from (
+		    select PM_MOVIE_CODE,]]>
+		     <foreach collection="codes" separator="," item="code">
+		     <![CDATA[sum(case when PM_MATERIAL_CODE = #{code,jdbcType=VARCHAR} then PM_MATERIAL_NUM end) as "${code}"]]>
+		     </foreach>   
+		<![CDATA[from PM_ALLOCATE_MOVIE]]>
+		<include refid="Where_Clause"></include>
+		<![CDATA[group by PM_MOVIE_CODE
+		) PAM left join PM_MOVIE PM on PAM.PM_MOVIE_CODE = PM.PM_MOVIE_CODE
+		]]>
+	</sql>
