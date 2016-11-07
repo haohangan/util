@@ -1,0 +1,56 @@
+http://www.w3dev.cn/article/20140610/easyui-datagrid-getChecked-return-error-rows.aspx
+
+症状：调用easyui datagrid的getChecked方法获取勾选的数据集合时，无法正确获取勾选的记录集合，只能获取到第一条记录信息，或者获取到idField指定的列中非重复数据行。
+
+ 
+
+　　分析：出现这个问题，是因为配置了idField的问题，Field即是指定那个列为唯一ID，如果Field配置的值不在返回的数据列里面，或者idField配置的值在返回的数据列里面，但是此列中存在重复的值就会出现上面的症状。
+
+ 
+
+1）测试代码如下，idField配置正确，但是id列存在重复值，导致只能获取重复的列值的第一行数据
+
+datagrid getChecked获取的数据不正确
+－收缩HTML代码　　运行代码　　[如果运行无效果，请自行将源代码保存为html文件运行]
+<script>
+        function CsmOrder() {
+            var rows = $('#dg').datagrid('getChecked');
+            console.log(rows)
+        }
+    </script>
+<table id="dg" class="easyui-datagrid" title="datagrid getChecked获取的数据不正确" style="width:300px;height:250px"
+data-options="idField:'productid',toolbar:[{text:'输出选择的行',handler:CsmOrder}],url:'products1.json',method:'get'">
+<thead>
+<tr>
+<th data-options="field:'ck',checkbox:true"></th>
+<th data-options="field:'productid'">Product ID</th>
+<th data-options="field:'productname'">Product Name</th>
+</tr>
+</thead>
+</table>
+
+2）测试代码如下，idField配置错误，只能获取第一行数据
+
+datagrid getChecked获取的数据不正确
+－收缩HTML代码　　运行代码　　[如果运行无效果，请自行将源代码保存为html文件运行]
+<script>
+        function CsmOrder() {
+            var rows = $('#dg').datagrid('getChecked');
+            console.log(rows)
+        }
+    </script>
+<table id="dg" class="easyui-datagrid" title="datagrid getChecked获取的数据不正确" style="width:300px;height:250px"
+data-options="idField:'productidx',toolbar:[{text:'输出选择的行',handler:CsmOrder}],url:'products1.json',method:'get'">
+<thead>
+<tr>
+<th data-options="field:'ck',checkbox:true"></th>
+<th data-options="field:'productid'">Product ID</th>
+<th data-options="field:'productname'">Product Name</th>
+</tr>
+</thead>
+</table>
+
+　　解决办法：easyui datagrid要想获取勾选的数据行，去掉idField配置，或者正确配置idField，配置的列数据不能出现重复，这样才能正确获取所有勾选的数据行。
+ 
+
+　　idField配置不正确还会导致这个问题：easyui datagrid idField设置错误勾选记录导致翻页后记录被全选
