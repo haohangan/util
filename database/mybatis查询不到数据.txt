@@ -1,0 +1,32 @@
+create table PM_COMMENT 
+(
+   PM_COMM_ID           VARCHAR(64),
+   PM_COMM_CONTENT      VARCHAR(500),
+   PM_COMM_USER         VARCHAR(20),
+   PM_COMM_DATE         DATE,
+   PM_COMM_CINEMA       CHAR(10),
+   PM_COMM_MOVIE        CHAR(10),
+   PM_COMM_MONTH        CHAR(10)
+);
+
+comment on table PM_COMMENT is
+'保存影城物料分配评论';
+
+建表错误
+
+应该是
+create table PM_COMMENT 
+(
+   PM_COMM_ID           VARCHAR(64),
+   PM_COMM_CONTENT      VARCHAR(500),
+   PM_COMM_USER         VARCHAR(20),
+   PM_COMM_DATE         DATE,
+   PM_COMM_CINEMA       VARCHAR(64),
+   PM_COMM_MOVIE        VARCHAR(64),
+   PM_COMM_MONTH        VARCHAR(7)
+);
+
+comment on table PM_COMMENT is
+'保存影城物料分配评论';
+
+mybatis里面用 jdbctype=varchar 查询不了
