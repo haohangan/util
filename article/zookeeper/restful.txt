@@ -1,0 +1,9 @@
+https://www.ibm.com/developerworks/cn/web/wa-aj-tomcat/
+
+https://jersey.java.net/documentation/latest/
+
+https://jersey.java.net/
+
+http://www.infoq.com/cn/news/2008/09/jsr311-approved
+
+https://jcp.org/en/jsr/detail?id=3
