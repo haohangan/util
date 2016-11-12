@@ -1,6 +1,6 @@
 http://www.cnblogs.com/hudingbo/p/3597223.html
 
-Throwable 是所有 Java 程序中错误处理的父类 ，有两种资类： Error 和 Exception 。
+Throwable 是所有 Java 程序中错误处理的父类 ，有两种子类： Error 和 Exception 。
 
    Error ：表示由 JVM 所侦测到的无法预期的错误，由于这是属于 JVM 层次的严重错误 ，导致 JVM 无法继续执行，因此，这是不可捕捉到的，无法采取任何恢复的操作，顶多只能显示错误信息。
 
