@@ -1,0 +1,17 @@
+http://blog.csdn.net/xiaoping8411/article/details/4822980
+DTD 类型约束文件
+    1. Window->Preferences->XML->XML Catalog->User Specified Entries窗口中,选择Add 按纽
+       
+    2.在Add XML Catalog Entry 对话框中选择或输入以下内容:
+        Location: F:/soft/programmingSoft/Framework/Ibatis/sql-map-config-2.dtd
+        Key Type: URI
+        KEY: http://ibatis.apache.org/dtd/sql-map-config-2.dtd
+       
+XSD 类型约束文件
+
+    1. Window->Preferences->XML->XML Catalog->User Specified Entries窗口中,选择Add 按纽
+       
+    2.在Add XML Catalog Entry 对话框中选择或输入以下内容:
+        Location: F:/soft/programmingSoft/Framework/spring/spring-framework-2.5.6.SEC01-with-dependencies/spring-framework-2.5.6.SEC01/dist/resources/spring-beans-2.5.xsd
+        Key Type: Schema Location
+        KEY: http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
