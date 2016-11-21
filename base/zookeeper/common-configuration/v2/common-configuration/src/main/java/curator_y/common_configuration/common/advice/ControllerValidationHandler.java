@@ -23,9 +23,12 @@ public class ControllerValidationHandler {
 		BindingResult result = ex.getBindingResult();
 		List<FieldError> error = result.getFieldErrors();
 		Set<String> set = new HashSet<String>();
-		error.forEach((f)->{
+//		error.forEach((f)->{
+//			set.add(f.getDefaultMessage());
+//		});
+		for(FieldError f:error){
 			set.add(f.getDefaultMessage());
-		});
+		}
 		return new MessageDTO(set, MessageType.ERROR);
 	}
 }

@@ -12,11 +12,15 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
+/**
+ * 管理公共配置的类
+ * @author YKSE
+ *
+ */
 @Component
 public class CuratorStart implements DisposableBean, InitializingBean {
-	@Value("${server.appname}")
-	private String APP_NAME;
+	@Value("${server.node.name}")
+	private String NODE_NAME;
 
 	@Value("${zookeeper.connectString}")
 	private String connectString;
@@ -39,7 +43,7 @@ public class CuratorStart implements DisposableBean, InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		String path = "/" + APP_NAME;
+		String path = NODE_NAME;
 		System.out.println("初始化zookeeper连接...");
 		System.out.println("connectString:" + connectString);
 		RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
