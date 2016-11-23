@@ -1,0 +1,2 @@
+a go-between
+reduce communication complexity between objects or classes
