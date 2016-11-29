@@ -1,0 +1,32 @@
+http://stackoverflow.com/questions/354070/sql-join-where-clause-vs-on-clause 
+490
+down vote
+accepted
+	
+
+They are not the same thing.
+
+Consider these queries:
+
+SELECT *
+FROM Orders
+LEFT JOIN OrderLines ON OrderLines.OrderID=Orders.ID
+WHERE Orders.ID = 12345
+
+and
+
+SELECT *
+FROM Orders
+LEFT JOIN OrderLines ON OrderLines.OrderID=Orders.ID 
+    AND Orders.ID = 12345
+
+The first will return an order and its lines, if any, for order number 12345. The second will return all orders, but only order 12345 will have any lines associated with it.
+
+With an INNER JOIN, the clauses are effectively equivalent. However, just because they are functionally the same, in that they produce the same results, does not mean the two kinds of clauses have the same semantic meaning.
+
+
+在INNER JOINs上，它们是可以互换的，优化器会随意重新排列它们。
+
+在OUTER JOIN上，它们不一定是可互换的，这取决于它们依赖的连接的哪一侧。
+
+我把它们放在任何一个地方，取决于可读性。
