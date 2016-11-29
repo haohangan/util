@@ -1,0 +1,22 @@
+http://stackoverflow.com/questions/26864662/how-to-solve-the-error-the-system-cannot-find-the-file-c-programdata-oracle-ja
+ 33
+down vote
+	
+
+I've got a similar problem I'm currently working on solving. I can't say this will solve your error since there may be issues with other software (which is my case with Eclipse Luna).
+
+Java is using the path given in your PATH variable, which is,
+
+  C:\ProgramData\Oracle\Java\javapath
+
+Go to this folder (ProgramData is hidden, so unhide it if necessary) and right click on the java.exe symlink. You'll see in the Target field where it's looking for java.exe. It may be pointing to the java.exe file from your previous jdk1.6.0_45 install. Either paste in new shortcuts here or change the PATH setting as others have mentioned.
+
+I've found that the Java installer doesn't change the javapath or update the system path, at least when going from 1.8 to 1.7. In my case changing the shortcuts only led to a problem with Eclipse on startup.
+
+EDIT:----- After playing with javapath folder shortcuts it turns out you need symlinks, at least for Eclipse. See, Windows how to create directory symlink.
+
+You don't need the /d switch for a file symlink,
+
+  mklink java.exe "C:\Program Files\Java\jdk1.8.0_20\bin\java.exe"
+  mklink javaw.exe "C:\Program Files\Java\jdk1.8.0_20\bin\javaw.exe"
+  mklink javaws.exe "C:\Program Files\Java\jdk1.8.0_20\bin\javaws.exe"
