@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: testZookeeperApp
+  cloud: 
+    zookeeper: 
+          connect-string: localhost:2181
+          discovery: 
+            instanceHost: 127.0.0.1
+            instancePort: ${server.port}
+          dependencies:
+              newsletter:
+                path: /demo
+                loadBalancerType: ROUND_ROBIN
+                contentTypeTemplate: application/vnd.newsletter.$version+text
+                version: v1
+                headers:
+                  Accept:
+                      - text/html
+                      - application/xhtml+xml
+                  Cache-Control:
+                      - no-cache
+                required: false
+                stubs: demo:nboot:stubs
