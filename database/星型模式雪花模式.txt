@@ -1,0 +1,1 @@
+http://www.ibm.com/support/knowledgecenter/zh/SSCPX3_9.5.0/com.ibm.db2.abx.cub.doc/abx-c-cube-starsnowschemas.html
