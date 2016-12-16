@@ -20,10 +20,32 @@ public class FileU3 {
 
 	public static void main(String[] args) throws IOException {
 		// in memory
-		// RandomAccessFile raf = new
-		// RandomAccessFile(Paths.get("D://a.txt").toFile(), "r");
+//		 RandomAccessFile raf = new
+//		 RandomAccessFile(Paths.get("D://a.txt").toFile(), "r");
+//		 System.out.println(getEnd(raf,9,17));
 //		divide("D://", "a.txt", 2);
-		divide(Baseuri, "gv_ticket_report.sql", 8);
+//		divide(Baseuri, "gv_ticket_report.sql", 8);
+		divide2(Baseuri, "gv_ticket_report.sql", 32);
+	}
+	
+	public static void divide2(String baseUri, String fileName, int num) throws IOException {
+		Path path = Paths.get(baseUri, fileName);
+		long total = Files.size(path);
+		int size = (int) (total / num);
+		Stopwatch watch = Stopwatch.createStarted();
+		RandomAccessFile raf = new RandomAccessFile(path.toFile(), "rw");
+		int start = 0;
+		Files.createDirectories(Paths.get(baseUri + "\\new\\"));
+		for (int i = 0; i < num; i++) {
+			byte[] bytes = readFromPosition(raf, start, size);
+			String newFileName = newName(fileName, i);
+			Path newFilePath = Paths.get(baseUri + "\\new\\", newFileName);
+			Files.createFile(newFilePath);
+			writeToFile(newFilePath, bytes);
+		}
+		raf.close();
+		watch.stop();
+		System.out.println("耗时：" + watch.elapsed(TimeUnit.SECONDS));
 	}
 
 	public static void divide(String baseUri, String fileName, int num) throws IOException {
@@ -37,7 +59,7 @@ public class FileU3 {
 		Files.createDirectories(Paths.get(baseUri + "\\new\\"));
 		for (int i = 0; i < num; i++) {
 			start = i * realSize;
-			realSize = getEnd(raf, start + size);
+			realSize = getEnd(raf, start , size);
 			byte[] bytes = readFromPosition(raf, start, realSize);
 			String newFileName = newName(fileName, i);
 			Path newFilePath = Paths.get(baseUri + "\\new\\", newFileName);
@@ -64,30 +86,34 @@ public class FileU3 {
 		return name.substring(0, point) + "_" + i + name.substring(point);
 	}
 
-	static int getEnd(RandomAccessFile raf, int end) throws IOException {
-		if(end == -1){
+	static int getEnd(RandomAccessFile raf, int start,int end) throws IOException {
+		long length = raf.length();
+		if((end == -1) || (end > length) ){
 			return -1;
 		}
-		long length = raf.length();
-		while (end < length) {
-			raf.seek(end);
-			switch (raf.read()) {
-			case -1:
-				break;
-			case '\n':
-				return -2;
-			case '\r':
-				if (raf.read() != '\n') {
-
-				} else {
-					long cur3 = raf.getFilePointer();
-					return (int) cur3;
-				}
-			default:
-			}
-			end++;
-		}
-		return -1;
+		raf.seek(start);
+		raf.readLine();
+		long cur = raf.getFilePointer();
+		return (int) cur;
+//		while (end < length) {
+//			raf.seek(end);
+//			switch (raf.read()) {
+//			case -1:
+//				break;
+//			case '\n':
+//				return -2;
+//			case '\r':
+//				if (raf.read() != '\n') {
+//
+//				} else {
+//					long cur3 = raf.getFilePointer();
+//					return (int) cur3;
+//				}
+//			default:
+//			}
+//			end++;
+//		}
+//		return -1;
 	}
 
 	/**
