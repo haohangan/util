@@ -1,0 +1,41 @@
+
+postgresql下如何处理大表（过亿记录）
+
+数据库中的某表在源源不断的更新，导致此表记录不断增大，当增大到一定程度后系统响应速度就会出现明显延迟。这种情况该如何处理呢？
+
+最直观的方法，就是分表，一个表容量过大，那就其分为多个表。但这样会导致另外一个问题，即系统的前台和后台逻辑就会发生重大变化，需要对系统进行彻底的返工，工作量太大而且以后的扩展性还受到很大的限制。
+
+但postgresql还提供了另外一种更好的方法：分区（partitioning)。使用分区方法可以避免分表方案的缺点。
+
+在postgresql的文档中提到，分区的优点：
+
+    Query performance can be improved dramatically in certain situations, particularly when most of the heavily accessed rows of the table are in a single partition or a small number of partitions. The partitioning substitutes for leading columns of indexes, reducing index size and making it more likely that the heavily-used parts of the indexes fit in memory.
+    When queries or updates access a large percentage of a single partition, performance can be improved by taking advantage of sequential scan of that partition instead of using an index and random access reads scattered across the whole table.
+    Bulk loads and deletes can be accomplished by adding or removing partitions, if that requirement is planned into the partitioning design. ALTER TABLE NO INHERIT and DROP TABLE are both far faster than a bulk operation. These commands also entirely avoid the VACUUM overhead caused by a bulk DELETE.
+    Seldom-used data can be migrated to cheaper and slower storage media.
+
+总而言之，分区的优点是在不破坏原有前段代码的结构的基础上，大幅提升数据库端的处理性能。
+
+那如何创建分区呢？简单的讲，以下几个步骤：
+
+      建立主表
+      创建分区继承(inherits)
+      定义约束(或者定义索引)
+      定义tigger(触发器)
+
+具体操作，也可以参考：
+1. PostgreSQL分区
+2. postgresql 表分区
+3. Partitioning PostgreSQL Tables – Handle Millions of Rows Efficiently
+Author wlxPosted on 2012-09-10Categories postgresqlTags partitioning, postgresql	
+1 thought on “postgresql下如何处理大表（过亿记录）”
+
+    李建轩 says:	
+    2012-10-10 at 11:29
+
+    难点全部集中到触发器中了，发现单sql要深挖都有不少知识等着我
+    可视化平台项目现在要想扭转在数据处理方面的被动局面就要处理好分区，总结经验，以后在海量数据中要合理安排分表分区来解决数据压力
+
+
+
+https://www.if-not-true-then-false.com/2009/partitioning-large-postgresql-tables-and-handle-millions-of-rows-efficiently-and-quickly/
