@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<!-- <script type="text/javascript" src="./jquery-3.1.1.min.js"></script> -->
+<script type="text/javascript">
+<!-- $(document).ready(function(){}); -->
+
+
+var template = '{"field":"$field","title":"$title"}';
+var template2 = "{field:'$field',title:$title}";
+function getDate(){
+   var date = new Date();
+   date.setFullYear(2016,12,0);
+   var num = date.getDate();
+   var str = '[';
+   var i = 0;
+   for(i;i<num;i++){
+    var title;
+    if(i<9){
+	title = "0"+(i+1);
+	}else{
+	title = i+1;
+	}
+	var field = "2016-12-"+title;
+	str += template.replace('$field',field).replace('$title',title);
+	if(i<num-1){
+	 str += ',';
+	}
+   }
+   	str += ']';
+   return str;
+}
+
+function getDate2(){
+   var date = new Date();
+   date.setFullYear(2016,12,0);
+   var num = date.getDate();
+   var array= new Array();
+   var i = 0;
+   for(i;i<num;i++){
+    var title;
+    if(i<9){
+	title = "0"+(i+1);
+	}else{
+	title = i+1;
+	}
+	var field = "2016-11-"+title;
+	var tmp = template.replace('$field',field).replace('$title',title);
+	<!-- array.push(JSON.parse(tmp)); -->
+	array.push(JSON.parse(tmp));
+   }
+   return array;
+}
+
+function getDate3(){
+  return JSON.parse('{"p": 5,"Q":90}');
+}
+
+function getDate4(){
+  var tmp = template.replace('$field','aaa').replace('$title','bbb');
+  return JSON.parse(tmp);
+}
+
+function getDate5(){
+  var tmp = template2.replace('$field','aaa').replace('$title','bbb');
+  return JSON.parse(JSON.stringify(tmp));
+}
+
+var arr = getDate2();  
+console.info(typeof arr);
+console.info(arr[0].title);
+</script>
+</head>
+<body>
+
+</body>
+</html>
