@@ -1,0 +1,2 @@
+﻿Exception in thread "nioEventLoopGroup-219-1" java.lang.OutOfMemoryError: GC overhead limit exceeded
+Exception in thread "main" java.lang.OutOfMemoryError: GC overhead limit exceeded
