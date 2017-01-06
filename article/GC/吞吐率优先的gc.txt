@@ -1,0 +1,4 @@
+http://stackoverflow.com/questions/2101518/difference-between-xxuseparallelgc-and-xxuseparnewgc
+
+	
+JAVA_OPTS="-Xms12G -Xmx12G -Xss1M -XX:+UseParallelGC"
