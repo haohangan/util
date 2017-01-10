@@ -3,9 +3,8 @@ package org.eva.websocket.server;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -13,6 +12,7 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpHeaderNames;
 import io.netty.handler.codec.http.QueryStringDecoder;
+import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.PingWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.PongWebSocketFrame;
@@ -30,11 +30,6 @@ import io.netty.util.concurrent.GenericFutureListener;
  */
 public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
 
-	static Logger logger = Logger.getLogger(WebSocketServerHandler.class.getName());
-
-	static {
-		logger.setLevel(Level.INFO);
-	}
 
 	final static String WEBSOCKET_PATH = "/websocket";
 	final static String SUB_PROTOCOL = "zookeeperWS";
@@ -52,11 +47,12 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
 		if (msg instanceof FullHttpRequest) {
-			System.out.println("handleHttpRequest 查看");
+			LoggerUtil.log("handleHttpRequest 查看");
 			handleHttpRequest(ctx, (FullHttpRequest) msg);// 仅仅第一次走这个分支
 		} else if (msg instanceof WebSocketFrame) {
-			System.out.println("WebSocketFrame 查看");
+			LoggerUtil.log("WebSocketFrame 查看");
 			handleWebSocketFrame(ctx, (WebSocketFrame) msg);
+			ctx.channel().writeAndFlush("OK");
 		} else {
 			// TODO
 			throw new Exception("真的是无法理解");
@@ -69,12 +65,12 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 	 * @param ctx
 	 * @param request
 	 */
-	public void handleHttpRequest(ChannelHandlerContext ctx, FullHttpRequest request) {
+	public void handleHttpRequest(final ChannelHandlerContext ctx, FullHttpRequest request) {
 		QueryStringDecoder queryStringDecoder = new QueryStringDecoder(request.uri());
 		Map<String, List<String>> parameters = queryStringDecoder.parameters();// 解析uri上带的参数
 		List<String> list = parameters.get("uname");
 		if (list != null && list.size() > 0) {
-			System.out.println("用户名：" + list.get(0));
+			LoggerUtil.log("用户名：" + list.get(0));
 		}
 		WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(
 				"ws://" + request.headers().get(HttpHeaderNames.HOST) + WEBSOCKET_PATH, SUB_PROTOCOL, true);
@@ -88,7 +84,8 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 				public void operationComplete(Future<? super Void> future) throws Exception {
 					if (future.isSuccess()) {
 						members.put(ctx.channel().id().asLongText(), ctx.channel());
-						logger.severe("added channel:" + ctx.channel().remoteAddress());
+//						logger.severe("added channel:" + ctx.channel().remoteAddress());
+						LoggerUtil.severe("added channel:" + ctx.channel().remoteAddress());
 					}
 				}
 			});
@@ -104,12 +101,21 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 			ctx.channel().write(new PongWebSocketFrame(frame.content().retain()));
 			return;
 		}
-		if (!(frame instanceof TextWebSocketFrame)) {
-			throw new UnsupportedOperationException(
-					String.format("%s frame types not supported", frame.getClass().getName()));
+		// if (!(frame instanceof TextWebSocketFrame)) {
+		// throw new UnsupportedOperationException(
+		// String.format("%s frame types not supported",
+		// frame.getClass().getName()));
+		// }
+		if (frame instanceof TextWebSocketFrame) {
+			String text = ((TextWebSocketFrame) frame).text();
+			LoggerUtil.log("TextWebSocketFrame 收到 :" + ctx.channel() + text);
 		}
-		String text = ((TextWebSocketFrame) frame).text();
-		System.out.println(" 收到 " + ctx.channel() + text);
+        if(frame instanceof BinaryWebSocketFrame){
+        	BinaryWebSocketFrame bin = (BinaryWebSocketFrame)frame;
+        	ByteBuf bytebuf = bin.content();
+        	byte[] arr = bytebuf.array();
+        	LoggerUtil.log("BinaryWebSocketFrame 收到 :"+new String(arr));
+        }
 	}
 
 	@Override
@@ -121,7 +127,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 	@Override
 	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
 		Channel incoming = ctx.channel();
-		System.out.println("收到" + incoming.remoteAddress() + " 握手请求");
+		LoggerUtil.log("收到" + incoming.remoteAddress() + " 握手请求");
 	}
 
 	@Override
