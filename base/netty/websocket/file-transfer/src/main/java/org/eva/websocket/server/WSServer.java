@@ -1,5 +1,6 @@
 package org.eva.websocket.server;
 
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
@@ -12,6 +13,7 @@ import io.netty.channel.epoll.EpollEventLoopGroup;
 import io.netty.channel.epoll.EpollServerSocketChannel;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.ssl.SslContext;
@@ -56,7 +58,12 @@ public class WSServer {
 
 				@Override
 				public void run() {
-
+//					c.write(new TextWebSocketFrame(System.currentTimeMillis().toString));
+//		              c.flush();
+					for(Map.Entry<String, Channel> entry:WebSocketServerHandler.members.entrySet()){
+						entry.getValue().write(new TextWebSocketFrame(System.currentTimeMillis()+""));
+						entry.getValue().flush();
+					}
 				}
 			}, 1000 * 5, 1000, TimeUnit.MILLISECONDS);
 			channel.closeFuture().sync();
