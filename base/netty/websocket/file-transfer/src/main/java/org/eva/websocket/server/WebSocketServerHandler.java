@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.commons.codec.binary.Base64;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -109,12 +111,18 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 		if (frame instanceof TextWebSocketFrame) {
 			String text = ((TextWebSocketFrame) frame).text();
 			LoggerUtil.log("TextWebSocketFrame 收到 :" + ctx.channel() + text);
+			return;
 		}
         if(frame instanceof BinaryWebSocketFrame){
         	BinaryWebSocketFrame bin = (BinaryWebSocketFrame)frame;
         	ByteBuf bytebuf = bin.content();
-        	byte[] arr = bytebuf.array();
-        	LoggerUtil.log("BinaryWebSocketFrame 收到 :"+new String(arr));
+        	byte[] arr = new byte[bytebuf.readableBytes()];
+        	bytebuf.readBytes(arr);
+        	while (bytebuf.isReadable()) {
+        	System.out.println(bytebuf.readByte());
+        	}
+        	byte[] arr64 = Base64.decodeBase64(arr);
+        	LoggerUtil.log("BinaryWebSocketFrame 收到 :"+new String(arr64));
         }
 	}
 

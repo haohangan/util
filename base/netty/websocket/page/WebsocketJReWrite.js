@@ -23,9 +23,10 @@ function SocketJS(){
 
 	this.sendBin = function(message){
 		var text = b64EncodeUnicode(message);
+		console.info('send data:'+text);
 		var binary = new Uint8Array(text.length);
 		for (var i = 0; i < text.length; i++) {
-		  binary[i] = text.charAt(i);
+		  binary[i] = text.charCodeAt(i);
 		}
 		websocket.send(binary.buffer);
 	};
