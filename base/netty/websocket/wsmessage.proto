@@ -1,0 +1,11 @@
+﻿syntax = "proto3";
+
+option java_package = "org.eva.websocket.server.proto";
+
+message wsmessage {
+  string id = 1;
+  string content = 2;
+  string fo_id = 3;
+  string to_id = 4;
+  int32 type = 5;
+}

@@ -5,6 +5,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.codec.binary.Base64;
+import org.eva.websocket.server.proto.Wsmessage;
+import org.eva.websocket.server.proto.Wsmessage.wsmessage;
+
+import com.google.protobuf.InvalidProtocolBufferException;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
@@ -119,7 +123,15 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
         	byte[] arr = new byte[bytebuf.readableBytes()];
         	bytebuf.readBytes(arr);
         	byte[] arr64 = Base64.decodeBase64(arr);
-        	LoggerUtil.log("BinaryWebSocketFrame 收到 :"+new String(arr64));
+        	try {
+        		Wsmessage.wsmessage msg = wsmessage.parseFrom(arr64);
+        		System.out.println("type:"+msg.getType()+",from:"+msg.getFoId()+" to "+msg.getToId()+":"+msg.getContent());
+			} catch (InvalidProtocolBufferException e) {
+				e.printStackTrace();
+				ctx.channel().writeAndFlush(new TextWebSocketFrame(e.getMessage()));
+				return;
+			}
+//        	LoggerUtil.log("BinaryWebSocketFrame 收到 :"+new String(arr64));
         }
 	}
 

@@ -58,12 +58,10 @@ public class WSServer {
 
 				@Override
 				public void run() {
-//					c.write(new TextWebSocketFrame(System.currentTimeMillis().toString));
-//		              c.flush();
-					for(Map.Entry<String, Channel> entry:WebSocketServerHandler.members.entrySet()){
-						entry.getValue().write(new TextWebSocketFrame(System.currentTimeMillis()+""));
-						entry.getValue().flush();
-					}
+//					for(Map.Entry<String, Channel> entry:WebSocketServerHandler.members.entrySet()){
+//						entry.getValue().write(new TextWebSocketFrame(System.currentTimeMillis()+""));
+//						entry.getValue().flush();
+//					}
 				}
 			}, 1000 * 5, 1000, TimeUnit.MILLISECONDS);
 			channel.closeFuture().sync();
