@@ -118,9 +118,6 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
         	ByteBuf bytebuf = bin.content();
         	byte[] arr = new byte[bytebuf.readableBytes()];
         	bytebuf.readBytes(arr);
-        	while (bytebuf.isReadable()) {
-        	System.out.println(bytebuf.readByte());
-        	}
         	byte[] arr64 = Base64.decodeBase64(arr);
         	LoggerUtil.log("BinaryWebSocketFrame 收到 :"+new String(arr64));
         }
