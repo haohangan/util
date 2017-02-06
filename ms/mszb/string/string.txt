@@ -1,0 +1,62 @@
+String类：
+  final class String  => 不能被继承
+  private final char value[];   用来保存字符，string类为不可变类
+  
+   public void getChars(int srcBegin, int srcEnd, char dst[], int dstBegin) {... 
+   Copies characters from this string into the destination character array.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+StringBuilder类：
+  public final class StringBuilder
+    extends AbstractStringBuilder
+	
+	capacity  -> 
+	
+  abstract class AbstractStringBuilder 
+	char[] value; 用来保存字符   可变的字符数组
+	capacity  初始容量  value = new char[capacity];
+	private void ensureCapacityInternal(int minimumCapacity) {
+        // overflow-conscious code
+        if (minimumCapacity - value.length > 0) {
+            value = Arrays.copyOf(value,
+                    newCapacity(minimumCapacity));
+        }
+    }
+	
+	//增加的方法
+	public AbstractStringBuilder append(String str) {
+        if (str == null)
+            return appendNull();
+        int len = str.length();
+        ensureCapacityInternal(count + len);
+        str.getChars(0, len, value, count);
+        count += len;
+        return this;
+    }
+	
+	@Override
+    public String toString() {
+        // Create a copy, don't share the array
+        return new String(value, 0, count);
+    }
+	
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+StringBuffer类：
+ public final class StringBuffer
+    extends AbstractStringBuilder
+	
+	private transient char[] toStringCache;   //A cache of the last value returned by toString. Cleared whenever the StringBuffer is modified.
+	
+	
+	 public synchronized StringBuffer append(String str) {
+        toStringCache = null;
+        super.append(str);
+        return this;
+    }
+	
+	@Override
+    public synchronized String toString() {
+        if (toStringCache == null) {
+            toStringCache = Arrays.copyOfRange(value, 0, count);
+        }
+        return new String(toStringCache, true);
+    }
