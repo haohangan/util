@@ -1,0 +1,29 @@
+mybatis 插入空值時需要指定jdbcType
+报错内容：
+### Cause: org.apache.ibatis.type.TypeException: Error setting null for parameter #10 with JdbcType OTHER . Try setting a different JdbcType for this parameter or a different jdbcTypeForNull configuration property. Cause: java.sql.SQLException: 无效的列类型
+
+MyBatis 插入空值时，需要指定JdbcType
+mybatis insert空值报空值异常，但是在pl/sql不会提示错误，主要原因是mybatis无法进行转换，
+
+解决方法：
+
+在insert语句中，增加jdbcType解决问题
+
+<insert id="save" parameterType="Province">
+  <![CDATA[
+  insert into t_yp_province
+  (fid,fname,fnumber,fsimpleName,fdescription,fcreateTime,flastUpdateTime,fdirect)
+  values
+  ( #{id,jdbcType=VARCHAR},
+   #{name,jdbcType=VARCHAR},
+   #{number,jdbcType=VARCHAR},
+   #{simpleName,jdbcType=VARCHAR},
+   #{description,jdbcType=VARCHAR},
+   #{createTime,jdbcType=DATE},
+   #{lastUpdateTime,jdbcType=DATE},
+   #{direct,jdbcType=NUMERIC}
+  )  
+  ]]>
+ </insert>；
+
+http://blog.csdn.net/wangxmin2005/article/details/19753871
