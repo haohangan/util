@@ -7,6 +7,7 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketServerCompressionHandler;
 import io.netty.handler.ssl.SslContext;
+import io.netty.handler.timeout.ReadTimeoutHandler;
 
 /**
  * @author guihao
@@ -28,6 +29,7 @@ public class WebSocketServerInitializer extends ChannelInitializer<Channel> {
 		if (sslCtx != null) {
 			pipeline.addLast(sslCtx.newHandler(ch.alloc()));
 		}
+		pipeline.addLast("readTimeoutHandler", new ReadTimeoutHandler(5));
 		pipeline.addLast(new HttpServerCodec());
 		pipeline.addLast(new HttpObjectAggregator(65536));
 		pipeline.addLast(new WebSocketServerCompressionHandler());
