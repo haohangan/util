@@ -1,0 +1,124 @@
+================================================================================
+
+Message Queue 5.1
+Oracle
+版本:  5.1  (Build 9-b)
+编译:  July 29 2014 1229
+
+Copyright (c) 2013, Oracle and/or its affiliates.  All rights reserved.
+================================================================================
+
+
+imqcmd 用法:
+
+imqcmd <subcommand> <argument> [<options>]
+imqcmd -h
+imqcmd -H
+imqcmd -v
+
+有效的 imqcmd 子命令和参数:
+    commit txn      : 提交事务处理。
+    compact dst     : 压缩一个或所有目标。
+    create dst      : 创建目标。
+    destroy cxn     : 销毁连接。
+    destroy dst     : 销毁目标。
+    destroy dur     : 销毁持久订阅。
+    list bkr        : 列出集群中的中介。
+    list cxn        : 列出中介上的连接。
+    list dst        : 列出中介上的目标。
+    list dur        : 列出主题上的订阅。
+    list jmx        : 列出中介上的 JMX 连接器。
+    list svc        : 列出中介上的服务。
+    list txn        : 列出中介上的事务处理。
+    metrics bkr     : 显示中介度量。
+    metrics dst     : 显示目标度量。
+    metrics svc     : 显示服务度量。
+    pause bkr       : 暂停中介上的所有服务。
+    pause dst       : 暂停一个或所有目标。
+    pause svc       : 暂停一个服务。
+    purge dst       : 清除目标上的所有消息, 而不
+                      销毁该目标。
+    purge dur       : 清除持久订阅上的所有消息, 而不
+                      销毁该持久订阅。
+    query bkr       : 查询并显示有关中介的信息。
+    query cxn       : 查询并显示有关连接的信息。
+    query dst       : 查询并显示有关目标的信息。
+    query svc       : 查询并显示有关服务的信息。
+    query txn       : 查询并显示有关事务处理的信息。
+    quiesce bkr     : 停止接受中介上的新连接。
+    reload cls      : 重新加载中介集群配置。
+    changemaster cls : 更改集群主中介。
+    restart bkr     : 重新启动中介。
+    reset bkr       : 重置中介。
+    resume bkr      : 恢复中介上的所有服务。
+    resume dst      : 恢复一个或所有目标。
+    resume svc      : 恢复一个服务。
+    rollback txn    : 回退事务处理。
+    shutdown bkr    : 关闭中介。
+    takeover bkr    : 接管其他中介的消息存储
+                      (使用 -n 指定)。
+    migratestore bkr : 将此中介的消息存储移植到其他中介
+                      (使用 -n 指定)。
+    unquiesce bkr   : 开始接受中介上的新连接。
+    update bkr      : 更新中介的属性。
+    update dst      : 更新目标的属性。
+    update svc      : 更新服务的属性。
+
+imqcmd 选项:
+    -b              : 指定中介主机和端口 (host:port)。
+    -c              : 指定客户机 ID。
+    -d              : 指定主题名称。
+                      仅在列出订阅时使用。
+    -f              : 执行操作而无需用户确认。
+    -h, -help       : 显示用法帮助。
+    -H, -Help       : 显示用法帮助, 属性列表和示例。
+    -int            : 指定显示度量的时间间隔 (秒)。
+    -javahome       : 指定要使用的替代 Java 2 兼容运行时。
+                      默认设置是使用绑定的运行时。
+    -m              : 指定要显示的度量信息类型。
+                      中介/服务度量的有效值 = {cxn, rts, ttl}。
+                      目标度量的有效值 = {con, dsk, rts, ttl}。
+                          con = 目标使用者信息
+                          cxn = 连接/VM 堆/线程
+                          dsk = 目标磁盘使用量
+                          rts = 消息速率
+                          ttl = 消息总数 (默认值)
+    -msp            : 指定要显示的度量示例数。
+                      默认值为 -1 (无限)。
+    -n              : 指定参数的名称 (例如, 服务名称,
+                      目标名称, 订阅名称,
+                      事务处理 ID 或连接 ID)。
+    -nofailover     : 指定其他中介不应尝试接管
+                      此中介的消息存储。仅在关闭中介时
+                      使用。
+    -o              : 指定参数属性 (例如, 目标
+                      属性)。
+    -passfile       : 指定包含管理员口令的文件。
+    -pst            : 指定目标暂停类型。
+                      有效值 = {PRODUCERS, CONSUMERS, ALL}, 其中
+                          PRODUCERS = 暂停来自生成器的消息流
+                          CONSUMERS = 暂停向使用者传送消息
+                          ALL = 暂停生成器和使用者 (默认值)
+    -rst            : 指定中介重置类型。
+                      有效值 = {METRICS, ALL}, 其中
+                          METRICS = 重置累计, 平均, 峰值度量
+                          ALL = 全部重置 (默认值)
+                          在此发行版中, ALL 与 METRICS 等效
+    -rtm            : 指定管理员接收超时 (秒)。(默认值为 10)。
+    -rtr            : 指定管理员重试次数。默认值为 5。
+    -s              : 无提示模式。不显示输出。
+    -secure         : 在中介上使用基于 SSL/TLS 的管理服务
+                      (首先需要启用该服务)。
+    -svn            : 指定服务名称。
+                      仅在列出连接时使用。
+    -load           : 指定未加载目标时, 先加载该目标。
+                      仅在列出目标时使用。
+    -t              : 指定目标的类型
+                      有效值 = {q, t}, 其中
+                          q = 队列
+                          t = 主题
+    -time           : 指定关闭前的秒数。
+                      仅在关闭中介时使用。
+    -tmp            : 同时还显示临时目标。
+    -u              : 指定管理员用户名。
+    -v, -version    : 显示版本信息。

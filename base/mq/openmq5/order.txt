@@ -1,0 +1,5 @@
+imqcmd query bkr -u admin   检查broker是否启动
+imqcmd query dst -n #队列名称# -t q -u admin  
+
+
+
