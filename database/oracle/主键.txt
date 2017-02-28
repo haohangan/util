@@ -1,0 +1,19 @@
+如果表之前有主键则先删除：
+
+alter table 表名 drop constraint 主键名
+
+修改主键：
+
+alter table 表名 add constraint 主键名 primary key (column1,column2,....,column)
+
+注意：这里的主键名是自己定义的一个字符串，可以不是表中字段名(习惯写成：PK_表名 的格式,oracle 中自动建立的主键名是PK_表名 的格式)，不过要牢记啊，删除的时候用到的也是这个名！括号中的才是表中存在的字段。
+
+ALTER TABLE ZFMI.TB_RI_SHARE_BILL ADD 
+CONSTRAINT PK_TB_RI_SHARE_BILL
+PRIMARY KEY (C_RI_COM_CDE, C_PROD_NO, C_FEE_TYPE, C_SHARE_YM)
+ENABLE
+VALIDATE
+
+主键的值也可以改变,级联更新是有用的
+
+http://www.blogjava.net/Hopes/articles/377481.html
