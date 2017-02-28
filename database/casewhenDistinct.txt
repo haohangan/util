@@ -1,0 +1,5 @@
+http://stackoverflow.com/questions/10398010/distinct-count-in-select-case-sql
+
+Count(distinct CASE when yearsold between 6 and 12 then case else null end)
+
+count(distinct case when cfs.CWFS_DESC like '国产%' then TRS_FILMID else null end) AS DOMESTIC
