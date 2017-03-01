@@ -1,1 +1,3 @@
 http://manual.luaer.cn/
+
+http://lua-users.org/wiki/TutorialDirectory
