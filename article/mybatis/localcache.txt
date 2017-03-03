@@ -1,5 +1,5 @@
 http://www.mybatis.org/mybatis-3/java-api.html
-
+http://moi.vonos.net/java/mybatis-caching/
 
 Java API
 
