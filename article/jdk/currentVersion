@@ -1,0 +1,12 @@
+On my Windows 7 machine, it was solved by doing the following:
+
+In the START menu type "regedit" to open the Registry (be careful doing this)
+Go to "HKEY_LOCAL_MACHINE" on the left-hand side registry explorer/tree menu
+Click "SOFTWARE" within the "HKEY_LOCAL_MACHINE" registries
+Click "JavaSoft" within the "SOFTWARE" registries
+Click "Java Runtime Environment" within the "JavaSoft" list of registries
+Highlight "CurrentVersion" (should see it in the main registry key explorer window on the right)
+Change version to "1.7"
+That is all... should work. Short of that, if you've already tried some other guides and/or messed up your registries, the most certain way to deal with the problem is to delete all previous versions of Java (using "Programs and Features" uninstall process) and then re-install just the version you want to work with. I'd suggest the distribution site at: http://java.com (as it usually has the most stable version)
+
+Or look for a specific version you need from Oracle's site: http://www.oracle.com/technetwork/java/javase/downloads/
