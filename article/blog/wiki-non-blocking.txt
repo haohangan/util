@@ -1,0 +1,66 @@
+In computer science, an algorithm is called non-blocking if failure or suspension of any thread cannot cause failure or suspension of another thread;[1] for some operations, these algorithms provide a useful alternative to traditional blocking implementations. A non-blocking algorithm is lock-free if there is guaranteed system-wide progress, and wait-free if there is also guaranteed per-thread progress.
+
+The word "non-blocking" was traditionally used to describe telecommunications networks that could route a connection through a set of relays "without having to re-arrange existing calls", see Clos network. Also, if the telephone exchange "is not defective, it can always make the connection", see nonblocking minimal spanning switch.
+
+Contents  [hide] 
+1	Motivation
+2	Implementation
+3	Wait-freedom
+4	Lock-freedom
+5	Obstruction-freedom
+6	See also
+7	References
+Motivation[edit]
+Main article: Disadvantages of locks
+The traditional approach to multi-threaded programming is to use locks to synchronize access to shared resources. Synchronization primitives such as mutexes, semaphores, and critical sections are all mechanisms by which a programmer can ensure that certain sections of code do not execute concurrently, if doing so would corrupt shared memory structures. If one thread attempts to acquire a lock that is already held by another thread, the thread will block until the lock is free.
+
+Blocking a thread is undesirable for many reasons. An obvious reason is that while the thread is blocked, it cannot accomplish anything: if the blocked thread had been performing a high-priority or real-time task, it would be highly undesirable to halt its progress.
+
+Other problems are less obvious. For example, certain interactions between locks can lead to error conditions such as deadlock, livelock, and priority inversion. Using locks also involves a trade-off between coarse-grained locking, which can significantly reduce opportunities for parallelism, and fine-grained locking, which requires more careful design, increases locking overhead and is more prone to bugs.
+
+Unlike blocking algorithms, non-blocking algorithms do not suffer from these downsides, and in addition are safe for use in interrupt handlers: even though the preempted thread cannot be resumed, progress is still possible without it. In contrast, global data structures protected by mutual exclusion cannot safely be accessed in an interrupt handler, as the preempted thread may be the one holding the lock.
+
+A lock-free data structure can be used to improve performance. A lock-free data structure increases the amount of time spent in parallel execution rather than serial execution, improving performance on a multi-core processor, because access to the shared data structure does not need to be serialized to stay coherent.[2]
+
+Implementation[edit]
+With few exceptions, non-blocking algorithms use atomic read-modify-write primitives that the hardware must provide, the most notable of which is compare and swap (CAS). Critical sections are almost always implemented using standard interfaces over these primitives (in the general case, critical sections will be blocking, even when implemented with these primitives). Until recently, all non-blocking algorithms had to be written "natively" with the underlying primitives to achieve acceptable performance. However, the emerging field of software transactional memory promises standard abstractions for writing efficient non-blocking code.[3][4]
+
+Much research has also been done in providing basic data structures such as stacks, queues, sets, and hash tables. These allow programs to easily exchange data between threads asynchronously.
+
+Additionally, some non-blocking data structures are weak enough to be implemented without special atomic primitives. These exceptions include:
+
+a single-reader single-writer ring buffer FIFO, with a size which evenly divides the overflow of one of the available unsigned integer types, can unconditionally be implemented safely using only a memory barrier
+Read-copy-update with a single writer and any number of readers. (The readers are wait-free; the writer is usually lock-free, until it needs to reclaim memory).
+Read-copy-update with multiple writers and any number of readers. (The readers are wait-free; multiple writers generally serialize with a lock and are not obstruction-free).
+Several libraries internally use lock-free techniques,[5][6][7] but it is difficult to write lock-free code that is correct.[8][9][10][11]
+
+Wait-freedom[edit]
+Wait-freedom is the strongest non-blocking guarantee of progress, combining guaranteed system-wide throughput with starvation-freedom. An algorithm is wait-free if every operation has a bound on the number of steps the algorithm will take before the operation completes.[12] This property is critical for real-time systems and is always nice to have as long as the performance cost is not too high.
+
+It was shown in the 1980s[13] that all algorithms can be implemented wait-free, and many transformations from serial code, called universal constructions, have been demonstrated. However, the resulting performance does not in general match even na?ve blocking designs. Several papers have since improved the performance of universal constructions, but still, their performance is far below blocking designs.
+
+Several papers have investigated the difficulty of creating wait-free algorithms. For example, it has been shown[14] that the widely available atomic conditional primitives, CAS and LL/SC, cannot provide starvation-free implementations of many common data structures without memory costs growing linearly in the number of threads.
+
+But in practice these lower bounds do not present a real barrier as spending a cache line or exclusive reservation granule (up to 2 KB on ARM) of store per thread in the shared memory is not considered too costly for practical systems (typically the amount of store logically required is a word, but physically CAS operations on the same cache line will collide, and LL/SC operations in the same exclusive reservation granule will collide, so the amount of store physically required[citation needed] is greater).
+
+Wait-free algorithms were rare until 2011, both in research and in practice. However, in 2011 Kogan and Petrank[15] presented a wait-free queue building on the CAS primitive, generally available on common hardware. Their construction expanded the lock-free queue of Michael and Scott,[16] which is an efficient queue often used in practice. A follow-up paper by Kogan and Petrank[17] provided a methodology for making wait-free algorithms fast and used this methodology to make the wait-free queue practically as fast as its lock-free counterpart. A subsequent paper by Timnat and Petrank[18] provided an automatic mechanism for generating wait-free data structures from lock-free ones. Thus, wait-free implementations are now available for many data-structures.
+
+Lock-freedom[edit]
+Lock-freedom allows individual threads to starve but guarantees system-wide throughput. An algorithm is lock-free if it satisfies that when the program threads are run sufficiently long at least one of the threads makes progress (for some sensible definition of progress). All wait-free algorithms are lock-free.
+
+An algorithm is lock free if infinitely often operation from some processors will succeed in finite number of steps. For instance, if N number of processors are trying to make an operation, some processes in N number of processes will succeed to finish the operation in finite number of steps and other might fail and retry on failure. The difference between wait-free and lock-free is, wait-free operations by every process is guaranteed to succeeds in finite number of steps regardless of other processors.
+
+In general, a lock-free algorithm can run in four phases: completing one's own operation, assisting an obstructing operation, aborting an obstructing operation, and waiting. Completing one's own operation is complicated by the possibility of concurrent assistance and abortion, but is invariably the fastest path to completion.
+
+The decision about when to assist, abort or wait when an obstruction is met is the responsibility of a contention manager. This may be very simple (assist higher priority operations, abort lower priority ones), or may be more optimized to achieve better throughput, or lower the latency of prioritized operations.
+
+Correct concurrent assistance is typically the most complex part of a lock-free algorithm, and often very costly to execute: not only does the assisting thread slow down, but thanks to the mechanics of shared memory, the thread being assisted will be slowed, too, if it is still running.
+
+Obstruction-freedom[edit]
+Obstruction-freedom is the weakest natural non-blocking progress guarantee. An algorithm is obstruction-free if at any point, a single thread executed in isolation (i.e., with all obstructing threads suspended) for a bounded number of steps will complete its operation.[12] All lock-free algorithms are obstruction-free.
+
+Obstruction-freedom demands only that any partially completed operation can be aborted and the changes made rolled back. Dropping concurrent assistance can often result in much simpler algorithms that are easier to validate. Preventing the system from continually live-locking is the task of a contention manager.
+
+Some obstruction-free algorithms use a pair of "consistency markers" in the data structure. Processes reading the data structure first read one consistency marker, then read the relevant data into an internal buffer, then read the other marker, and then compare the markers. The data is consistent if the two markers are identical. Markers may be non-identical when the read is interrupted by another process updating the data structure. In such a case, the process discards the data in the internal buffer and tries again.
+
+"Non-blocking" was used as a synonym for "lock-free" in the literature until the introduction of obstruction-freedom in 2003.[19]
