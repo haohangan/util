@@ -1,0 +1,6 @@
+-Xms1024m
+-Xmx1024m
+-XX:MaxPermSize=512m
+-XX:+UseConcMarkSweepGC
+-XX:+CMSClassUnloadingEnabled
+-XX:+CMSPermGenSweepingEnabled 
