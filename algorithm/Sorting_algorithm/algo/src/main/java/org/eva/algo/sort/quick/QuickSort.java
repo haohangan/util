@@ -46,6 +46,13 @@ public class QuickSort {
 		sort(src, left, pivotIndex - 1);
 	}
 
+	/**
+	 * 错误的
+	 * @param src
+	 * @param left
+	 * @param right
+	 */
+	@SuppressWarnings("unused")
 	private static void sort2(int[] src, int left, int right) {
 		if (left >= right) {
 			return;
