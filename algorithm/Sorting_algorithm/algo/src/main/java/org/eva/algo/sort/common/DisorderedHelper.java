@@ -25,11 +25,11 @@ public class DisorderedHelper {
 		}
 		return arr;
 	}
-	
-	public static int[] getArr(){
-		return new int[] { 9, 4, 5, 2, 3, 6, 8, 0, 1, 7};
+
+	public static int[] getArr() {
+		return new int[] { 4, 5, 2, 3, 6, 8, 0, 1, 7, 9 };
 	}
-	
+
 	/**
 	 * ����̨���
 	 * 
@@ -53,7 +53,7 @@ public class DisorderedHelper {
 	 * @param y
 	 */
 	public static void swap(int[] src, int x, int y) {
-		System.out.printf("����%d<->%d\r\n",x,y);
+		System.out.printf("����%d<->%d\r\n", x, y);
 		int temp = src[x];
 		src[x] = src[y];
 		src[y] = temp;
