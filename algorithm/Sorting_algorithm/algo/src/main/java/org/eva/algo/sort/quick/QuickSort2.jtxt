@@ -1,0 +1,51 @@
+package wrench.zk;
+
+public class QuickSort2 {
+
+	public static void sort(int[] src, int left, int right) {
+		if (left >= right) {
+			return;
+		}
+		int pivot = partition(src, left, right);
+		sort(src, left, pivot - 1);
+		sort(src, pivot + 1, right);
+	}
+
+	private static int partition(int[] src, int left, int right) {
+		int povit = right;
+		int storeIndex = left;
+		for (int i = left; i < right; i++) {
+			if (src[i] < src[povit]) {
+				swap(src, i, storeIndex);
+				storeIndex++;
+			}
+		}
+		swap(src, storeIndex, right);
+		return storeIndex;
+	}
+
+	public static void main(String[] args) {
+		int[] arr = new int[] { 4, 5, 2, 3, 6, 8, 0, 1, 7, 9 };
+		print(arr);
+		sort(arr, 0, arr.length - 1);
+		System.out.println("===========");
+		print(arr);
+	}
+
+	public static void swap(int[] src, int x, int y) {
+		System.out.printf("交换：%d<->%d\r\n", x, y);
+		int temp = src[x];
+		src[x] = src[y];
+		src[y] = temp;
+	}
+
+	public static void print(int[] arr) {
+		if (arr == null || arr.length == 0) {
+			return;
+		}
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i] + "\t");
+		}
+		System.out.println("---------");
+	}
+}
