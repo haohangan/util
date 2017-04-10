@@ -1,0 +1,24 @@
+if (left >= right) {
+			return;
+		}
+		int povit = right;// 选取最右边这个元素为基准元素
+		int i = left;
+		int j = right - 1;
+		while (i < j) {
+			while (i < j && src[i] < src[povit]) {
+				i++;
+			}
+			while (i < j && src[j] >= src[povit]) {
+				j--;
+			}
+			if (i < j) {
+				swap(src, i, j);
+			}
+		}
+		if (src[i] > src[povit]) {
+			swap(src, i, right);
+			povit = i;//移动位置后重新确定 基准 元素
+		}
+		System.out.println("新的povit index:" + povit);
+		sort(src, left, povit - 1);
+		sort(src, povit + 1, right);
