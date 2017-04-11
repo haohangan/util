@@ -1,0 +1,25 @@
+/**
+     * Format a long (treated as unsigned) into a character buffer.
+     * @param val the unsigned int to format
+     * @param shift the log2 of the base to format in (4 for hex, 3 for octal, 1 for binary)
+     * @param buf the character buffer to write to
+     * @param offset the offset in the destination buffer to start at
+     * @param len the number of characters to write
+     * @return the lowest character  location used
+     */
+     static int formatUnsignedInt(int val, int shift, char[] buf, int offset, int len) {
+        int charPos = len;
+        int radix = 1 << shift;
+        int mask = radix - 1;
+        do {
+            buf[offset + --charPos] = Integer.digits[val & mask];
+            val >>>= shift;
+        } while (val != 0 && charPos > 0);
+
+        return charPos;
+    }
+    
+    
+    16进制
+    8进制
+    二进制
