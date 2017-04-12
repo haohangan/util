@@ -1,0 +1,44 @@
+彻底搞定KMP字符串匹配算法
+
+ June 13, 2015
+每次看算法书看到KMP就看不下去，或者就是粗略的看一下不求甚解，导致过了一会儿就忘了。今天抽了一个小时写了一遍KMP算法，才算搞明白。
+
+算法的关键在于构建一个跳转表，就是当第i个字符匹配失败时，通过跳转表跳到第j个字符而不是从头开始匹配。例如：
+
+position 01234567
+pattern  abcabcda
+fail     00001230 pattern是要匹配的子字符串，position是字符所在的位置，fail就是当失败后要跳转的位置，它所代表的含义是第i个字符前面的字符串和第fail[i]个字符的前缀字符串是一样的。
+例如当第6位的d匹配失败后可以直接跳转到第3位a因为它们之前的abc是相同的，不需再匹配一遍了。
+
+那么如果构造这个跳转表呢，c++的代码如下：
+
+vector<int> getFail(string pattern) {
+    int m = pattern.size();
+    vector<int> fail(m+1, 0);
+    for(int t=1; t<m; t++) {
+        int p=fail[t];
+        while(p && pattern[p] != pattern[t]) p = fail[p];
+        fail[t+1] = (pattern[p] == pattern[t]) ? p+1 : 0;
+    }
+    return fail;
+} 就是自己匹配自己，其中t是被匹配文本text的索引，p是子字符串pattern的索引，所以当pattern[p] == patttern[t]时，就代表如果第t+1个字符匹配失败可以直接跳转到p+1因为之前的pattern[0:p]都是相等的。
+有了跳转表之后再匹配文本就很容易了，代码如下：
+
+ int strStr(string haystack, string needle) {
+    int n = haystack.size();
+    int m = needle.size();
+    if(m == 0) return 0;
+    if(n == 0) return -1;
+    vector<int> fail = getFail(needle);
+    for(int t=0, p=0; t<n; t++) {
+        while(p && haystack[t] != needle[p]) {
+            p = fail[p];
+        }
+        if(haystack[t] == needle[p]) {
+            p++;
+        }
+        if(p == m) return t-m+1;
+    }
+    return -1;
+} 然后就是时间复杂度分析，可以用amortized analysis(平摊分析)的方法来计算，虽然在每个循环中我们不知道`p=fail[p]`这句到底执行了多少次，但是我们知道`p++`这句最多执行一次，因为p=fial[p]是减少p的，所以在n个操作里，p最多增加了n次，减少了n次，时间复杂度是O(n),再加上算跳转表的时间O(m),总时间是O(n+m)。
+如果觉得有用，请点star
