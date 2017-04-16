@@ -1,4 +1,4 @@
-彻底搞定KMP字符串匹配算法
+﻿彻底搞定KMP字符串匹配算法
 
  June 13, 2015
 每次看算法书看到KMP就看不下去，或者就是粗略的看一下不求甚解，导致过了一会儿就忘了。今天抽了一个小时写了一遍KMP算法，才算搞明白。
@@ -7,7 +7,8 @@
 
 position 01234567
 pattern  abcabcda
-fail     00001230 pattern是要匹配的子字符串，position是字符所在的位置，fail就是当失败后要跳转的位置，它所代表的含义是第i个字符前面的字符串和第fail[i]个字符的前缀字符串是一样的。
+fail     00001230 pattern是要匹配的子字符串，position是字符所在的位置，fail就是当失败后要跳转的位置，
+它所代表的含义是第i个字符前面的字符串和第fail[i]个字符的前缀字符串是一样的。
 例如当第6位的d匹配失败后可以直接跳转到第3位a因为它们之前的abc是相同的，不需再匹配一遍了。
 
 那么如果构造这个跳转表呢，c++的代码如下：
@@ -21,7 +22,8 @@ vector<int> getFail(string pattern) {
         fail[t+1] = (pattern[p] == pattern[t]) ? p+1 : 0;
     }
     return fail;
-} 就是自己匹配自己，其中t是被匹配文本text的索引，p是子字符串pattern的索引，所以当pattern[p] == patttern[t]时，就代表如果第t+1个字符匹配失败可以直接跳转到p+1因为之前的pattern[0:p]都是相等的。
+} 就是自己匹配自己，其中t是被匹配文本text的索引，p是子字符串pattern的索引，所以当pattern[p] == patttern[t]时，
+就代表如果第t+1个字符匹配失败可以直接跳转到p+1因为之前的pattern[0:p]都是相等的。
 有了跳转表之后再匹配文本就很容易了，代码如下：
 
  int strStr(string haystack, string needle) {
