@@ -20,9 +20,9 @@ public class KMP3 {
 				}
 				i++;
 			}else{
-				if(i==0){
-					m=1;
-				}else{
+				if(i==0){//分为多种情况了：一直都没有匹配的情况
+					m++;
+				}else{//部分匹配的情况
 					m = m + (i-fail[i-1]);
 					i = fail[i-1];
 					i++;
@@ -34,6 +34,7 @@ public class KMP3 {
 	
 	public static void main(String[] args) {
 		String text = "ABC ABCDAB ABCDABCDABDE";
+//  		String text = "abcdefgABC ABCDAB ABCDABCDABDE";
 //		String text = "aABCDABDABCDABDABCDABDABCDABDABCDABD";
 		String pattern = "ABCDABD";
 		int pos = search(text, pattern);
