@@ -7,22 +7,26 @@ package org.eva.id.kmp;
  */
 public class KMP3 {
 
-	public static int search(String S, String W) {
+		public static int search(String S, String W) {
 		int[] fail = KMP.getPartialTable(W);// 获取失配函数
 		int sLen = S.length();
 		int wLen = W.length();
 		int m = 0;//m代表主文字符串S内匹配字符串W的当前查找位置，
 		int i = 0;//i代表匹配字符串W当前做比较的字符位置。
-		while(m<=sLen && i <= wLen){
+		while((sLen-m+1)>=(wLen-i+1)){
 			if(S.charAt(m+i) == W.charAt(i)){
 				if(i==(wLen-1)){//W的匹配位置已经移动到最后，则说明已经完全匹配上了
 					return m;
 				}
 				i++;
 			}else{
-				m = m + (i-fail[i-1]);
-				i = fail[i-1];
-				i++;
+				if(i==0){
+					m=1;
+				}else{
+					m = m + (i-fail[i-1]);
+					i = fail[i-1];
+					i++;
+				}
 			}
 		}
 		return -1;
@@ -30,6 +34,7 @@ public class KMP3 {
 	
 	public static void main(String[] args) {
 		String text = "ABC ABCDAB ABCDABCDABDE";
+//		String text = "aABCDABDABCDABDABCDABDABCDABDABCDABD";
 		String pattern = "ABCDABD";
 		int pos = search(text, pattern);
 		System.out.println(pos);// 14
