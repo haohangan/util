@@ -1,4 +1,5 @@
 http://www.voidcn.com/blog/zmx729618/article/p-6089503.html
+http://www.blogjava.net/DLevin/archive/2015/09/02/427045.html
 
 一、概述
 Java NIO非堵塞技术实际是采取反应器模式，或者说是观察者(observer)模式为我们监察I/O端口，如果有内容进来，会自动通知我们，这样，我们就不必开启多个线程死等，从外界看，实现了流畅的I/O读写，不堵塞了。
