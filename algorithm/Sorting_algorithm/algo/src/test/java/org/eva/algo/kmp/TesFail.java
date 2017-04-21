@@ -1,9 +1,9 @@
 package org.eva.algo.kmp;
 
-import org.eva.algo.character.ProperPrefix_Suffix;
+import org.eva.algo.character.ProperPrefixSuffix;
 import org.junit.Test;
 
-public class TestPartial_Table {
+public class TesFail {
 
 	@Test
 	public void test() {
@@ -14,14 +14,14 @@ public class TestPartial_Table {
 		print("ABCABCABCABCABCABCABCABC");
 	}
 
-	public void print(String src) {
-		int[] arr = ProperPrefix_Suffix.partial_table(src);
+	public void print(String pattern) {
+		int[] arr = ProperPrefixSuffix.fail(pattern);
 		for (int i = 0; i < arr.length; i++) {
 			System.out.print(i + "\t");
 		}
 		System.out.println();
 		for (int i = 0; i < arr.length; i++) {
-			System.out.print(src.charAt(i) + "\t");
+			System.out.print(pattern.charAt(i) + "\t");
 		}
 		System.out.println();
 		for (int i = 0; i < arr.length; i++) {
