@@ -6,8 +6,8 @@ public class KMP {
 		int[] fail = ProperPrefix_Suffix.partial_table(W);// 失配函数
 		int sLen = S.length();
 		int wLen = W.length();
-		int m = 0;
-		int i = 0;// 已经匹配的位置
+		int m = 0;//主文字字符串S中，下一个需要比较的位置
+		int i = 0;// 模式串W中，下一个需要比较的位置
 		// while ((m < sLen) && (i < wLen)) {
 		while ((m + i < sLen) && (i < wLen)) {
 			if (S.charAt(m + i) == W.charAt(i)) {
