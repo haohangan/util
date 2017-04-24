@@ -1,0 +1,5 @@
+/etc/selinux/config
+
+sestatus
+
+s
