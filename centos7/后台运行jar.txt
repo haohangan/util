@@ -1,0 +1,7 @@
+nohup java -jar XXX.jar >temp.txt & 
+
+
+
+jobs    命令
+
+fg  【编号】
