@@ -1,0 +1,12 @@
+插件安装gc
+
+jstatd 随机端口的问题
+
+jstatd -p 1099 -J-Djava.rmi.server.hostname=192.168.0.108 -J-Djava.security.policy=<(echo 'grant codebase "file:${java.home}/../lib/tools.jar" {permission java.security.AllPermission;};') 
+
+-Dcom.sun.management.jmxremote 
+-Dcom.sun.management.jmxremote.ssl=false 
+-Dcom.sun.management.jmxremote.authenticate=false 
+-Dcom.sun.management.jmxremote.port=1102 
+-Dcom.sun.management.jmxremote.rmi.port=1102 
+-Djava.rmi.server.hostname=192.168.0.108
