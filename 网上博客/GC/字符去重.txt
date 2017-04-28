@@ -1,0 +1,23 @@
+-Dosgi.requiredJavaVersion=1.8
+-XX:+UseG1GC
+-XX:+UseStringDeduplication
+-Dosgi.requiredJavaVersion=1.8
+-Xms256m
+-Xmx1024m
+-----------------------------------
+
+同时使用这两个参数
+UseStringDeduplication
+UseG1GC
+
+----------------------------------
+
+http://www.oschina.net/translate/string-deduplication-new-feature-java-8-update-20
+https://blog.codecentric.de/en/2014/08/string-deduplication-new-feature-java-8-update-20-2/
+
+
+字符串在任何应用中都占用了大量的内存。尤其数包含独立UTF-16字符的char[]数组对JVM内存的消耗贡献最多——因为每个字符占用2位。
+
+内存的30%被字符串消耗其实是很常见的，不仅是因为字符串是与我们互动的最好的格式，而且是由于流行的HTTP API使用了大量的字符串。使用Java 8 Update 20，我们现在可以接触到一个新特性，叫做字符串去重，该特性需要G1垃圾回收器，该垃圾回收器默认是被关闭的。
+
+字符串去重利用了字符串内部实际是char数组，并且是final的特性，所以JVM可以任意的操纵他们。
