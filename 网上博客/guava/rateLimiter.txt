@@ -1,0 +1,6 @@
+ * permits per second: <pre>   {@code
+ *  final RateLimiter rateLimiter = RateLimiter.create(5000.0); // rate = 5000 permits per second
+ *  void submitPacket(byte[] packet) {
+ *    rateLimiter.acquire(packet.length);
+ *    networkService.send(packet);
+ *  }}
