@@ -10,3 +10,12 @@ jstatd -p 1099 -J-Djava.rmi.server.hostname=192.168.0.108 -J-Djava.security.poli
 -Dcom.sun.management.jmxremote.port=1102 
 -Dcom.sun.management.jmxremote.rmi.port=1102 
 -Djava.rmi.server.hostname=192.168.0.108
+
+
+
+使用visualvm 查看linux上运行的jvm
+
+vi /etc/security/limits.conf
+
+* soft nofile 51200
+* hard nofile 51200
