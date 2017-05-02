@@ -1,0 +1,10 @@
+https://blog.codinghorror.com/the-infinite-space-between-words/
+
+Computer performance is a bit of a shell game. You're always waiting for one of four things:
+
+Disk
+CPU
+Memory
+Network
+But which one? How long will you wait? And what will you do while you're waiting?
+
