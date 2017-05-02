@@ -1,0 +1,3 @@
+javap -v -c ./Apple.class > apple.txt
+
+http://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html
