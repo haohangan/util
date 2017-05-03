@@ -1,0 +1,7 @@
+queue
+point-to-point
+可以有多个consumer，但是一条消息只能被一个consumer接收到，
+
+topic
+Publisher/Subscriber 
+广播
