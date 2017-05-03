@@ -1,0 +1,19 @@
+public class FatherObj {
+  public String a = "futher";
+}
+
+
+public class SonObj extends FatherObj{
+    String a = "son";
+    
+    public void print(){
+    	System.out.println(this.a+"\t"+super.a);
+    }
+    
+    public static void main(String[] args) {
+		SonObj s = new SonObj();
+		s.print();
+	}
+}
+
+×Ö¶Î²»ÄÜ±»¸²¸Ç
