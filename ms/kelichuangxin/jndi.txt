@@ -1,0 +1,21 @@
+Java命名和目录接口
+The Java Naming and Directory Interface (JNDI) is part of the Java platform,
+ providing applications based on Java technology with a unified interface to multiple naming and directory services. 
+ You can build powerful and portable directory-enabled applications using this industry standard.  
+JNDI and Java EE Technologies 
+
+用法1：
+在J2EE容器中配置JNDI参数，定义一个数据源，也就是JDBC引用参数，给这个数据源设置一个名称；然后，在程序中，通过数据源名称引用数据源从而访问后台数据库
+tomcat中的数据源配置
+
+
+若想在应用程序中使用JNDI的概念，我们必须要有服务提供商最新的类。Java内置的有：
+
+Lightweight Directory Access Protocol(LDAP)
+Common Object Request Broker Architeture(CORBA)Common Object Service(COS)name service
+Java Remote Method Invocation(RMI)Registry
+如果我们想在应用程序中使用其他服务，那么我们需要在JNDI中实现对应的服务。
+
+
+https://my.oschina.net/huangwenwei/blog/210134
+http://blog.csdn.net/screensky/article/details/7729075
