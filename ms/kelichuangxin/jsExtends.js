@@ -62,6 +62,21 @@ console.info('-----------------------------------------------------');
 //还有一种方法是利用Symbol值的唯一性，将私有方法的名字命名为一个Symbol值
 
 //Class之间可以通过extends关键字实现继承，这比ES5的通过修改原型链实现继承，要清晰和方便很多。
+// function Super() {}
+ 
+// function Sub() {}
+// Sub.prototype = new Super();
+// Sub.prototype.constructor = Sub;
+ 
+// var sub = new Sub();
+ 
+// Sub.prototype.constructor === Sub; // ② true
+// sub.constructor === Sub; // ④ true
+// sub.__proto__ === Sub.prototype; // ⑤ true
+// Sub.prototype.__proto__ == Super.prototype; // ⑦ true
+//ES5中这种最简单的继承，实质上就是将子类的原型设置为父类的实例。
+//ES6和ES5的继承是一模一样的，只是多了class 和extends ，ES6的子类和父类，子类原型和父类原型，通过__proto__ 连接。
+// http://keenwon.com/1524.html
 
 class ColorPoint extends Point2{
 	constructor(x,y,color){
