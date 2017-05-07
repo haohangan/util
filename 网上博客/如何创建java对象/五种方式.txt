@@ -1,0 +1,5 @@
+1：new
+2：reflection
+3:clone
+4:serialize
+5:unsafe.allocateInstance,不调用构造函数
