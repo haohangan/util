@@ -95,3 +95,5 @@ console.info('cp instanceof ColorPoint:'+(cp instanceof ColorPoint));
 console.info('cp instanceof Point2:'+(cp instanceof Point2));
 console.info('cp instanceof Point:'+(cp instanceof Point));
 
+//https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
+
