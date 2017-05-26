@@ -1,0 +1,4 @@
+https://ffmpeg.org/documentation.html
+
+
+ffnpeg.exe -i D:\12345.mp4 D:\12345.mp3
