@@ -1,0 +1,135 @@
+http://www.studymysql.com/mysql/create-sql-updatable-views.html
+
+在MySQL中，视图不仅是可查询的，而且是可更新的。这意味着您可以使用INSERT或UPDATE语句通过可更新视图插入或更新基表的行。此外，您可以使用DELETE语句通过视图删除基础表的行。
+在本教程中，我们将向您展示如何创建可更新视图并更新基础表中的数据。
+MySQL可更新数据视图简介
+
+在MySQL中，视图不仅是可查询的，而且是可更新的。这意味着您可以使用INSERT或UPDATE语句通过可更新视图插入或更新基表的行。此外，您可以使用DELETE语句通过视图删除基础表的行。
+
+但是，要创建可更新视图，定义视图的SELECT语句不能包含以下任何元素：
+
+    不能包含聚合函数，如：MIN，MAX，SUM，AVG，COUNT等等。
+    不能包含DISTINCT。
+    不能包含GROUP BY子句。
+    不能包含HAVING子句。
+    不能包含UNION或UNION ALL子句。
+    不能包含左连接与外连接。
+    SELECT语句中不能包含子查询或引用该表的WHERE子句出现在FROM子句中。
+    在FROM子句中引用不可更新视图。
+    不能仅引用文字值。
+    不能对基表的任何列有多个引用。
+
+如果使用TEMP TABLE算法创建视图，则无法更新视图。
+
+    请注意，有时可以使用内部联接创建基于多个表的可更新视图。
+
+MySQL可更新视图示例
+
+现在，让我们来创建一个可更新的视图。
+首先，基于示例数据库中的office表创建一个名称为officeInfo的视图。视图涉及office表的三列：office_id，phone和city。如下代码所示 -
+
+CREATE VIEW officeInfo
+ AS 
+   SELECT office_id, phone, city
+   FROM studymysql.office;
+
+接下来，我们可以使用以下语句从officeInfo视图中查询数据：
+
+SELECT 
+    *
+FROM
+    officeInfo;
+
+执行上面的查询语句，得到以下结果 -
+
+然后，我们可以使用以下UPDATE语句通过officeInfo视图更改办公室编号为5的办公室的电话号码。
+
+UPDATE officeInfo 
+SET 
+    phone = '13800138000'
+WHERE
+    office_id = 1005;
+
+最后，要验证修改结果，我们可以通过执行以下查询从officeInfo视图中查询数据：
+
+SELECT 
+    *
+FROM
+    officeInfo
+WHERE
+    office_id = 1005;
+
+执行上面的查询语句，查询结果如下 -
+
+检查可更新视图信息
+
+您可以通过从information_schema数据库中的 views 表查询is_updatable列来检查数据库中的视图是否可更新。
+以下查询从studymysql数据库获取所有视图，并显示哪些视图是可更新的。如下查询语句所示 -
+
+SELECT 
+    table_name, is_updatable
+FROM
+    information_schema.views
+WHERE
+    table_schema = 'studymysql';
+
+执行上面的查询结果如下-
+
+通过视图删除行记录
+
+首先，我们创建一个名为items的表，在items表中插入一些行记录，并创建一个包含价格大于2000的项目的视图。
+
+-- create a new table named items
+CREATE TABLE items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(11 , 2 ) NOT NULL
+);
+
+-- insert data into the items table
+INSERT INTO items(name,price) 
+VALUES('Laptop',4200.56),('Desktop',3699.99),('iPad',3990.58),('小米',1990.98),('荣耀X6',1590.58),('华为P9 plus 4G',5190.00) ;
+
+-- create a view based on items table
+CREATE VIEW HightPriceItems AS
+    SELECT 
+        *
+    FROM
+        items
+    WHERE
+        price > 2000;
+-- query data from the HightPriceItems view
+SELECT 
+    *
+FROM
+    HightPriceItems;
+
+执行上面的语句，结果如下所示 -
+
+第二步，我们使用DELETE语句删除id为3的行记录。MySQL返回一条消息： 1 row(s) affected. 说明执行语句成功。
+
+DELETE FROM HightPriceItems 
+WHERE
+    id = 3;
+
+第三步，让我们再次通过查询HightPriceItems视图查看数据。
+
+SELECT 
+    *
+FROM
+    HightPriceItems;
+
+执行上面的查询语句，查询结果如下 -
+
+第四步，我们还可以从基表items查询数据，以验证DELETE语句是否实际删除ID为3的行记录。
+
+SELECT 
+    *
+FROM
+    items;
+
+执行上面的查询语句，查询结果如下 -
+
+正如您所看到的，在基表中删除了ID为3的行记录。
+
+在本教程中，我们向您展示了如何通过创建可更新视图并更新基础表中的数据。
