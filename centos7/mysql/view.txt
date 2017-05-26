@@ -1,0 +1,189 @@
+http://dataunion.org/25920.html
+
+
+一个MySQL视图的优化过程
+779 次阅读 - 文章,编程语言
+
+来源：博客园
+
+需要优化的sql
+
+最近做一个基于.net mvc和MySQL的仓储系统的优化工作，遇到了一个执行特别慢的SQL语句，经过一番折腾，终于搞定啦，分享一下过程。问题就是下面这个家伙：
+
+create or replace view view_task_meter_infoasselect t1.TASK_ID,t1.task_no,t1.BINDBOX_BARCODE as box_barcode,t1.EQUIP_BAR_CODE,t1.METER_STATUS,t1.ENTITY_TYPE as RSLT_CODE,
+
+— 设备类别
+
+(SELECT name from data_dictionary_info t01 where t01.domain =’设备类别’ and t01.code = t3.EQUIP_CATEG) as T_Equip_categ,
+
+— 类别
+
+(select name from data_dictionary_info t09 where t09.domain = ‘类型’ and t09.code = t3.TYPE_CODE) as T_TYPE_CODE,
+
+— 类型
+
+(select name from data_dictionary_info t09 where t09.domain = ‘类别’ and t09.code = t3.RATED_CURRENT) as T_SORT_CODE,t3.EQUIP_CATEG,t3.TYPE_CODE,t3.SORT_CODE
+
+from
+
+data_task_asset t1 left join data_meter_info t3 on t1.EQUIP_BAR_CODE=t3.BAR_CODE
+
+union all
+
+select t1.CHK_TASK_ID as task_id,t1.TASK_NO,t1.BOX_BARCODE,t1.BAR_CODE as Equip_bar_code,’00’ as METER_STATUS,t1.RSLT_CODE,
+
+— 设备类别
+
+(SELECT name from data_dictionary_info t01 where t01.domain =’设备类别’ and t01.code = t3.EQUIP_CATEG) as T_Equip_categ,
+
+— 类别
+
+(select name from data_dictionary_info t09 where t09.domain = ‘类型’ and t09.code = t3.TYPE_CODE) as T_TYPE_CODE,
+
+— 类型
+
+(select name from data_dictionary_info t09 where t09.domain = ‘类别’ and t09.code = t3.RATED_CURRENT) as T_SORT_CODE,t3.EQUIP_CATEG,t3.TYPE_CODE,t3.SORT_CODE
+
+from data_check_asset_info t1
+
+LEFT JOIN data_meter_info t3 on t1.BAR_CODE = t3.BAR_CODE
+
+解释一下业务：
+
+仓储系统业务分为三块:出入库、盘点。data_task_asset是出入库任务资产明细，data_check_asset_info是盘点任务明细，data_meter_info是资产档案表。data_task_asset和data_check_asset_info表都使用资产条码(EQUIP_BAR_CODE/BAR_CODE)和资产档案表关联(BAR_CODE是档案表主键)。这个视图的业务意义就是展示出入库、盘点任务的资产明细(包括档案信息),同时需要把档案信息里面的大量代码字段翻译成文字信息。上面视图中只列出3个字段作为示例，实际上需要翻译的字段有十几个。
+
+这个视图刚开始没有感觉慢，但是有一天测试做了一个7万多条明细的盘点任务后，每次查询一个任务的明细都要等上十几到几十秒，是在难以忍受。开工吧，先诊断一下。
+
+查看执行情况
+
+下面是这个视图在查询那个7万多条明细的盘点任务的执行时间，太可怕了，三十多秒。
+
+看看执行计划
+
+额滴神呀，这可肯定不行呀，每个字段的翻译都要查询字典表的1207条记录，一个记录需要翻译10次，7万条记录，需要查询字典表70万次，每次搜索记录1000多条，这个当然不行啦。
+
+在字典表上加索引
+
+根据查询字典表的sql语句，我们在domain和code上加联合索引
+
+SELECT name from data_dictionary_info t01 where t01.domain =’设备类别’ and t01.code = t3.EQUIP_CATEG
+
+来看现在的执行情况
+
+执行时间：
+
+执行时间一下子降到了两三秒，效果显著呀！
+
+执行计划：
+
+看看执行计划你也许就不吃惊啦，建立索引后每次查询字典表，只搜索一条记录。
+
+再加两个索引
+
+既然索引这么厉害，那就继续加索引呗，可以看到视图在查询出入库和盘点任务明细表时，也是全表查询。我们加个索引看看效果如何，我分别在data_task_asset的task_id和task_no、data_check_asset_info的chk_task_id和task_no上添加了联合索引。下面看看执行情况：
+
+执行时间：
+
+执行时间好像比刚才还长了一点，这就不合心意啦。
+
+执行计划：
+
+从执行计划来看，查询根本就没有用到索引，why?
+
+mysql视图算法及不使用索引的情况
+
+普及一些百度知识：
+
+当用户创建视图时，mysql默认使用一种undefine的处理算法，就是会自动在合并和临时表内进行选择
+
+对于MERGE，会将引用视图的语句的文本与视图定义合并起来，使得视图定义的某一部分取代语句的对应部分。
+
+对于TEMPTABLE，视图的结果将被置于临时表中，然后使用它执行语句。
+
+对于UNDEFINED，MySQL将选择所要使用的算法。如果可能，它倾向于MERGE而不是TEMPTABLE，这是因为MERGE通常更有效，而且如果使用了临时表，视图是不可更新。
+
+对于使用MERGE算法处理的视图，可以使用索引。但是，对于使用临时表算法处理的视图，不能在其基表上利用索引提供的优点。MERGE算法要求视图中的行和基表中的行具有一对一的关系。如果不具有该关系。必须使用临时表取而代之。如果视图包含下述结构中的任何一种，将失去一对一的关系：
+
+聚合函数（SUM(),MIN(),MAX(),COUNT()等)
+
+DISTINCT
+
+GROUP BY
+
+HAVING
+
+UNION或UNION ALL
+
+通常的不使用索引的查询
+
+如果MySQL估计使用索引比全表扫描更慢，则不使用索引。例如，如果列key均匀分布在1和100之间，下面的查询使用索引就不是很好：select * from table_name where key>1 and key<90;
+
+如果使用MEMORY/HEAP表，并且where条件中不使用“=”进行索引列，那么不会用到索引，head表只有在“=”的条件下才会使用索引
+
+用or分隔开的条件，如果or前的条件中的列有索引，而后面的列没有索引，那么涉及到的索引都不会被用到，例如：select * from table_name where key1=’a’ or key2=’b’;如果在key1上有索引而在key2上没有索引，则该查询也不会走索引
+
+复合索引，如果索引列不是复合索引的第一部分，则不使用索引（即不符合最左前缀），例如，复合索引为(key1,key2),则查询select * from table_name where key2=’b’;将不会使用索引
+
+如果like是以‘%’开始的，则该列上的索引不会被使用。例如select * from table_name where key1 like ‘%a’；该查询即使key1上存在索引，也不会被使用
+
+如果列为字符串，则where条件中必须将字符常量值加引号，否则即使该列上存在索引，也不会被使用。例如,select * from table_name where key1=1;如果key1列保存的是字符串，即使key1上有索引，也不会被使用。
+
+干掉union all
+
+为了证明确实是union all影响了索引的使用，我们去掉视图中的union all，让视图只负责查询盘点任务的明细及档案信息，看看效果如何。
+
+执行时间：
+
+时间又比刚才短了一秒钟，不错，不错。
+
+执行计划
+
+从执行计划可以看出，这次用到了明细表的索引。
+
+存储过程使用
+
+我们看到取到union all之后，明细表的索引在查询中被使用。尽管我们从查询的时间上感觉明细表使用索引和不使用索引没有太大差别。但这其实只是数据太少反映不出问题，随着明细表数据的增多，有索引时每个任务搜索的记录数只与明细数量有关；而无索引时，每个任务明细查询是全表搜索。所以，union all必须去掉。
+
+那么问题来啦，程序结构已经基本定型，单个视图必须使用union all。这里有两种方案：
+
+分开为两个视图，出入库明细一个视图，盘点明细一个视图，在程序中控制使用不同视图；
+
+使用存储过程，在存储过程中判断查询出入库明细还是盘点明细。
+
+在Entity Framework中使用存储过程还没尝试过，就用存储过程啦：
+
+mysql存储过程代码：
+
+CREATE DEFINER=root@localhost PROCEDURE sp_task_meter_info(IN taskId DECIMAL(16,0), IN taskNo VARCHAR(32), IN ioFlag VARCHAR(8))
+
+LANGUAGE SQL
+
+NOT DETERMINISTIC
+
+CONTAINS SQL
+
+SQL SECURITY DEFINER
+
+COMMENT ”BEGINif ioFlag = ‘盘点’ then
+
+— 返回盘点明细
+
+select * from …
+
+where …
+
+else
+
+— 返回出入库明细
+
+select * from …
+
+where …
+
+end if;
+
+END
+
+Entity Framework调用存储过程(看上去也挺方便的):
+
+var dataListProc =                DbContext.Database.SqlQuery(                    string.Format(“CALL sp_task_meter_info({0}, ‘{1}’,'{2}’)”,searchModel.task_id,searchModel.task_no,searchModel.task_type)).ToList();
