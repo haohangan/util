@@ -1,0 +1,20 @@
+https://stackoverflow.com/questions/1096148/how-to-check-the-jdk-version-used-to-compile-a-class-file
+
+On Unix/Linux:
+
+javap -verbose MyClass | grep "major"
+
+On Windows:
+
+javap -verbose MyClass | findstr "major"
+
+You want the major version from the results. Here are some example values:
+
+    Java 1.2 uses major version 46
+    Java 1.3 uses major version 47
+    Java 1.4 uses major version 48
+    Java 5 uses major version 49
+    Java 6 uses major version 50
+    Java 7 uses major version 51
+    Java 8 uses major version 52
+    Java 9 uses major version 53
