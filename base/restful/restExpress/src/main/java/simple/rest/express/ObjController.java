@@ -2,10 +2,15 @@ package simple.rest.express;
 
 import java.util.UUID;
 
+import simple.rest.express.serial.XmlResponse;
+
 public class ObjController {
 	public class Model {
+		@SuppressWarnings("unused")
 		private UUID id = UUID.randomUUID();
+		@SuppressWarnings("unused")
 		private String name;
+		@SuppressWarnings("unused")
 		private String href;
 
 		public Model(String name, String href) {
@@ -16,7 +21,11 @@ public class ObjController {
 	}
 
 	public Model create(org.restexpress.Request req, org.restexpress.Response resp) {
-		resp.setContentType("application/json");
 		return new Model("jack", "http://jack.com");
+	}
+
+	public XmlResponse read(org.restexpress.Request req, org.restexpress.Response resp) {
+		XmlResponse xr = new XmlResponse("ri", 1000, "hello");
+		return xr;
 	}
 }

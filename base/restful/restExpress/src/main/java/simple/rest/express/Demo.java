@@ -8,6 +8,7 @@ import simple.rest.express.serial.MySerializationProvider;
 public class Demo {
     public static void main(String[] args) {
     	RestExpress.setDefaultSerializationProvider(new MySerializationProvider());
+//    	RestExpress.setDefaultSerializationProvider(new GsonSerializationProvider());
 //    	RestExpress.setSerializationProvider();
     	
     	RestExpress server = new RestExpress()
@@ -16,7 +17,7 @@ public class Demo {
     	
 //    	server.uri("/my", new MyResource()).noSerialization();
     	
-    	server.uri("/obj", new ObjController()).method(HttpMethod.POST).noSerialization();
+    	server.uri("/obj", new ObjController()).action("create",HttpMethod.POST).action("read", HttpMethod.GET);
     	
     	server.bind();
     	server.awaitShutdown();
