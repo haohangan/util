@@ -1,0 +1,149 @@
+BEGIN
+declare PROV_CODE1,PROV_NAME1,AGENT_CODE1,AGENT_NAME1,CMANAGER_ID1,NAME1 VARCHAR(50);  
+declare SPREADSTORE_COUNT1 int DEFAULT 0;
+declare COUNT_DATE1 date;
+
+declare PROV_CODE2,PROV_NAME2,AGENT_CODE2,AGENT_NAME2,CMANAGER_ID2,NAME2 VARCHAR(50);  
+declare MEMBER_COUNT2 int DEFAULT 0;
+declare COUNT_DATE2 date;
+
+declare PROV_CODE3,PROV_NAME3,AGENT_CODE3,AGENT_NAME3,CMANAGER_ID3,NAME3 VARCHAR(50);  
+declare ORDER_COUNT3 int DEFAULT 0;
+declare COUNT_DATE3 date;
+
+declare count_num int DEFAULT 0;
+
+declare done int DEFAULT 0;
+
+declare cursor_spreadstore CURSOR for select
+		tp.PROV_CODE,
+		tp.PROV_NAME,
+
+		ta.AGENT_CODE,
+		ta.AGENT_NAME,
+
+		tc.CMANAGER_ID,
+		tc.NAME,
+		
+		count(distinct tss.SPREADSTORE_ID) as SPREADSTORE_COUNT,
+		str_to_date(tss.CREATETIME,'%Y-%m-%d') AS COUNT_DATE
+
+		from tb_prov tp
+		left join tb_agent ta on ta.PROVCODE = tp.PROV_CODE
+		left join tb_cmanager tc on tc.AGENTID = ta.AGENT_CODE
+		left join tb_spreadstore tss on tss.MANAGER_ID = tc.CMANAGER_ID
+		where tss.CREATETIME is not null
+		group by 
+		tp.PROV_CODE,
+		tp.PROV_NAME,
+
+		ta.AGENT_CODE,
+		ta.AGENT_NAME,
+
+		tc.CMANAGER_ID,
+		tc.NAME,
+		COUNT_DATE;
+declare cursor_member cursor for select
+		tp.PROV_CODE,
+		tp.PROV_NAME,
+
+		ta.AGENT_CODE,
+		ta.AGENT_NAME,
+
+		tc.CMANAGER_ID,
+		tc.NAME,
+
+		count(distinct tm.MEMBER_ID) as MEMBER_COUNT,
+		str_to_date(tm.ATTENTION_TIME,'%Y-%m-%d') AS COUNT_DATE
+
+		from tb_prov tp
+		left join tb_agent ta on ta.PROVCODE = tp.PROV_CODE
+		left join tb_cmanager tc on tc.AGENTID = ta.AGENT_CODE
+		left join tb_spreadstore tss on tss.MANAGER_ID = tc.CMANAGER_ID
+		left join tb_member tm on tm.SPREADSTORE_ID = tss.SPREADSTORE_ID
+		where tm.ATTENTION_TIME is not null
+		group by
+		tp.PROV_CODE,
+		tp.PROV_NAME,
+
+		ta.AGENT_CODE,
+		ta.AGENT_NAME,
+
+		tc.CMANAGER_ID,
+		tc.NAME,
+		COUNT_DATE;
+declare cursor_order cursor for select
+		tp.PROV_CODE,
+		tp.PROV_NAME,
+
+		ta.AGENT_CODE,
+		ta.AGENT_NAME,
+
+		tc.CMANAGER_ID,
+		tc.NAME,
+
+		count(distinct ot.ORDER_ID) as ORDER_COUNT,
+		str_to_date(ot.CREATEDATE,'%Y-%m-%d') AS COUNT_DATE
+
+		from tb_prov tp
+		left join tb_agent ta on ta.PROVCODE = tp.PROV_CODE
+		left join tb_cmanager tc on tc.AGENTID = ta.AGENT_CODE
+		left join tb_spreadstore tss on tss.MANAGER_ID = tc.CMANAGER_ID
+		left join tb_member tm on tm.SPREADSTORE_ID = tss.SPREADSTORE_ID
+		left join tb_order ot on ot.OPENID = tm.OPENID
+		where ot.CREATEDATE is not null
+		group by 
+		tp.PROV_CODE,
+		tp.PROV_NAME,
+
+		ta.AGENT_CODE,
+		ta.AGENT_NAME,
+
+		tc.CMANAGER_ID,
+		tc.NAME,
+		COUNT_DATE;
+DECLARE  CONTINUE HANDLER FOR NOT FOUND  SET  done = 1;
+open cursor_spreadstore;
+repeat
+	fetch cursor_spreadstore into PROV_CODE1,PROV_NAME1,AGENT_CODE1,AGENT_NAME1,CMANAGER_ID1,NAME1,SPREADSTORE_COUNT1,COUNT_DATE1;
+	if !done then
+		select count(*) into count_num from ka_cmanager_report where PROV_CODE=PROV_CODE1 and AGENT_CODE=AGENT_CODE1 and CMANAGER_ID=CMANAGER_ID1 and COUNT_DATE=COUNT_DATE1;
+		if count_num>0 then
+			update ka_cmanager_report set SPREADSTORE_COUNT=SPREADSTORE_COUNT1 where PROV_CODE=PROV_CODE1 and AGENT_CODE=AGENT_CODE1 and CMANAGER_ID=CMANAGER_ID1 and COUNT_DATE=COUNT_DATE1;
+		else 
+			insert into ka_cmanager_report(PROV_CODE,PROV_NAME,AGENT_CODE,AGENT_NAME,CMANAGER_ID,NAME,SPREADSTORE_COUNT,MEMBER_COUNT,ORDER_COUNT,COUNT_DATE) values(PROV_CODE1,PROV_NAME1,AGENT_CODE1,AGENT_NAME1,CMANAGER_ID1,NAME1,SPREADSTORE_COUNT1,0,0,COUNT_DATE1);
+		end if;
+	end if;
+until done =1 end repeat;
+close cursor_spreadstore;
+set done = 0;
+set count_num = 0;
+open cursor_member;
+repeat
+	fetch cursor_member into PROV_CODE2,PROV_NAME2,AGENT_CODE2,AGENT_NAME2,CMANAGER_ID2,NAME2,MEMBER_COUNT2,COUNT_DATE2;
+	if !done then
+		select count(*) into count_num from ka_cmanager_report where PROV_CODE = PROV_CODE2 and AGENT_CODE=AGENT_CODE2 and CMANAGER_ID = CMANAGER_ID2 and COUNT_DATE=COUNT_DATE2;
+		if count_num >0 then 
+			update ka_cmanager_report set MEMBER_COUNT = MEMBER_COUNT2 where PROV_CODE = PROV_CODE2 and AGENT_CODE=AGENT_CODE2 and CMANAGER_ID = CMANAGER_ID2 and COUNT_DATE=COUNT_DATE2;
+		else
+			insert into ka_cmanager_report(PROV_CODE,PROV_NAME,AGENT_CODE,AGENT_NAME,CMANAGER_ID,NAME,SPREADSTORE_COUNT,MEMBER_COUNT,ORDER_COUNT,COUNT_DATE)values(PROV_CODE2,PROV_NAME2,AGENT_CODE2,AGENT_NAME2,CMANAGER_ID2,NAME2,0,MEMBER_COUNT2,0,COUNT_DATE2);
+		end if;
+	end if;
+until done =1  end repeat;
+close cursor_member;
+set done = 0;
+set count_num = 0;
+open cursor_order;
+repeat
+	fetch cursor_order into PROV_CODE3,PROV_NAME3,AGENT_CODE3,AGENT_NAME3,CMANAGER_ID3,NAME3,ORDER_COUNT3,COUNT_DATE3;
+	if !done then
+		select count(*) into count_num from ka_cmanager_report where PROV_CODE = PROV_CODE3 and AGENT_CODE=AGENT_CODE3 and CMANAGER_ID = CMANAGER_ID3 and COUNT_DATE=COUNT_DATE3;
+		if count_num >0 then
+			update ka_cmanager_report set ORDER_COUNT = ORDER_COUNT3 where PROV_CODE = PROV_CODE3 and AGENT_CODE=AGENT_CODE3 and CMANAGER_ID = CMANAGER_ID3 and COUNT_DATE=COUNT_DATE3;
+		else
+			insert into ka_cmanager_report(PROV_CODE,PROV_NAME,AGENT_CODE,AGENT_NAME,CMANAGER_ID,NAME,SPREADSTORE_COUNT,MEMBER_COUNT,ORDER_COUNT,COUNT_DATE)values(PROV_CODE3,PROV_NAME3,AGENT_CODE3,AGENT_NAME3,CMANAGER_ID3,NAME3,0,0,ORDER_COUNT3,COUNT_DATE3);
+		end if;
+	end if;
+until done =1 end repeat;
+close cursor_order;
+END
