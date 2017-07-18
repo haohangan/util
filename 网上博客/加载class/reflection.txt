@@ -1,0 +1,6 @@
+https://github.com/ronmamo/reflections
+
+Reflections reflections = new Reflections("eva.cglibtest.demo1");
+	  reflections.getTypesAnnotatedWith(Deprecated.class).forEach(c->{
+		  System.out.println(c);
+	  });
