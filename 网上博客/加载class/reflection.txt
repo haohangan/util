@@ -4,3 +4,10 @@ Reflections reflections = new Reflections("eva.cglibtest.demo1");
 	  reflections.getTypesAnnotatedWith(Deprecated.class).forEach(c->{
 		  System.out.println(c);
 	  });
+	  
+	  
+	  
+Reflections reflections = new Reflections(packageName,new MethodAnnotationsScanner());
+	  reflections.getMethodsAnnotatedWith(Fegin.class).forEach(c->{
+		  System.out.println(c);
+	  });
