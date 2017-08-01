@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.dao.ColorMapper">
+  <resultMap id="BaseResultMap" type="test.model.Color">
+    <id column="COLOR_ID" jdbcType="VARCHAR" property="COLOR_ID" />
+    <result column="COLORCODE" jdbcType="VARCHAR" property="COLORCODE" />
+    <result column="COLORNAME" jdbcType="VARCHAR" property="COLORNAME" />
+    <result column="COLORRGB" jdbcType="VARCHAR" property="COLORRGB" />
+    <result column="ISUSED" jdbcType="VARCHAR" property="ISUSED" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    COLOR_ID, COLORCODE, COLORNAME, COLORRGB, ISUSED
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_color
+    where COLOR_ID = #{COLOR_ID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_color
+    where COLOR_ID = #{COLOR_ID,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="test.model.Color">
+    insert into tb_color (COLOR_ID, COLORCODE, COLORNAME, 
+      COLORRGB, ISUSED)
+    values (#{COLOR_ID,jdbcType=VARCHAR}, #{COLORCODE,jdbcType=VARCHAR}, #{COLORNAME,jdbcType=VARCHAR}, 
+      #{COLORRGB,jdbcType=VARCHAR}, #{ISUSED,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="test.model.Color">
+    insert into tb_color
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="COLOR_ID != null">
+        COLOR_ID,
+      </if>
+      <if test="COLORCODE != null">
+        COLORCODE,
+      </if>
+      <if test="COLORNAME != null">
+        COLORNAME,
+      </if>
+      <if test="COLORRGB != null">
+        COLORRGB,
+      </if>
+      <if test="ISUSED != null">
+        ISUSED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="COLOR_ID != null">
+        #{COLOR_ID,jdbcType=VARCHAR},
+      </if>
+      <if test="COLORCODE != null">
+        #{COLORCODE,jdbcType=VARCHAR},
+      </if>
+      <if test="COLORNAME != null">
+        #{COLORNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="COLORRGB != null">
+        #{COLORRGB,jdbcType=VARCHAR},
+      </if>
+      <if test="ISUSED != null">
+        #{ISUSED,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="test.model.Color">
+    update tb_color
+    <set>
+      <if test="COLORCODE != null">
+        COLORCODE = #{COLORCODE,jdbcType=VARCHAR},
+      </if>
+      <if test="COLORNAME != null">
+        COLORNAME = #{COLORNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="COLORRGB != null">
+        COLORRGB = #{COLORRGB,jdbcType=VARCHAR},
+      </if>
+      <if test="ISUSED != null">
+        ISUSED = #{ISUSED,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where COLOR_ID = #{COLOR_ID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="test.model.Color">
+    update tb_color
+    set COLORCODE = #{COLORCODE,jdbcType=VARCHAR},
+      COLORNAME = #{COLORNAME,jdbcType=VARCHAR},
+      COLORRGB = #{COLORRGB,jdbcType=VARCHAR},
+      ISUSED = #{ISUSED,jdbcType=VARCHAR}
+    where COLOR_ID = #{COLOR_ID,jdbcType=VARCHAR}
+  </update>
+</mapper>
