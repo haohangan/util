@@ -1,1 +1,3 @@
 https://www.insaneprogramming.be/article/2015/09/04/spring-jaxrs/
+
+endpoint单独扫描
