@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+  <head>
+    <title>JavaScript RSA Encryption</title>
+    <script src="./js/jsencrypt.js"></script>
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+
+      // Call this code when the page is done loading.
+      $(function() {
+
+        // Run a quick encryption/decryption when they click.
+        $('#testme').click(function() {
+
+          // Encrypt with the public key...
+          var encrypt = new JSEncrypt();
+          encrypt.setPublicKey($('#pubkey').val());
+          var encrypted = encrypt.encrypt($('#input').val());
+
+          $("#output").text(encrypted);
+
+          // Decrypt with the private key...
+          var decrypt = new JSEncrypt();
+          decrypt.setPrivateKey($('#privkey').val());
+          var uncrypted = decrypt.decrypt(encrypted);
+
+          $("#output2").text(uncrypted);
+
+          // Now a simple check to see if the round-trip worked.
+          if (uncrypted == $('#input').val()) {
+            alert('It works!!!');
+          }
+          else {
+            alert('Something went wrong....');
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <label for="privkey">Private Key</label><br/>
+    <textarea id="privkey" rows="15" cols="65">-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEArnTtAwiJQp2WKw3xlkicjF5MzH9VMQ9EqtQfHfV/njhHyIES
+Z9Sv+/Nt6XJc/urPtD9sY9UglTFl4Furw6rR6PYV0lPT1W5Ak43RqovYckNtfbOm
+0oSIVt1hkgPhfojYIdJvOMQW0K+2uLar3ZPq45+LFz9h8HsFKNTbPxXYNsaMsYeD
+g5ArSs9lERZqn1UrK/DwbzA5AoQ06l7Rp4KBI5hiorQfkclboc5ZdAEOJz30l7QI
+9atxrko2RZmlQcYsZqXjrJQzCTI5bGbRXHS2xFyO/PebVcOSALVWZWGvTbiqAkkE
+ufE9B8VGrwv4nnrb02Nlq+f0x11liDIYTnk/JQIDAQABAoIBAE+s0Q4gmOeWpx20
+uZAkS3MEIlkHEnZcfcTzKd753zX4iDg3UpufFFyiOaFzfKtjvEaa7LrPfJkGvXtx
+AopTepjFwwOTC10fhFifXZFhWxIcX2YYZWkh5E6fvs77/MFYaDVSMT+gtrbKeU31
+B5sj0hPxKooMhYNZ++pBBHzUUjH5TOwD5Al/XL/QQZZ6UM80h+6orGNgu7BH1rIX
+UgsaK4uQgbSVEXfE4VHviP+jYNj9I6wVXcl8rNP0TYLbyqjgTibHDH6OqjUHuu0G
+BiRqPL3m/e2VVVp8AhkQYrwtJ1Kh1FP5PUEhjH/GeAmTQpEzevT7oeyLH+BZ06Je
+UzMTgCUCgYEA2aV0O+VktfuRBwpU4a04PKivpROsT4onqstogGAYXXnRHL+06yVQ
+4Dtj5g7zjts1sUHGRFVWGXZ8BPqpS0vqlgE/fL0czixduI8J8HBGhVXEajpzSKOT
+RN8XrX40Xf2fy/UEyH8Ikck8Zn9iwXpGCSOAq2d2nX/CUojIYwcSSbcCgYEAzTMW
+UMzqxQ5nOuj3ee5HQmPyJPrOL4t5EpOBWp+wN5OtT/Ps27ALgebkSfQ1rwUGfKW+
+vqhVxQG/0/yS2qSn5JQScYcEBkcM5vsrozV5+KxOeC5RFR/gvHt2BuDvLP+nom41
+wvrDVGTwHLLEePyw6JztWeqPDOyjdv9uLS4YrgMCgYA9Cu+vwOXfOKBzdg1agmfM
+c49X4E2qvVfkykoT/1+2D+17f7UxYnTtfxrEsprTDV5gyc7e6YRNffLIvrjuumsg
+CVeSF8RVexIKKmwiOIs+6FA/bwdYbzBl16Bfc48icXj5Dk56IU74/JTpNn8vPqkX
+9RIogMs+309UMLLrO1eAvwKBgQCmgyc/qBl2kKqKLlPr+MSQhkQPaAp6oGY+Ab59
+CIpZfxergpgY6XFdFzz3GhmaDazm5ySy2CzJchL09cdBb03ieZnB0Dse0PcSVI1j
+olh4x3HhqkwXpUecC1+KU2sii86/S0mLECwDRullkFdIil0QVY9xYJp2dWxsevgv
+53EVewKBgQDC8sI/EswvaTKDuUxZ/U1ZWCfXWTtH5WMUk0gCcu+KMK/w2yiQ6t5V
+H6j3ITgM+DN0pWs6ddViZfBH3SDBw54O7XZm4yV2lqhwuONWgtTk6GKDHIMNk6jf
++g1TOpfOOTFz9jAw9RxNdjZ/Qb3ru4KtcW5bE4N1uBfTJeB0nsuBWQ==
+-----END RSA PRIVATE KEY-----</textarea><br/>
+    <label for="pubkey">Public Key</label><br/>
+    <textarea id="pubkey" rows="15" cols="65">-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArnTtAwiJQp2WKw3xlkic
+jF5MzH9VMQ9EqtQfHfV/njhHyIESZ9Sv+/Nt6XJc/urPtD9sY9UglTFl4Furw6rR
+6PYV0lPT1W5Ak43RqovYckNtfbOm0oSIVt1hkgPhfojYIdJvOMQW0K+2uLar3ZPq
+45+LFz9h8HsFKNTbPxXYNsaMsYeDg5ArSs9lERZqn1UrK/DwbzA5AoQ06l7Rp4KB
+I5hiorQfkclboc5ZdAEOJz30l7QI9atxrko2RZmlQcYsZqXjrJQzCTI5bGbRXHS2
+xFyO/PebVcOSALVWZWGvTbiqAkkEufE9B8VGrwv4nnrb02Nlq+f0x11liDIYTnk/
+JQIDAQAB
+-----END PUBLIC KEY-----</textarea><br/>
+    <label for="input">Text to encrypt:</label><br/>
+    <textarea id="input" name="input" type="text" rows=4 cols=70>This is a test!</textarea><br/>
+    <input id="testme" type="button" value="Test Me!!!" /><br/>
+    <label for="output">Text to encrypt:</label><br/>
+    <textarea id="output" name="output" type="text" rows=4 cols=70></textarea><br/>
+
+    <label for="output2">Text to encrypt2:</label><br/>
+    <textarea id="output2" name="output2" type="text" rows=4 cols=70></textarea><br/>
+  </body>
+</html>
