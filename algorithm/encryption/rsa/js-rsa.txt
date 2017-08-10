@@ -1,0 +1,92 @@
+https://github.com/travist/jsencrypt
+https://stackoverflow.com/questions/11410770/load-rsa-public-key-from-file
+
+
+How to use this library.
+
+This library should work hand-in-hand with openssl. With that said, here is how to use this library.
+
+Within your terminal (Unix based OS) type the following.
+openssl genrsa -out rsa_1024_priv.pem 1024
+This generates a private key, which you can see by doing the following...
+cat rsa_1024_priv.pem
+You can then copy and paste this in the Private Key section of within index.html.
+Next, you can then get the public key by executing the following command.
+openssl rsa -pubout -in rsa_1024_priv.pem -out rsa_1024_pub.pem
+You can see the public key by typing...
+cat rsa_1024_pub.pem
+Now copy and paste this in the Public key within the index.html.
+Now you can then convert to and from encrypted text by doing the following in code.
+
+-----------------------------------------------------------------------------------------------------------
+Below is the relevant information from the link which zaki provided.
+
+Generate a 2048-bit RSA private key
+
+$ openssl genrsa -out private_key.pem 2048
+
+Convert private Key to PKCS#8 format (so Java can read it)
+
+$ openssl pkcs8 -topk8 -inform PEM -outform DER -in private_key.pem -out private_key.der -nocrypt
+
+Output public key portion in DER format (so Java can read it)
+
+$ openssl rsa -in private_key.pem -pubout -outform DER -out public_key.der
+Private key
+
+import java.io.*;
+import java.nio.*;
+import java.security.*;
+import java.security.spec.*;
+
+public class PrivateKeyReader {
+
+  public static PrivateKey get(String filename)
+  throws Exception {
+
+    byte[] keyBytes = Files.readAllBytes(Paths.get(filename));
+
+    PKCS8EncodedKeySpec spec =
+      new PKCS8EncodedKeySpec(keyBytes);
+    KeyFactory kf = KeyFactory.getInstance("RSA");
+    return kf.generatePrivate(spec);
+  }
+}
+Public key
+
+import java.io.*;
+import java.nio.*;
+import java.security.*;
+import java.security.spec.*;
+
+public class PublicKeyReader {
+
+  public static PublicKey get(String filename)
+    throws Exception {
+
+    byte[] keyBytes = Files.readAllBytes(Paths.get(filename));
+
+    X509EncodedKeySpec spec =
+      new X509EncodedKeySpec(keyBytes);
+    KeyFactory kf = KeyFactory.getInstance("RSA");
+    return kf.generatePublic(spec);
+  }
+}---------------------------------------------------------------------------------------
+
+	/**
+	 * RSA解密
+	 * 
+	 * @param cryptograph
+	 * @return
+	 * @throws Exception
+	 */
+	public static String decrypt(String cryptograph) throws Exception {
+		/** 得到Cipher对象对已用公钥加密的数据进行RSA解密 */
+		Cipher cipher = Cipher.getInstance("RSA");
+		cipher.init(Cipher.DECRYPT_MODE, privateKey);
+		Decoder decoder = Base64.getDecoder();
+		byte[] b1 = decoder.decode(cryptograph);
+		/** 执行解密操作 */
+		byte[] b = cipher.doFinal(b1);
+		return new String(b);
+	}
