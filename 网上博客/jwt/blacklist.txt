@@ -1,0 +1,51 @@
+https://stackoverflow.com/questions/21978658/invalidating-json-web-tokens
+
+1) Simply remove the token from the client
+
+Obviously this does nothing for server side security, but it does stop an attacker by removing the token from existence (ie. they would have to have stolen the token prior to logout).
+
+2) Create a token blacklist
+
+You could store the invalid tokens until their initial expiry date, and compare them against incoming requests. This seems to negate the reason for going fully token based in the first place though, as you would need to touch the database for every request. The storage size would likely be lower though, as you would only need to store tokens that were between logout & expiry time (this is a gut feeling, and is definitely dependent on context).
+
+3) Just keep token expiry times short and rotate them often
+
+If you keep the token expiry times at short enough intervals, and have the running client keep track and request updates when necessary, number 1 would effectively work as a complete logout system. The problem with this method, is that it makes it impossible to keep the user logged in between closes of the client code (depending on how long you make the expiry interval).
+
+Contingency Plans
+
+If there ever was an emergency, or a user token was compromised, one thing you could do is allow the user to change an underlying user lookup ID with their login credentials. This would render all associated tokens invalid, as the associated user would no longer be able to be found.
+
+I also wanted to note that it is a good idea to include the last login date with the token, so that you are able to enforce a relogin after some distant period of time.
+
+In terms of similarities/differences with regards to attacks using tokens, this post addresses the question: http://blog.auth0.com/2014/01/07/angularjs-authentication-with-cookies-vs-token/
+
+
+
+
+
+
+The ideas posted above are good, but a very simple and easy way to invalidate all the existing JWTs is simply to change the secret.
+
+If your server creates the JWT, signs it with a secret (JWS) then sends it to the client, simply changing the secret will invalidating all existing tokens and require all users to gain a new token to authenticate as their old token suddenly becomes invalid according to the server.
+
+It doesn't require any modifications to the actual token contents (or lookup ID).
+
+Clearly this only works for an emergency case when you wanted all existing tokens to expire, for per token expiry one of the solutions above is required (such as short token expiry time or invalidating a stored key inside the token).
+
+
+
+https://stackoverflow.com/questions/43569723/jwt-authentication-how-to-implement-logout
+2
+down vote
+I don't think there is a best practice here. I guess it depends on the application you're building and it's requirements.
+
+The benefit of JWT is that they're stateless. You don't need to query the database to validate the token. This is good when you wish to reduce the load on your database but bad when you want to invalidate an existing non-expired token.
+
+Possible solutions:
+
+Store JWT in the database. You can check which tokens are valid and which ones are revoked but this defeats the purpose of using JWT at all in my opinion.
+Delete token from the client. This would stop the client from being able to make authenticated requests but if the token is still valid and somebody else has access to it, the token could still be used. This leads me to my next point.
+Short token lifetime. Let the tokens expire quickly. Depending on the application, it could be several minutes or half an hour. When the client deletes its token, there's a short window of time where it can still be used. Deleting the token from the client and having short token lifetimes would not require major modifications on the back-end. But short token lifetimes would mean that the user is constantly being logged out because the token has expired.
+Rotate tokens. Maybe introduce a concept of refresh tokens. When the user logs in, provide them with a JWT and a refresh token. Store the refresh token in a database. For authenticated requests, the client can use the JWT but when the token expires (or is about to expire), let the client make a request with the refresh token in exchange for a new JWT. This way you would only have to hit the database when a user logs in or asks for a new JWT. When the user logs out, you would need to invalidate the stored refresh token. Otherwise somebody listening in on the connection could still get new JWTs even though the user had logged out.
+Create a JWT blacklist. Depending on the expiration time, when the client deletes its token, it might still be valid for some time. If the token lifetime is short, it might not be an issue, but if you still wish that the token is invalidated immediately, you could create a token blacklist. When the back-end receives a logout request, take the JWT from the request and store it in an in-memory database. For each authenticated request you would need to check your in-memory database to see if the token has been invalidated. To keep the search space small, you could remove tokens from the blacklist which have already expired.
