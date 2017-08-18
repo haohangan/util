@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title of the document</title>
+    <!-- <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous"> -->
+    <!-- style="display: flex;width: 400px; height: 400px;" style="width: 100px;height: 20px;margin: auto;"-->
+    <!-- <link href="//mincss.com/entireframework.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- <style>   
+body {background-color: powderblue;}
+</style> -->
+    <link rel="stylesheet" href="../css/pure-min.css">
+    <style>
+        .Aligner {
+            display: flex;
+            align-items: center;
+            min-height: 24em;
+            justify-content: center;
+        }
+        
+        .Aligner-item {
+            flex: 1;
+        }
+        
+        .Aligner-item--top {
+            align-self: flex-start;
+        }
+        
+        .Aligner-item--bottom {
+            align-self: flex-end;
+        }
+        
+        .Aligner-item--fixed {
+            flex: none;
+            max-width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="Aligner">
+        <!-- <div class="Aligner-item Aligner-item--top"></div> -->
+        <div class="Aligner-item">
+            <form class="pure-form">
+                <fieldset>
+                    <legend>登录页面</legend>
+                    <input type="email" placeholder="帐户">
+                    <input type="password" placeholder="密码">
+                    <button type="submit" class="pure-button pure-button-primary">登录</button>
+                </fieldset>
+            </form>
+        </div>
+        <!-- <div class="Aligner-item Aligner-item--bottom"></div> -->
+    </div>
+</body>
+
+</html>
