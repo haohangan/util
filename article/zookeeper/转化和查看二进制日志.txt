@@ -1,0 +1,13 @@
+package test.znode_monitor;
+
+import org.apache.zookeeper.server.LogFormatter;
+import org.apache.zookeeper.server.quorum.QuorumPeerMain;
+
+public class QuorumPeerMainStart {
+   public static void main(String[] args) throws Exception {
+	   QuorumPeerMain q;
+//	   CommandExecutor d;
+	   args = new String[]{"D:\\log\\zk2\\version-2\\log.100000001"};
+	   LogFormatter.main(args);
+}
+}
