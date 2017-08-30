@@ -1,0 +1,4 @@
+download etcd release
+download goreman release
+edit Profile
+goreman start
