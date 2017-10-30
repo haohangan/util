@@ -1,0 +1,17 @@
+Spring Profiles provide a way to segregate parts of your application configuration and make it only available in certain environments. 
+Any @Component or @Configuration can be marked with @Profile to limit when it is loaded:
+
+Spring 配置文件提供了一种隔离应用程序配置部分的方法, 使其仅在某些环境中可用。
+任何 @Component 或 @Configuration 都可以用 @Profile 进行标记, 以便在加载时进行限制:
+
+
+@Configuration
+@Profile("production")
+public class ProductionConfiguration {
+
+    // ...
+
+}
+
+
+spring.profiles.active=dev,hsqldb
