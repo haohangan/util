@@ -26,7 +26,7 @@ public class ESClinet {
 
 	public static void main(String[] args) throws IOException {
 
-		try (RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200, "http")).build();) {
+		try (RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200, "http")).build()) {
 			RestHighLevelClient client = new RestHighLevelClient(restClient);
 			// search(client);
 //			insert(client, title());
@@ -34,6 +34,7 @@ public class ESClinet {
 			// get(client);
 			// delete(client);
 			search(client);
+			System.out.println("over");
 		}
 
 	}
