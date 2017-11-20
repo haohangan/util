@@ -1,37 +1,37 @@
 package download.jar;
 
 public class Article {
-	private long ID;
-	private String ARTICLE;
-	private String CONTENT;
+	private long id;
+	private String title;
+	private String content;
 
-	public long getID() {
-		return ID;
+	public long getId() {
+		return id;
 	}
 
-	public void setID(long iD) {
-		ID = iD;
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	public String getARTICLE() {
-		return ARTICLE;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setARTICLE(String aRTICLE) {
-		ARTICLE = aRTICLE;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getCONTENT() {
-		return CONTENT;
+	public String getContent() {
+		return content;
 	}
 
-	public void setCONTENT(String cONTENT) {
-		CONTENT = cONTENT;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	@Override
 	public String toString() {
-		return "Article [ID=" + ID + ", ARTICLE=" + ARTICLE + ", CONTENT=" + CONTENT + "]";
+		return "article[id=" + id + ",title=" + title + ",content=" + content + "]";
 	}
 
 }
