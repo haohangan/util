@@ -1,0 +1,286 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+         pageEncoding="utf-8"%>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>第三方数据列表</title>
+    <jsp:include page="/jsp/page/commonCss.jsp"/>
+    <link href="${basePath}css/qm-marketing/marketing.css" rel="stylesheet">
+    <style>
+    #downloadImg{
+        width:160px;
+        overflow:hidden;
+    }
+    #downloadImg img{
+        width:100%;
+        display:block;
+    }
+    .storeCodeMsg{
+        clear: both;
+        overflow: hidden;
+        margin-bottom:10px;
+    }
+    .storeCodeMsg img.avatar{
+        width: 45px !important;;
+        height: 45px;
+        float: left;
+        overflow:hidden;
+        font-size: 16px;
+        margin-right:6px;
+    }
+    .storeCodeMsg div.storeCodeText{
+        float: left;
+        width:110px;
+        overflow:hidden;
+        font-size: 16px;
+    }
+    .storeCodeMsg div.storeCodeText p{
+        margin:0;
+        text-align: left;
+    }
+    </style>
+</head>
+<body>
+<!-- 引用头 -->
+<jsp:include page="../page/header.jsp"></jsp:include>
+
+<div id="webapp" v-cloak>
+    <div class="page_body container-fluid">
+        <div class="row">
+            <jsp:include page="../page/left.jsp"></jsp:include>
+
+            <div class="col-lg-20 col-md-19 col-sm-18 main">
+                <jsp:include page="../page/left2.jsp"></jsp:include>
+                <div class="main_cont">
+                    <div>
+                        <breadcrumb :crumb="['统计','交易分析','第三方交易']"></breadcrumb>
+                        <heading text="交易列表" :num="page.context.rows"></heading>
+                        <div class="common_data p20">
+                            <div class="filter_area">
+                                <!--
+                                <form class="form-inline" onsubmit="return false;" @keyup="if($event.keyCode==13){search();}" id="searchForm">
+                                -->
+                                <form class="form-inline" onsubmit="return false;" id="searchForm">
+
+                                    <input type="hidden" id="CSRFToken" name="CSRFToken" value="${token}"/>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">价格区间</span>
+                                            <input type="text" class="form-control" name="startPrice"
+                                                value="${startPrice}">
+                                        </div>
+                                        ~
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="endPrice"
+                                                    value="${endPrice}">
+                                        </div>
+                                    </div>
+
+                                    <input-group label="有效时间">
+                                        <date-time-picker start pid="startDate" crear></date-time-picker> ~ <date-time-picker end pid="endDate" crear></date-time-picker>
+                                    </input-group>
+
+                                    <input-group label="商品名称">
+                                        <input class="form-control" type="text" name="goodsName" value="${goodsName}"/>
+                                    </input-group>
+
+                                    <input-group label="门店归属">
+                                        <input class="form-control" type="text" name="salerPointName" value="${salerPointName}"/>
+                                    </input-group>
+
+                                    <input-group label="品牌">
+                                        <input class="form-control" type="text" name="brand" value="${brand}"/>
+                                    </input-group>
+
+                                    <input-group label="用户手机号">
+                                        <input class="form-control" type="text" name="tel" value="${tel}"/>
+                                    </input-group>
+
+                                    <input-group>
+                                        <button class="btn btn-primary" type="button" @click="search">搜索</button>
+                                    </input-group>
+                                </form>
+                            </div>
+
+                            <btn-bar>
+                            </btn-bar>
+
+                            <form class="form-inline">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                    <tr>
+                                        <!--
+                                        <th>序号</th>
+                                        -->
+                                        <%-- <th>用户手机号</th> --%>
+                                        <th>用户昵称</th>
+                                        <%-- <th>终端采购价</th>
+                                        <th>销售金额</th> --%>
+                                        <th>实收金额</th>
+                                        <%-- <th>减免金额</th> --%>
+                                        <th>受理时间</th>
+                                        <th>销售人员</th>
+                                        <th>销售来源</th>
+                                        <%-- <th>销售人员手机号</th> --%>
+                                        <th>销售门店</th>
+                                        <%-- <th>销售商品名称</th>
+                                        <th>商品规格</th> --%>
+                                        <%-- <th>销售商品编号</th>
+                                        <th>销售商品数量</th>
+                                        <th>商品配送方式</th>
+                                        <th>商品配送单号</th> --%>
+                                        <th>销售商品品牌</th>
+                                        <th>销售商品型号</th>
+                                        <th>支付方式</th>
+                                        <%-- <th>商品来源</th>
+                                        <th>收货地址</th>
+                                        <th>供应商</th> --%>
+                                        <%-- <th>商户代码</th>
+                                        <th>商户名称</th> --%>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(item, index) in page.context.list">
+                                            <!--
+                                            <td>{{ index+1 }}</td>
+                                            -->
+                                            	<%-- <td>{{item.cus_tel}}</td> --%>
+                                                <td>{{item.cus_name}}</td>
+                                                <%-- <td>{{item.purchase_price}}</td>
+                                                <td>{{item.sale_price}}</td> --%>
+                                                <td>{{item.fact_receive_price}}</td>
+                                                <%-- <td>{{item.discnt_price}}</td> --%>
+                                                <td>{{formatDate(item.process_time)}}</td>
+                                                <td>{{item.saler_name}}</td>
+                                                <%-- <td>{{item.saler_tel}}</td> --%>
+                                                <td></td>
+                                                <td>{{item.saler_point_name}}</td>
+                                                <%-- <td>{{item.goods_standard}}</td> --%>
+                                                <%-- <td>{{item.goods_no}}</td>
+                                                <td>{{item.goods_num}}</td>
+                                                <td>{{item.delivery_type}}</td>
+                                                <td>{{item.delivery_no}}</td> --%>
+                                                <td>{{item.goods_brand}}</td>
+                                                <td>{{item.goods_model}}</td>
+                                                <td>{{item.pay_type}}</td>
+                                                <%-- <td>{{item.goods_source}}</td>
+                                                <td>{{item.shipping_address}}</td>
+                                                <td>{{item.supplier}}</td> --%>
+                                                <%-- <td>{{item.CC}}</td>
+                                                <td>{{item.CCNAME}}</td> --%>
+                                        </tr>
+                                        <tr v-if="!(page.context.list&&page.context.list.length>0)">
+                                            <td colspan="23">
+                                                <center>{{emptyMsg}}</center>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+
+                            <div v-if="(page.context.list&&page.context.list.length>0)">
+                                <paginator :page="page"></paginator>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="pageNo" value="${pageNo}">
+    <input type="hidden" id="pageSize" value="${pageSize}">
+    <input type="hidden" id="CC" value="${CC}">
+</div>
+
+<jsp:include page="/jsp/page/commonJs.jsp"/>
+<jsp:include page="/jsp/page/commonVueJs.jsp"/>
+
+</body>
+<script type="text/javascript">
+        var OrderCollectListVM = new Vue({
+            el:"#webapp",
+            data:function(){
+                var me = this;
+                return {
+                    url:'data_order_collect_list.htm',
+                    page:{
+                        context:{
+                            list:[],
+                        },
+                        // pageFun:function(pageNo,pageSize){
+                        //     var defer = jQuery.ajax({
+                        //         type:"get",
+                        //         url:me.url,
+                        //         data:me.deferQuery+("&pageNo="+pageNo+"&pageSize="+pageSize),
+                        //     });
+                        //     defer.done(function(res){
+                        //         me.page.context = res.context;
+                        //         if(!res.context.list||res.context.list.length==0){
+                        //             me.emptyMsg = "搜索不到数据";
+                        //         }
+                        //     });
+                        // }
+                    },
+                }
+            },
+            mounted:function() {
+                var me = this;
+                //获取回显的searchName;
+                var pageNo = $("#pageNo").val()||1;
+                var pageSize = $("#pageSize").val()||15;
+
+                var defer = this.getData(pageNo,pageSize);
+                defer.done(function(res){
+                    me.page.context = res.context;
+                    if(!res.context.list||res.context.list.length==0){
+                        me.emptyMsg = "没有店员，列表为空";
+                    }
+                });
+            },
+            methods:{
+                getData:function(pageno,pagesize){
+                    var me = this;
+                    //延迟查询对象，防止立即绑定出发查询
+                    me.deferQuery = $("#searchForm").serialize();
+                    var defer = jQuery.ajax({
+                        type:"get",
+                        url:me.url,
+                        data:$("#searchForm").serialize()+("&pageNo="+pageno+"&pageSize="+pagesize),
+                    });
+                    return defer;
+                },
+                search:function(){
+                    var me = this;
+                    var pageno = 1;
+                    var pagesize = this.page.context.pageSize||15;
+                    var defer = this.getData(pageno,pagesize);
+                    me.searchMark = 1;
+                    defer.done(function(res){
+                        me.page.context = res.context;
+                        if(!res.context.list||res.context.list.length==0){
+                            me.emptyMsg = "搜索不到数据";
+                        }
+                    });
+                },
+                formatDate(dnum){
+                    var d = new Date(dnum);
+                    return d.getFullYear() +"-"+ (d.getMonth()+1) + "-" +d.getDate()  + " " +
+                    d.getHours() + ":" + d.getMinutes();
+                },
+            }
+        });
+</script>
+</html>
