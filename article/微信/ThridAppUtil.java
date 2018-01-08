@@ -45,7 +45,7 @@ public class ThridAppUtil {
     final static String Pre_Auth_Code_Token_URL = "https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=COMPONENT_ACCESS_TOKEN";
     final static String To_Auth_URL = "https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid=COMPONENT_APPID&pre_auth_code=PRE_AUTH_CODE&redirect_uri=REDIRECT_URI&auth_type=AUTH_TYPE";
 
-    final static String REDIRECT_URL ="http://9niuw.natapp1.cc/wxThirdAuth/redirect.htm";
+    final static String REDIRECT_URL ="http://测试机器的域名/wxThirdAuth/redirect.htm";
 
 
     /**
