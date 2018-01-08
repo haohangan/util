@@ -148,7 +148,7 @@ public class ThridAppUtil {
      * ==================授权前后的分割线=======================================================================================================================================================================
      */
 
-    static final String GET_Auth_Access_Token_URL = "https:// api.weixin.qq.com /cgi-bin/component/api_authorizer_token?component_access_token=COMPONENT_ACCESS_TOKEN";
+    static final String GET_Auth_Access_Token_URL = "https://api.weixin.qq.com/cgi-bin/component/api_authorizer_token?component_access_token=COMPONENT_ACCESS_TOKEN";
     //5、获取（刷新）授权公众号或小程序的接口调用凭据（令牌）
     public static String getAuthAccessToken(WxAuthInfo info) throws IOException {
         String token = null;
