@@ -1,0 +1,2 @@
+
+curl -X PUT -d @/home/unit/start.json --unix-socket /run/control.unit.sock http://localhost/
