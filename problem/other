@@ -1,1 +1,2 @@
 XXE注入--XML外部实体注入(XML External Entity)
+外部调用使用xml格式时，需要注意的问题
