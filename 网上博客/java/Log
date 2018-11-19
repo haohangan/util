@@ -1,0 +1,7 @@
+1:java log
+2:three java log framework
+@1:java util log
+@2:log4j
+@3:logback
+3:tomcat juli
+4:sync or async
