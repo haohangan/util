@@ -1,7 +1,7 @@
 1:java log
-2:three java log framework
+2:three java log framework  #https://www.sitepoint.com/which-java-logging-framework-has-the-best-performance/
 @1:java util log
 @2:log4j
 @3:logback
-3:tomcat juli
-4:sync or async
+3:tomcat juli #https://tomcat.apache.org/tomcat-9.0-doc/logging.html
+4:sync or async 
