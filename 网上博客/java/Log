@@ -3,5 +3,5 @@
 @1:java util log
 @2:log4j
 @3:logback
-3:tomcat juli #https://tomcat.apache.org/tomcat-9.0-doc/logging.html
+3:apache common logging and tomcat juli #https://tomcat.apache.org/tomcat-9.0-doc/logging.html
 4:sync or async 
