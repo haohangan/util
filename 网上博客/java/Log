@@ -5,3 +5,4 @@
 @3:logback
 3:apache common logging and tomcat juli #https://tomcat.apache.org/tomcat-9.0-doc/logging.html
 4:sync or async 
+5:how to choose #2
