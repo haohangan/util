@@ -1,10 +1,13 @@
 1:java log
 2:three java log framework  #https://www.sitepoint.com/which-java-logging-framework-has-the-best-performance/
 @1:java util log
-@2:log4j
+@2:log4j(log4j1.X end of life in 2015)(log4j2.X)
 @3:logback
-3:apache common logging and tomcat juli #https://tomcat.apache.org/tomcat-9.0-doc/logging.html
+@slf4j #新增一個日志組建
+3:apache common(a bridge between different logging implementations)logging and tomcat juli #https://tomcat.apache.org/tomcat-9.0-doc/logging.html
 4:sync or async 
 5:how to choose #2
 6:哪里需要增加日志
 7:kafka如何处理日志记录的
+
+優點：日志记录为开发人员提供了应用程序故障的详细上下文。#http://logging.apache.org/log4j/1.2/
