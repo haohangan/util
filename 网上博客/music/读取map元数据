@@ -1,0 +1,32 @@
+package demo;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.SeekableByteChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
+public class FileNameTransfer {
+
+    public static void main(String[] args) throws IOException {
+        Path path = Paths.get("D:\\","boomX2.mp3");
+        try(SeekableByteChannel channel = Files.newByteChannel(path, StandardOpenOption.READ);){
+            long size = channel.size();
+            System.out.println(size);
+            long start = size -1  - (128 -1);
+            channel.position(start);
+            ByteBuffer dst = ByteBuffer.allocate(128);
+            channel.read(dst);
+            byte[] arr = dst.array();
+            System.out.println(new String(arr,0,3));//TAG，三个字节
+            System.out.println(new String(arr,3,30));//歌曲名,30个字节
+            System.out.println(new String(arr,33,30));//歌手名,30个字节
+            System.out.println(new String(arr,63,30));//所属唱片,30个字节
+            System.out.println(new String(arr,93,4));//年,4个字符
+            System.out.println(new String(arr,97,28));//注释,28个字节
+            //最后三个保留位 三个一字节
+        }
+    }
+}
