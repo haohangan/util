@@ -1,0 +1,12 @@
+1:定义.proto文件，数据类型和方法
+2：放在默认路径下，如 \src\main\proto\*.proto
+3：运行mvn compile,会生成 proto文件对应的类和grpc对应的类
+4：使用grpc的api，server client 将服务端和客户端运行起来，调用成功hello world
+
+
+参考:https://www.grpc.io/docs/tutorials/basic/java/
+By walking through this example you’ll learn how to:
+
+Define a service in a .proto file.
+Generate server and client code using the protocol buffer compiler.
+Use the Java gRPC API to write a simple client and server for your service.
