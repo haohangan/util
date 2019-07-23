@@ -1,0 +1,83 @@
+package loader;
+
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.file.Paths;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+public class LoaderManager {
+
+    private String path;
+    URL[] urls;
+    private long time;
+    private URLClassLoader loader;
+    private ConcurrentHashMap<String,Class> map;
+    private ReadWriteLock lock;
+
+    public LoaderManager(String path) throws MalformedURLException {
+        this.path = path;
+        File file = Paths.get(path).toFile();
+        time = file.lastModified();
+        urls = new URL[]{file.toURI().toURL()};
+        lock = new ReentrantReadWriteLock();
+
+        loader = new URLClassLoader(urls,Thread.currentThread().getContextClassLoader());
+        map = new ConcurrentHashMap<>();
+
+        Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(()->{
+            checkVersion();
+        },10,3, TimeUnit.SECONDS);
+    }
+
+    public Class<?> getClass(String name) throws ClassNotFoundException {
+        if(map.contains(name)){
+            return map.get(name);
+        }
+        try{
+            lock.readLock().lock();
+            Class<?> clazz = loader.loadClass(name);
+            map.put(name,clazz);
+            return clazz;
+        }finally {
+            lock.readLock().unlock();
+        }
+    }
+
+    private void checkVersion(){
+        System.out.println("check file");
+        File file = Paths.get(path).toFile();
+        if(!Objects.isNull(file) && file.lastModified()>time){
+            System.out.println("change file");
+            try{
+                lock.writeLock().lock();
+                time = file.lastModified();
+                loader = new URLClassLoader(urls,Thread.currentThread().getContextClassLoader());
+                map = new ConcurrentHashMap<>();
+            }finally {
+                lock.writeLock().unlock();
+            }
+        }
+    }
+
+
+    public static void main(String[] args) throws MalformedURLException, ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException, InterruptedException {
+        String path = "D:\\out\\class\\classdemo-1.0-SNAPSHOT.jar";
+        LoaderManager manager = new LoaderManager(path);
+        for(int i = 0;i<100;i++){
+            Class<?> clazz = manager.getClass("classdemo.App");
+            Object obj = clazz.getDeclaredConstructor().newInstance();
+            Method method = clazz.getDeclaredMethod("version");
+            method.invoke(obj);
+            TimeUnit.SECONDS.sleep(1);
+        }
+    }
+}
