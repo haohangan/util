@@ -24,6 +24,7 @@ cursor.forEach(function(doc){
 	    bulkUpdateOps = [];
 	}    
 });
+ db.getCollection("LEADS_RESULT").bulkWrite(bulkUpdateOps);
 
 2:
 var bulk = db.getCollection("LEADS_RESULT").initializeUnorderedBulkOp(),
