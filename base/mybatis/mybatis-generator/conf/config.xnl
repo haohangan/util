@@ -10,6 +10,12 @@
     <!-- <property name="suppressAllComments" value="true"/> -->
     <!-- <property name="suppressDate" value="true"/> -->
 <!-- </commentGenerator> -->
+	
+	<commentGenerator type="demo.MyCommentGenerator">
+            <property name="suppressAllComments" value="true"/>
+			<property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
 
 
   <context id="DB2Tables" targetRuntime="MyBatis3">
