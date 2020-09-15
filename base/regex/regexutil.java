@@ -1,4 +1,4 @@
-package com.bees.policysupport.utils;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by guihao on 2020-09-15 16:00
+ * Created by  on 2020-09-15 16:00
  * 正则表达式工具类
  **/
 public class RegexUtils {
