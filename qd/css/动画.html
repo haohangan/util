@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- https://developer.mozilla.org/zh-CN/docs/Web/CSS/@keyframes -->
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <style>
+            /* 创建一个带名称的 @keyframes 规则 */
+            @keyframes slidein {
+                /* 每个 @keyframes 规则包含多个关键帧 */
+                from {
+                    transform: translateX(0%);
+                }
+                to {
+                    transform: translateX(100%);
+                }
+            }
+
+            div {
+                width: 100px;
+                height: 100px;
+                background-color: black;
+                position: relative;
+                animation: slidein 1s infinite;
+            }
+            p{
+                width: 100px;
+                height: 100px;
+                position: relative;
+                animation: slidein 5s infinite;
+            }
+        </style>
+    </head>
+    <body>
+        <p>
+           \(ax^2 + bx + c = 0\)
+          </p>  
+    </body>
+</html>
