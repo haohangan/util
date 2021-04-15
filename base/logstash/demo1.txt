@@ -1,0 +1,96 @@
+input{
+        stdin{
+        }
+        jdbc{
+            add_field => {"env"=>"pro"}
+                jdbc_connection_string => "jdbc:mysql://IP:3360/xx"
+                jdbc_user => "xx"
+                jdbc_password => "xx"
+                jdbc_driver_library => "/home/logstash/logstash-7.3.1/lib/mysql-connector-java-5.1.35.jar"
+                jdbc_driver_class => "com.mysql.jdbc.Driver"
+                jdbc_paging_enabled => "true"
+                jdbc_page_size => "4000"
+                statement => "SELECT id, gmt_create,DATE_FORMAT(gmt_update,'%Y-%m-%dT%H:%i:%s') AS gmt_update FROM jg_check_action  order by gmt_update asc"
+                #schedule => "0 */1 * * *"
+                #schedule => "*/30 * * * *"
+                #use_column_value => true
+                #tracking_column => "gmt_update"
+                #tracking_column_type => "timestamp"
+                #last_run_metadata_path => "/home/logstash/last_run/zx"
+                type => "_doc"
+        }
+        jdbc{
+            add_field => {"env"=>"pro"}
+                jdbc_connection_string => "jdbc:mysql://IP:3360/xx"
+                jdbc_user => "xx"
+                jdbc_password => "xx"
+                jdbc_driver_library => "/home/logstash/logstash-7.3.1/lib/mysql-connector-java-5.1.35.jar"
+                jdbc_driver_class => "com.mysql.jdbc.Driver"
+                jdbc_paging_enabled => "true"
+                jdbc_page_size => "100"
+                statement => "
+SELECT id,cd_source,DATE_FORMAT(cd_time,'%Y-%m-%dT%H:%i:%s') AS cd_time,delete_flag,
+DATE_FORMAT(gmt_create,'%Y-%m-%dT%H:%i:%s') AS gmt_create,DATE_FORMAT(gmt_update,'%Y-%m-%dT%H:%i:%s') AS gmt_update
+FROM jg_force_action  order by gmt_update asc"
+                #schedule => "0 */1 * * *"
+                #schedule => "*/30 * * * *"
+                #use_column_value => true
+                #tracking_column => "gmt_update"
+                #tracking_column_type => "timestamp"
+                #last_run_metadata_path => "/home/logstash/last_run/XX"
+                type => "_doc"
+        }
+        jdbc{
+            add_field => {"env"=>"pro"}
+                jdbc_connection_string => "jdbc:mysql://IP:3360/xx"
+                jdbc_user => "xx"
+                jdbc_password => "xx"
+                jdbc_driver_library => "/home/logstash/logstash-7.3.1/lib/mysql-connector-java-5.1.35.jar"
+                jdbc_driver_class => "com.mysql.jdbc.Driver"
+                jdbc_paging_enabled => "true"
+                jdbc_page_size => "100"
+                statement => "SELECT id,delete_flag,
+DATE_FORMAT(gmt_create,'%Y-%m-%dT%H:%i:%s') AS gmt_create,DATE_FORMAT(gmt_update,'%Y-%m-%dT%H:%i:%s') AS gmt_update
+FROM jg_other_action  order by gmt_update asc"
+                #schedule => "0 */1 * * *"
+                #schedule => "*/30 * * * *"
+                #use_column_value => true
+                #tracking_column => "gmt_update"
+                #tracking_column_type => "timestamp"
+                #last_run_metadata_path => "/home/logstash/last_run/XX"
+                type => "_doc"
+        }
+        jdbc{
+            add_field => {"env"=>"pro"}
+                jdbc_connection_string => "jdbc:mysql://mysqlIP:3360/schema1"
+                jdbc_user => "qq"
+                jdbc_password => "qq"
+                jdbc_driver_library => "/home/logstash/logstash-7.3.1/lib/mysql-connector-java-5.1.35.jar"
+                jdbc_driver_class => "com.mysql.jdbc.Driver"
+                jdbc_paging_enabled => "true"
+                jdbc_page_size => "100"
+                statement => "SELECT id, cd_source,DATE_FORMAT(cd_time,'%Y-%m-%dT%H:%i:%s') AS cd_time,
+delete_flag,
+DATE_FORMAT(gmt_create,'%Y-%m-%dT%H:%i:%s') AS gmt_create,DATE_FORMAT(gmt_update,'%Y-%m-%dT%H:%i:%s') AS gmt_update
+FROM table1 order by gmt_update asc"
+                #schedule => "0 */1 * * *"
+                #schedule => "*/30 * * * *"
+                #use_column_value => true
+                #tracking_column => "gmt_update"
+                #tracking_column_type => "timestamp"
+                #last_run_metadata_path => "/home/logstash/last_run/path"
+                type => "_doc"
+        }
+}
+
+output{
+        if [env] == 'pro'{
+                elasticsearch{
+                        hosts => ["esip:9200"]
+                        index => "index_name"
+                        document_id => "%{id}"
+                        user => "elastic"
+                        password => "pwd"
+                }
+        }
+}
