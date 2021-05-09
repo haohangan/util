@@ -1,32 +1,4 @@
-
-    # 更新es
-    def upadte_case2(self):
-        params = {
-            "case_type": "aa"
-        }
-        body = {
-            "script": {
-                "source": """
-                ctx._source.aa=params['aa'];
-                """,
-                "lang": "painless"
-            },
-            "query": {
-                "term": {
-                    "aaa": {
-                        "value": "aaa"
-                    }
-                }
-            }
-        }
-        body['script']['params'] = params
-        resp = await self.es.update_by_query(
-            index="aaa", body=body)
-        print(resp)
-        
-        
-        
-        import asyncio
+import asyncio
 from datetime import datetime
 from elasticsearch import AsyncElasticsearch
 
@@ -34,7 +6,7 @@ from elasticsearch import AsyncElasticsearch
 class CaseInfoEs():
     def __init__(self):
         self.es = AsyncElasticsearch(
-            ['http://elastic:****@XXXX.XXXX.XXX.XXX:9200/'])
+            ['http://elastic:password@ip:port/'], sniffer_timeout=60*1000*1000)
 
     def printes(self):
         print(self.es)
@@ -76,26 +48,26 @@ class CaseInfoEs():
             index="test-index", body=body)
 
     # 更新es
-    def upadte_case(self):
+    async def upadte_case(self):
         params = {
-            "asd": 1,
-            "asd": ['asad'],
-            "asd": 1,
-            "asd": ['asdas'],
-            "asd": 1,
-            "asd": ['asdasd'],
-            "asd": 1
+            "type_num": 1,
+            "types": ['type1'],
+            "tag_num": 1,
+            "tags": ['tag1'],
+            "pro_num": 1,
+            "pro_tags": ['tag1'],
+            "pro_handle_num": 1
         }
         body = {
             "script": {
                 "source": """
-                ctx._source.asd=params.asd;
-                ctx._source.asd=params.clue_types;
-                ctx._source.asd=params.asd;
-                ctx._source.asd=params.asd;
-                ctx._source.asd=params.asd;
-                ctx._source.asd=params.asd;
-                ctx._source.asd=params.asd;
+                ctx._source.type_num=params.type_num;
+                ctx._source.types.add(params.types);
+                ctx._source.tag_num=params.tag_num;
+                ctx._source.tags.add(params.tags);
+                ctx._source.pro_num=params.pro_num;
+                ctx._source.pro_tags.add(params.pro_tags);
+                ctx._source.pro_handle_num=params.pro_handle_num;
                 """,
                 "lang": "painless"
             },
@@ -106,15 +78,15 @@ class CaseInfoEs():
         }
         body['script']['params'] = params
         resp = await self.es.update_by_query(
-            index="asdas", body=body)
+            index="test-index", body=body)
         print(resp)
 
 
 def main():
     client = CaseInfoEs()
-    client.upadte_case()
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(client.upadte_case())
 
 
 if __name__ == '__main__':
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+    main()
