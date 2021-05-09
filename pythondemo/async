@@ -1,0 +1,120 @@
+
+    # 更新es
+    def upadte_case2(self):
+        params = {
+            "case_type": "aa"
+        }
+        body = {
+            "script": {
+                "source": """
+                ctx._source.aa=params['aa'];
+                """,
+                "lang": "painless"
+            },
+            "query": {
+                "term": {
+                    "aaa": {
+                        "value": "aaa"
+                    }
+                }
+            }
+        }
+        body['script']['params'] = params
+        resp = await self.es.update_by_query(
+            index="aaa", body=body)
+        print(resp)
+        
+        
+        
+        import asyncio
+from datetime import datetime
+from elasticsearch import AsyncElasticsearch
+
+
+class CaseInfoEs():
+    def __init__(self):
+        self.es = AsyncElasticsearch(
+            ['http://elastic:****@XXXX.XXXX.XXX.XXX:9200/'])
+
+    def printes(self):
+        print(self.es)
+
+    def insert(self):
+        doc = {
+            'author': 'jakc',
+            'text': 'Elasticsearch: cool. bonsai cool.',
+            'timestamp': datetime.now(),
+        }
+        res = self.es.index(index="test-index", id=2, body=doc)
+        print(res['result'])
+
+    # 测试更新操作
+    def update(self):
+        # match_all = {
+        #     "script": {
+        #         "source": "ctx._source.text='WAIJBO'",
+        #         "lang": "painless"
+        #     },
+        #     "query": {
+        #         "match_all": {}
+        #     }
+        # }
+        body = {
+            "script": {
+                "lang": "painless",
+                "source": """
+                ctx._source.text = 'aaa';
+                ctx._source.author = 'aaa';
+                """
+            },
+            "query": {
+                "match_all": {}
+            }
+        }
+
+        self.es.update_by_query(
+            index="test-index", body=body)
+
+    # 更新es
+    def upadte_case(self):
+        params = {
+            "asd": 1,
+            "asd": ['asad'],
+            "asd": 1,
+            "asd": ['asdas'],
+            "asd": 1,
+            "asd": ['asdasd'],
+            "asd": 1
+        }
+        body = {
+            "script": {
+                "source": """
+                ctx._source.asd=params.asd;
+                ctx._source.asd=params.clue_types;
+                ctx._source.asd=params.asd;
+                ctx._source.asd=params.asd;
+                ctx._source.asd=params.asd;
+                ctx._source.asd=params.asd;
+                ctx._source.asd=params.asd;
+                """,
+                "lang": "painless"
+            },
+            "query": {
+                "match_all": {
+                }
+            }
+        }
+        body['script']['params'] = params
+        resp = await self.es.update_by_query(
+            index="asdas", body=body)
+        print(resp)
+
+
+def main():
+    client = CaseInfoEs()
+    client.upadte_case()
+
+
+if __name__ == '__main__':
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
