@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: provider
+
+dubbo:
+  protocol:
+    name: dubbo
+    port: -1
+  scan:
+    basePackages: org.eva
+  application:
+    name: provider-demo
+  registry:
+    address: nacos://192.168.3.7:8848
+    username: nacos
+    password: nacos
