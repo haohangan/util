@@ -1,3 +1,6 @@
+## https://blog.csdn.net/weixin_39059031/article/details/103241830
+## https://blog.csdn.net/HsinglukLiu/article/details/120442601
+## https://www.cnblogs.com/haohai9309/p/18268322
 import pyscipopt
 
 ## 一组决策变量
