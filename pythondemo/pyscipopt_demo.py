@@ -7,6 +7,7 @@
 ## https://blog.csdn.net/hyhywang/article/details/133039363    工厂生产机器的问题
 ## https://www.cvxpy.org/tutorial/advanced/index.html cvxpy
 ## https://developers.google.com/optimization/introduction    OR-Tools不支持二次规划
+## https://www.gnu.org/software/glpk/#TOCdownloading  大规模线性规划LP和混合型整数规划MIP问题
 import pyscipopt
 
 ## 一组决策变量
