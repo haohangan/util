@@ -6,6 +6,7 @@
 ## https://blog.csdn.net/weixin_44758127/article/details/113062186
 ## https://blog.csdn.net/hyhywang/article/details/133039363    工厂生产机器的问题
 ## https://www.cvxpy.org/tutorial/advanced/index.html cvxpy
+## https://developers.google.com/optimization/introduction    OR-Tools不支持二次规划
 import pyscipopt
 
 ## 一组决策变量
