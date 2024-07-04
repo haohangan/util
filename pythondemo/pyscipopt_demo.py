@@ -4,6 +4,7 @@
 ## https://zh.wikipedia.org/zh-cn/%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92
 ## https://blog.csdn.net/qq_55851911/article/details/124516895     对比多种算法库
 ## https://blog.csdn.net/weixin_44758127/article/details/113062186
+## https://blog.csdn.net/hyhywang/article/details/133039363    工厂生产机器的问题
 import pyscipopt
 
 ## 一组决策变量
