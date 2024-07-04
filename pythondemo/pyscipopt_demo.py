@@ -3,6 +3,7 @@
 ## https://www.cnblogs.com/haohai9309/p/18268322
 ## https://zh.wikipedia.org/zh-cn/%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92
 ## https://blog.csdn.net/qq_55851911/article/details/124516895     对比多种算法库
+## https://blog.csdn.net/weixin_44758127/article/details/113062186
 import pyscipopt
 
 ## 一组决策变量
