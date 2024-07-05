@@ -10,6 +10,8 @@
 ## https://www.gnu.org/software/glpk/#TOCdownloading  大规模线性规划LP和混合型整数规划MIP问题
 ## https://blog.zhangzhk.com/2018/10/27/summary-linear-programming-solver/ 性能问题
 ## https://blog.csdn.net/kittyzc/article/details/82789439 对比
+
+## https://cloud.tencent.com/developer/article/1944806 商用对比
 import pyscipopt
 
 ## 一组决策变量
