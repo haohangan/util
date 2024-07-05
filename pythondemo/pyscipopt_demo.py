@@ -12,6 +12,7 @@
 ## https://blog.csdn.net/kittyzc/article/details/82789439 对比
 
 ## https://cloud.tencent.com/developer/article/1944806 商用对比
+## https://cn.linkedin.com/pulse/aps%E5%AE%9E%E7%8E%B0%E7%9A%84%E8%A6%81%E7%82%B9%E4%B8%8E%E9%9A%BE%E7%82%B9-%E5%81%A5%E5%BD%AA-%E5%BC%A0 现实意义
 import pyscipopt
 
 ## 一组决策变量
