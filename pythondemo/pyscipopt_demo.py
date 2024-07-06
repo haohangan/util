@@ -15,6 +15,7 @@
 ## https://cn.linkedin.com/pulse/aps%E5%AE%9E%E7%8E%B0%E7%9A%84%E8%A6%81%E7%82%B9%E4%B8%8E%E9%9A%BE%E7%82%B9-%E5%81%A5%E5%BD%AA-%E5%BC%A0 现实意义
 
 ## 理论介绍 https://xoyolucas.github.io/2020/03/20/%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/
+## https://juejin.cn/post/7315458151415021605  带着问题学习
 import pyscipopt
 
 ## 一组决策变量
