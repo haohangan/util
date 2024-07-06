@@ -16,6 +16,7 @@
 
 ## 理论介绍 https://xoyolucas.github.io/2020/03/20/%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/
 ## https://juejin.cn/post/7315458151415021605  带着问题学习
+## https://saruagithub.github.io/2020/04/21/20200421%E9%AB%98%E7%BA%A7%E6%9C%80%E4%BC%98%E5%8C%961%E2%80%94%E2%80%94%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/
 import pyscipopt
 
 ## 一组决策变量
